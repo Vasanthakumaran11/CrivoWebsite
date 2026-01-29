@@ -18,7 +18,7 @@ function Navbar() {
                         </h1>
                     </div>
 
-                    {/* Desktop Navigation */}
+                   
                     <ul className="hidden md:flex items-center space-x-12">
                         <li>
                             <a 
