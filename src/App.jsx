@@ -1,6 +1,6 @@
 import { Link, Routes, Route } from 'react-router-dom'
-import Navbar from './components/navbar'
-import Home from './components/home'
+import Navbar from './navbar'
+import Major from './components/Home/major'
 import BookMeet from './components/BookMeet'
 
 function App() {
@@ -9,7 +9,7 @@ function App() {
     <>
       <Navbar />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Major />} />
         <Route path="/book-meet" element={<BookMeet />} />
       </Routes>
     </>

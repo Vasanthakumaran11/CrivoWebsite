@@ -1,7 +1,10 @@
 import { useState } from 'react';
 import Footer from './footer';
+import Partners from './partners';
+import Customers from './customers';
+import WhatAndWhy from './What&Why';
 
-function Home() {
+function Major() {
     const [showContent, setShowContent] = useState(false);
 
     const handleTimeUpdate = (event) => {
@@ -49,11 +52,30 @@ function Home() {
                 }`}
             >
                 <div className="px-4 max-w-7xl mx-auto">
-                    <h1 className="text-5xl md:text-7xl font-bold text-white text-center leading-tight drop-shadow-lg">
+                    <h1 className="text-5xl md:text-7xl font-bold text-gray-300 text-center leading-tight drop-shadow-lg">
                         Seamlessly blending technology with Unparalleled Business vision
                     </h1>
+                    <div className="py-20">
+                        <h4 className='text-white text-center text-2xl font-bold'>
+                            Crafting intelligent solutions that combine innovation, technology, and vision for unmatched business transformation success.
+                        </h4>
+                    </div>  
+                    <div className="flex justify-center">
+                         <button className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-3 rounded-lg font-medium transition-colors">
+                            BOOK A MEET
+                        </button>
+                    </div>
                 </div>
             </div>
+
+            {/* Partners Section - Only show when content is visible */}
+            <div className={`transition-opacity duration-1000 ${showContent ? 'opacity-100' : 'opacity-0'}`}>
+                <Partners />
+                <Customers />
+                <WhatAndWhy />
+            </div>
+
+            
 
             {/* Footer - Only show when content is visible */}
             <div className={`transition-opacity duration-1000 ${showContent ? 'opacity-100' : 'opacity-0'}`}>
@@ -63,4 +85,4 @@ function Home() {
     );
 }
 
-export default Home;
+export default Major;
