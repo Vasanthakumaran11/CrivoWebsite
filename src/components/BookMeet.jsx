@@ -27,15 +27,7 @@ const BookMeet = () => {
                 <div className="flex-1 w-full max-w-xl bg-sky-50 rounded-3xl p-8 md:p-12 border border-sky-100 shadow-sm relative overflow-hidden">
                     <form className="space-y-6">
                         <div className="space-y-2">
-                            <label className="text-sm font-medium text-slate-700">First name *</label>
-                            <input 
-                                type="text" 
-                                className="w-full bg-white border-0 rounded-xl px-4 py-3 focus:ring-2 focus:ring-sky-200 transition-all outline-none"
-                            />
-                        </div>
-
-                        <div className="space-y-2">
-                            <label className="text-sm font-medium text-slate-700">Last name</label>
+                            <label className="text-sm font-medium text-slate-700">Name *</label>
                             <input 
                                 type="text" 
                                 className="w-full bg-white border-0 rounded-xl px-4 py-3 focus:ring-2 focus:ring-sky-200 transition-all outline-none"
@@ -113,7 +105,7 @@ const BookMeet = () => {
                         </div>
 
                         <div className="flex justify-end pt-4">
-                            <button className="bg-orange-500 hover:bg-orange-600 text-white font-bold px-12 py-3 rounded-full shadow-lg transition-all hover:scale-105">
+                            <button className="w-full font-bold py-4 rounded-full tracking-widest text-sm bg-black text-white">
                                 BOOK A MEET
                             </button>
                         </div>

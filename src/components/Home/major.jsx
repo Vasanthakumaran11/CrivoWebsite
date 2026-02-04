@@ -1,14 +1,11 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import Footer from './footer';
-import Partners from './partners';
-import Customers from './customers';
-import WhatAndWhy from './What&Why';
 
 function Major() {
     const [showContent, setShowContent] = useState(false);
 
     const handleTimeUpdate = (event) => {
-        // Show content precisely when video hits 3.5s (syncs with globe settling)
         if (event.target.currentTime > 3.5) {
             setShowContent(true);
         }
@@ -16,8 +13,6 @@ function Major() {
 
     const handleVideoLoop = (event) => {
         const video = event.target;
-        // Loop from 4.5s to end to maximize the smooth rotation phase
-        // This avoids replaying the intro (0-4s) but uses the full remaining duration
         if (video.duration > 5) {
             video.currentTime = 4.5;
         } else {
@@ -27,61 +22,65 @@ function Major() {
     };
 
     return (
-        <>
-            {/* Background Video */}
-            <div className="fixed inset-0 -z-10 overflow-hidden bg-black">
-                <video
-                    autoPlay
-                    muted
-                    playsInline
-                    onEnded={handleVideoLoop}
-                    onTimeUpdate={handleTimeUpdate}
-                    className="w-full h-full object-cover opacity-90"
-                >
-                    <source src="/Digital%20globe.mp4" type="video/mp4" />
-                    Your browser does not support the video tag.
-                </video>
-                {/* Subtle overlay for text readability */}
-                <div className="absolute inset-0 bg-black/40"></div>
-            </div>
+        <div className="relative">
+            {/* Hero Section with Video Background */}
+            <section className="relative h-screen flex items-center justify-center overflow-hidden">
+                <div className="fixed inset-0 -z-10 bg-black">
+                    <video
+                        autoPlay
+                        muted
+                        playsInline
+                        onEnded={handleVideoLoop}
+                        onTimeUpdate={handleTimeUpdate}
+                        className="w-full h-full object-cover opacity-60"
+                    >
+                        <source src="/Digital%20globe.mp4" type="video/mp4" />
+                    </video>
+                    {/* Dark gradient overlay for better text focus */}
+                    <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black"></div>
+                </div>
 
-            {/* Main Content */}
-            <div 
-                className={`min-h-screen flex items-center justify-center transition-opacity duration-1000 ${
-                    showContent ? 'opacity-100' : 'opacity-0'
-                }`}
-            >
-                <div className="px-4 max-w-7xl mx-auto">
-                    <h1 className="text-5xl md:text-7xl font-bold text-gray-300 text-center leading-tight drop-shadow-lg">
-                        Seamlessly blending technology with Unparalleled Business vision
+                <div 
+                    className={`max-w-7xl mx-auto px-6 text-center transition-all duration-1000 transform ${
+                        showContent ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+                    }`}
+                >
+                    <h1 className="text-6xl md:text-8xl font-black text-white leading-[1] tracking-tighter mb-10 drop-shadow-2xl">
+                        UNLEASH <br /> 
+                        <span className="text-white/40">BUSINESS</span> VISION
                     </h1>
-                    <div className="py-20">
-                        <h4 className='text-white text-center text-2xl font-bold'>
-                            Crafting intelligent solutions that combine innovation, technology, and vision for unmatched business transformation success.
-                        </h4>
-                    </div>  
-                    <div className="flex justify-center">
-                         <button className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-3 rounded-lg font-medium transition-colors">
-                            BOOK A MEET
+                    
+                    <p className="max-w-2xl mx-auto text-lg md:text-xl text-gray-300 font-medium leading-relaxed mb-12">
+                        Seamlessly blending cutting-edge technology with unparalleled strategic vision to transform your enterprise for the digital age.
+                    </p>
+
+                    <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
+                        <Link to="/book-meet">
+                            <button className="px-10 py-4 bg-white text-black font-bold rounded-full hover:scale-105 transition-transform ">
+                                BOOK A MEET
+                            </button>
+                        </Link>
+                        <button 
+                            onClick={() => document.getElementById('services').scrollIntoView({ behavior: 'smooth' })}
+                            className="px-10 py-4 border border-white/20 text-white font-bold rounded-full hover:bg-white/10 transition-colors"
+                        >
+                            OUR SERVICES
                         </button>
                     </div>
                 </div>
-            </div>
 
-            {/* Partners Section - Only show when content is visible */}
-            <div className={`transition-opacity duration-1000 ${showContent ? 'opacity-100' : 'opacity-0'}`}>
-                <Partners />
-                <Customers />
-                <WhatAndWhy />
-            </div>
+                {/* Scroll Indicator */}
+                <div className={`absolute bottom-10 left-1/2 -translate-x-1/2 transition-opacity duration-1000 ${showContent ? 'opacity-50' : 'opacity-0'}`}>
+                    <div className="w-[1px] h-20 bg-gradient-to-b from-white to-transparent"></div>
+                </div>
+            </section>
 
+            {/* Content Sections */}
             
 
-            {/* Footer - Only show when content is visible */}
-            <div className={`transition-opacity duration-1000 ${showContent ? 'opacity-100' : 'opacity-0'}`}>
-                <Footer />
-            </div>
-        </>
+            {/* Footer */}
+            <Footer />
+        </div>
     );
 }
 
