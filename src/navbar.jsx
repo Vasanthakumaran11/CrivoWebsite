@@ -43,7 +43,7 @@ function Navbar() {
                     
                     {/* Desktop Navigation */}
                     <ul className="hidden md:flex items-center space-x-10">
-                        {['PRODUCT', 'ABOUT US', 'BLOGS', 'REACH US'].map((item) => (
+                        {['HOME','PRODUCT', 'BLOGS', 'REACH US'].map((item) => (
                             <li key={item}>
                                 <Link 
                                     to="/" 
@@ -89,7 +89,7 @@ function Navbar() {
                 isMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
             }`}>
                 <div className="flex flex-col items-center justify-center h-full space-y-8 px-6">
-                    {['PRODUCT', 'ABOUT US', 'BLOGS', 'REACH US'].map((item) => (
+                    {['HOME','PRODUCT', 'BLOGS', 'REACH US'].map((item) => (
                         <Link 
                             key={item}
                             to="/" 

@@ -5,7 +5,14 @@ export default {
     "./src/**/*.{js,jsx}"
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        display: ['Luxurious Roman', 'serif'],
+        body: ['Inter', 'sans-serif'],
+        heading: ['Outfit', 'sans-serif'],
+        subheading: ['Roboto Condensed', 'sans-serif']
+      },
+    },
   },
   plugins: [],
 }

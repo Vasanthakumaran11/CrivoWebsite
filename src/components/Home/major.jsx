@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Footer from './footer';
+import WhatWeDo from './WhatWeDo';
 
 function Major() {
     const [showContent, setShowContent] = useState(false);
@@ -50,8 +51,8 @@ function Major() {
                         <span className="text-white/40">BUSINESS</span> VISION
                     </h1>
                     
-                    <p className="max-w-2xl mx-auto text-lg md:text-xl text-gray-300 font-medium leading-relaxed mb-12">
-                        Seamlessly blending cutting-edge technology with unparalleled strategic vision to transform your enterprise for the digital age.
+                    <p className="max-w-2xl mx-auto text-lg md:text-xl font-display-body font-bold text-gray-300  leading-relaxed mb-12">
+                        CATALYZING INNOVATION THROUGH DEEP INTELLIGENCE TO CONSTRUCT THE DIGITAL ENTERPRISES OF THE FUTURE.
                     </p>
 
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
@@ -76,6 +77,7 @@ function Major() {
             </section>
 
             {/* Content Sections */}
+            <WhatWeDo />
             
 
             {/* Footer */}
