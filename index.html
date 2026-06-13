@@ -3,7 +3,21 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Crivo Website</title>
+    <title>Crivo</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='16' fill='%23111110'/><circle cx='16' cy='16' r='15' fill='none' stroke='rgba(255,255,255,0.3)' stroke-width='1'/><text x='16' y='21' font-family='Inter,sans-serif' font-size='16' font-weight='900' text-anchor='middle' fill='white'>C</text></svg>" />
+    <script>
+      (function () {
+        try {
+          var saved = localStorage.getItem('crivo-theme');
+          var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          if (saved === 'dark' || (!saved && prefersDark)) {
+            document.documentElement.classList.add('dark');
+          } else {
+            document.documentElement.classList.remove('dark');
+          }
+        } catch (e) {}
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>
