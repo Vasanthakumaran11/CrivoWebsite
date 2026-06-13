@@ -1,24 +1,90 @@
 import { Link } from 'react-router-dom';
+import { Target, Eye, Linkedin, Github, Mail } from 'lucide-react';
 import Footer from '../components/Home/footer';
 
-const pillars = [
-  { number: "01", title: "Innovation-Driven Solutions", desc: "We focus on creating forward-thinking digital experiences that adapt to the latest technologies by embracing cutting-edge tools and strategies that keep your business ahead of the curve." },
-  { number: "02", title: "Holistic Approach", desc: "Seamlessly integrating every aspect of your digital presence — from web development and mobile apps to IoT automation and marketing strategies — all under one roof." },
-  { number: "03", title: "Data-Backed Results", desc: "Every strategy we implement is driven by precise insights and analytics to optimise performance, reduce waste, and maximise ROI for your business." },
-];
-
 const stats = [
-  { value: "50+", label: "Projects Delivered" },
-  { value: "98%", label: "Client Satisfaction" },
-  { value: "4",   label: "Core Services" },
-  { value: "5+",  label: "Years Experience" },
+  { value: "50+", label: "Supported Platforms" },
+  { value: "10+",   label: "Customers" },
+  { value: "20+",  label: "Employees" },
+  { value: "10K+", label :"Daily Active users" }
 ];
 
-const team = [
-  { name: "Gokul Nath", role: "Founder & CEO", initial: "G" },
-  { name: "Design Team", role: "UI/UX & Branding", initial: "D" },
-  { name: "Dev Team", role: "Engineering", initial: "E" },
-  { name: "Growth Team", role: "Marketing & Strategy", initial: "M" },
+const leaders = [
+  { 
+    name: "Bharanidharan", 
+    role: "Founder & CEO", 
+    initial: "B",
+    linkedin: "https://linkedin.com/in/bharanidharan-rn",
+    github: "https://github.com/Bharanidharan-RN",
+    email: "founder@crivo.in"
+  },
+  { 
+    name: "Hareeni S", 
+    role: "COO and Co-Founder", 
+    initial: "H",
+    linkedin: "https://linkedin.com/in/hareeni-s",
+    github: "#",
+    email: "coo@crivo.in"
+  },
+  { 
+    name: "Gokulnath Sundaramurthi", 
+    role: "CTO and Co-Founder", 
+    initial: "G",
+    linkedin: "https://linkedin.com/in/gokulnath-s",
+    github: "https://github.com/Gokulnath-S",
+    email: "cto@crivo.in"
+  },
+];
+
+const coreTeam = [
+  { 
+    name: "Gokulnath Sundaramurthi", 
+    role: "Frontend Developer", 
+    email: "cto@crivo.in", 
+    initial: "G",
+    linkedin: "https://linkedin.com/in/gokulnath-s",
+    github: "https://github.com/Gokulnath-S"
+  },
+  { 
+    name: "Bharanidharan R N", 
+    role: "Backend Developer", 
+    email: "founder@crivo.in", 
+    initial: "B",
+    linkedin: "https://linkedin.com/in/bharanidharan-rn",
+    github: "https://github.com/Bharanidharan-RN"
+  },
+  { 
+    name: "Hareeni S", 
+    role: "Operations Automation Manager", 
+    email: "coo@crivo.in", 
+    initial: "H",
+    linkedin: "https://linkedin.com/in/hareeni-s",
+    github: "#"
+  },
+  { 
+    name: "Darshan T P", 
+    role: "App Developer", 
+    email: "apps@crivo.in", 
+    initial: "D",
+    linkedin: "#",
+    github: "#"
+  },
+  { 
+    name: "Pavi", 
+    role: "Human Resources", 
+    email: "hr@crivo.in", 
+    initial: "P",
+    linkedin: "#",
+    github: "#"
+  },
+  { 
+    name: "Badri Narayanan B R", 
+    role: "Automation Engineer", 
+    email: "automate@crivo.in", 
+    initial: "B",
+    linkedin: "#",
+    github: "#"
+  },
 ];
 
 function AboutUs() {
@@ -72,24 +138,42 @@ function AboutUs() {
         </div>
       </section>
 
-      {/* Why Choose Crivo */}
+      {/* Our Mission & Vision (Floating Staggered Cards) */}
       <section className="border-t border-black/10 dark:border-white/10 py-32">
         <div className="max-w-7xl mx-auto px-6">
           <div className="mb-20">
-            <span className="text-sm font-bold uppercase tracking-[0.3em] text-black/40 dark:text-white/50 block mb-4">Our Difference</span>
+            <span className="text-sm font-bold uppercase tracking-[0.3em] text-black/40 dark:text-white/50 block mb-4">Purpose & Future</span>
             <h2 className="text-6xl md:text-8xl font-black tracking-tighter leading-none">
-              WHY CHOOSE <br /><span className="text-outline">CRIVO?</span>
+              MISSION <br /> 
             </h2>
-            <p className="mt-6 text-black/50 dark:text-white/50 text-lg max-w-lg">Where Innovation Meets Solutions: Explore Our Offerings</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {pillars.map((p, i) => (
-              <div key={i} className="group p-10 bg-white dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-[2rem] hover:bg-[#111110] dark:hover:bg-white hover:border-[#111110] dark:hover:border-white transition-all duration-700">
-                <span className="text-5xl font-black text-black/10 dark:text-white/10 group-hover:text-white/10 dark:group-hover:text-black/10 transition-colors duration-500 leading-none block mb-8 select-none">{p.number}</span>
-                <h3 className="text-2xl font-black tracking-tight mb-4 group-hover:text-white dark:group-hover:text-black transition-colors duration-500">{p.title}</h3>
-                <p className="text-black/50 dark:text-white/50 leading-relaxed group-hover:text-white/70 dark:group-hover:text-black/60 transition-colors duration-500">{p.desc}</p>
+          <div className="flex flex-col gap-10 md:gap-16">
+            {/* Our Mission Card */}
+            <div className="group relative p-10 md:p-12 bg-white dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-[2.5rem] hover:bg-[#111110] dark:hover:bg-white hover:border-[#111110] dark:hover:border-white transition-all duration-700 shadow-xl hover:-translate-y-4 hover:shadow-2xl max-w-3xl mr-auto">
+              <div className="w-16 h-16 rounded-2xl bg-black/5 dark:bg-white/10 group-hover:bg-white/20 dark:group-hover:bg-black/10 flex items-center justify-center mb-8 transition-colors duration-500">
+                <Target className="w-8 h-8 text-[#111110] dark:text-white group-hover:text-white dark:group-hover:text-black transition-colors duration-500" />
               </div>
-            ))}
+              <h3 className="text-3xl font-black tracking-tight mb-6 group-hover:text-white dark:group-hover:text-black transition-colors duration-500">Our Mission</h3>
+              <p className="text-black/60 dark:text-white/60 text-lg leading-relaxed group-hover:text-white/80 dark:group-hover:text-black/70 transition-colors duration-500">
+                To democratize technology by offering accessible and affordable solutions while nurturing the next generation of innovators through practical education.
+              </p>
+            </div>
+
+            {/* Our Vision Card */}
+            <div className="ml-auto">
+             <h2 className="text-6xl md:text-8xl font-black tracking-tighter leading-none">
+              <span className="text-outline ml-10">VISION.</span> 
+            </h2> 
+            </div>
+            <div className="group relative p-10 md:p-12 bg-white dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-[2.5rem] hover:bg-[#111110] dark:hover:bg-white hover:border-[#111110] dark:hover:border-white transition-all duration-700 shadow-xl hover:-translate-y-4 hover:shadow-2xl max-w-3xl ml-auto">
+              <div className="w-16 h-16 rounded-2xl bg-black/5 dark:bg-white/10 group-hover:bg-white/20 dark:group-hover:bg-black/10 flex items-center justify-center mb-8 transition-colors duration-500">
+                <Eye className="w-8 h-8 text-[#111110] dark:text-white group-hover:text-white dark:group-hover:text-black transition-colors duration-500" />
+              </div>
+              <h3 className="text-3xl font-black tracking-tight mb-6 group-hover:text-white dark:group-hover:text-black transition-colors duration-500">Our Vision</h3>
+              <p className="text-black/60 dark:text-white/60 text-lg leading-relaxed group-hover:text-white/80 dark:group-hover:text-black/70 transition-colors duration-500">
+                To create a world where technology is affordable, accessible, and backed by a workforce skilled through real-world experience.
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -103,14 +187,73 @@ function AboutUs() {
               OUR <br /><span className="text-outline">TEAM.</span>
             </h2>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {team.map((t, i) => (
-              <div key={i} className="group p-8 bg-white dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-[2rem] text-center hover:bg-[#111110] dark:hover:bg-white hover:border-[#111110] dark:hover:border-white transition-all duration-700">
-                <div className="w-16 h-16 rounded-full bg-black/6 dark:bg-white/10 group-hover:bg-white/10 dark:group-hover:bg-black/10 transition-colors duration-500 flex items-center justify-center text-2xl font-black mx-auto mb-6 group-hover:text-white dark:group-hover:text-black transition-colors duration-500">
-                  {t.initial}
+          <div>
+            <h6 className="text-4xl md:text-5xl font-black tracking-tighter leading-none mb-8">
+              LEADERS
+            </h6>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {leaders.map((t, i) => (
+              <div key={i} className="group p-10 bg-white dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-[2.5rem] text-center hover:bg-[#111110] dark:hover:bg-white hover:border-[#111110] dark:hover:border-white transition-all duration-700 hover:-translate-y-2 hover:shadow-xl flex flex-col justify-between h-full">
+                <div>
+                  <div className="w-16 h-16 rounded-full bg-black/6 dark:bg-white/10 group-hover:bg-white/10 dark:group-hover:bg-black/10 transition-colors duration-500 flex items-center justify-center text-2xl font-black mx-auto mb-6 group-hover:text-white dark:group-hover:text-black">
+                    {t.initial}
+                  </div>
+                  <h4 className="font-black text-lg tracking-tight group-hover:text-white dark:group-hover:text-black transition-colors duration-500">{t.name}</h4>
+                  <p className="text-black/40 dark:text-white/40 text-sm mt-1 group-hover:text-white/60 dark:group-hover:text-black/50 transition-colors duration-500">{t.role}</p>
                 </div>
-                <h4 className="font-black text-lg tracking-tight group-hover:text-white dark:group-hover:text-black transition-colors duration-500">{t.name}</h4>
-                <p className="text-black/40 dark:text-white/40 text-sm mt-1 group-hover:text-white/60 dark:group-hover:text-black/50 transition-colors duration-500">{t.role}</p>
+                
+                {/* Social icons */}
+                <div className="flex items-center justify-center gap-4 mt-8 pt-6 border-t border-black/5 dark:border-white/5 group-hover:border-white/10 dark:group-hover:border-black/10 transition-colors duration-500">
+                  <a href={t.linkedin} target="_blank" rel="noopener noreferrer" className="text-black/40 dark:text-white/40 group-hover:text-white/60 dark:group-hover:text-black/50 hover:text-black dark:hover:text-white transition-colors">
+                    <Linkedin className="w-4 h-4 hover:scale-110 transition-transform duration-300" />
+                  </a>
+                  {t.github !== "#" && (
+                    <a href={t.github} target="_blank" rel="noopener noreferrer" className="text-black/40 dark:text-white/40 group-hover:text-white/60 dark:group-hover:text-black/50 hover:text-black dark:hover:text-white transition-colors">
+                      <Github className="w-4 h-4 hover:scale-110 transition-transform duration-300" />
+                    </a>
+                  )}
+                  <a href={`mailto:${t.email}`} className="text-black/40 dark:text-white/40 group-hover:text-white/60 dark:group-hover:text-black/50 hover:text-black dark:hover:text-white transition-colors">
+                    <Mail className="w-4 h-4 hover:scale-110 transition-transform duration-300" />
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
+          <br></br>
+          <br></br>
+          <div className="mt-12">
+            <h6 className="text-4xl md:text-5xl font-black tracking-tighter leading-none mb-8">
+              CORE TEAM
+            </h6>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {coreTeam.map((t, i) => (
+              <div key={i} className="group p-10 bg-white dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-[2.5rem] text-center hover:bg-[#111110] dark:hover:bg-white hover:border-[#111110] dark:hover:border-white transition-all duration-700 hover:-translate-y-2 hover:shadow-xl flex flex-col justify-between h-full">
+                <div>
+                  <div className="w-16 h-16 rounded-full bg-black/6 dark:bg-white/10 group-hover:bg-white/10 dark:group-hover:bg-black/10 transition-colors duration-500 flex items-center justify-center text-2xl font-black mx-auto mb-6 group-hover:text-white dark:group-hover:text-black">
+                    {t.initial}
+                  </div>
+                  <h4 className="font-black text-lg tracking-tight group-hover:text-white dark:group-hover:text-black transition-colors duration-500">{t.name}</h4>
+                  <p className="text-black/40 dark:text-white/40 text-sm mt-1 group-hover:text-white/60 dark:group-hover:text-black/50 transition-colors duration-500">{t.role}</p>
+                </div>
+                
+                {/* Social icons */}
+                <div className="flex items-center justify-center gap-4 mt-8 pt-6 border-t border-black/5 dark:border-white/5 group-hover:border-white/10 dark:group-hover:border-black/10 transition-colors duration-500">
+                  {t.linkedin !== "#" && (
+                    <a href={t.linkedin} target="_blank" rel="noopener noreferrer" className="text-black/40 dark:text-white/40 group-hover:text-white/60 dark:group-hover:text-black/50 hover:text-black dark:hover:text-white transition-colors">
+                      <Linkedin className="w-4 h-4 hover:scale-110 transition-transform duration-300" />
+                    </a>
+                  )}
+                  {t.github !== "#" && (
+                    <a href={t.github} target="_blank" rel="noopener noreferrer" className="text-black/40 dark:text-white/40 group-hover:text-white/60 dark:group-hover:text-black/50 hover:text-black dark:hover:text-white transition-colors">
+                      <Github className="w-4 h-4 hover:scale-110 transition-transform duration-300" />
+                    </a>
+                  )}
+                  <a href={`mailto:${t.email}`} className="text-black/40 dark:text-white/40 group-hover:text-white/60 dark:group-hover:text-black/50 hover:text-black dark:hover:text-white transition-colors">
+                    <Mail className="w-4 h-4 hover:scale-110 transition-transform duration-300" />
+                  </a>
+                </div>
               </div>
             ))}
           </div>

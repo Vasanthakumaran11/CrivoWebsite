@@ -6,6 +6,7 @@ import Product from './pages/Product'
 import Blogs from './pages/Blogs'
 import ReachUs from './pages/ReachUs'
 import AboutUs from './pages/AboutUs'
+import Blog from './components/Blog/blog'
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/product" element={<Product />} />
         <Route path="/about" element={<AboutUs />} />
         <Route path="/blogs" element={<Blogs />} />
+        <Route path="/blogs/ev-charging-control-systems" element={<Blog />} />
         <Route path="/reach-us" element={<ReachUs />} />
       </Routes>
     </>
