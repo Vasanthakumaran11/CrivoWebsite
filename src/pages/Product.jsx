@@ -1,35 +1,36 @@
 import { Link } from 'react-router-dom';
 import { Monitor, Smartphone, Cpu, BarChart3, CheckCircle2 } from 'lucide-react';
 import Footer from '../components/Home/footer';
+import StarsBackground from '../components/StarsBackground';
 
 const services = [
   {
     number: "01", icon: Monitor,
-    title: "Web Development",
+    title: "Web Platforms",
     tagline: "Responsive. Dynamic. Convert-Ready.",
-    description: "Crafting responsive, dynamic websites that engage and convert. We design and build high-performance platforms tailored to your brand — from landing pages to full-scale web applications.",
-    features: ["Custom UI/UX Design", "SEO-Optimised Structure", "CMS Integration", "Performance Optimisation"],
+    description: "Engineering responsive, scalable web applications that engage users and drive conversions. We build high-performance platforms engineered for your specific growth metrics — from standalone portals to full-scale enterprise software.",
+    features: ["Custom UI/UX Architecture", "SEO-Optimised Structure", "API & Database Integrations", "Performance Optimisation"],
   },
   {
     number: "02", icon: Smartphone,
-    title: "Mobile App Development",
+    title: "Mobile Products",
     tagline: "iOS & Android. Intuitive. High-Performance.",
-    description: "Creating intuitive, high-performance mobile apps for seamless experiences. Our cross-platform and native solutions ensure your app feels natural on every device.",
-    features: ["Cross-Platform (React Native)", "Native iOS & Android", "API & Backend Integration", "App Store Submission"],
+    description: "Creating intuitive, native-grade mobile products that offer seamless user experiences. Our cross-platform and native solutions ensure your software runs flawlessly on every device.",
+    features: ["Cross-Platform (React Native)", "Native iOS & Android", "Secure Backend Integration", "App Store Compliance"],
   },
   {
     number: "03", icon: Cpu,
-    title: "IoT Automation Services",
+    title: "IoT & Systems Automation",
     tagline: "Connect. Automate. Optimise.",
-    description: "Smart IoT solutions for seamless automation and efficiency. We connect devices, data, and decisions — streamlining operations and cutting costs through intelligent automation.",
-    features: ["Device & Sensor Integration", "Real-Time Dashboards", "Workflow Automation", "Predictive Maintenance"],
+    description: "Smart IoT hardware and system integrations for seamless automation. We connect devices, data, and logic to optimize operations, reduce downtime, and cut costs.",
+    features: ["Hardware & Sensor Integration", "Real-Time Dashboards", "Workflow Automation", "Predictive Modeling"],
   },
   {
     number: "04", icon: BarChart3,
-    title: "Digital Marketing",
+    title: "Growth & Optimization",
     tagline: "Targeted. Data-Driven. Growth-Focused.",
-    description: "Targeted campaigns, SEO, content creation, and social media strategies that drive growth and convert visitors into loyal customers with measurable ROI.",
-    features: ["SEO & Content Strategy", "Performance Ads (Meta, Google)", "Social Media Management", "Analytics & Reporting"],
+    description: "Strategic campaign orchestration, search indexing, and conversion funnel optimization that scale product reach and build customer loyalty with clear ROI tracking.",
+    features: ["Search Performance & indexing", "Growth Optimization Campaigns", "User Analytics & Cohorts", "Analytics & Reporting"],
   },
 ];
 
@@ -49,7 +50,8 @@ const process = [
 
 function Product() {
   return (
-    <div className="bg-[#F8F7F2] dark:bg-[#050505] text-[#111110] dark:text-white transition-colors duration-300">
+    <div className="relative isolate bg-[#F8F7F2] dark:bg-[#050505] text-[#111110] dark:text-white transition-colors duration-300">
+      <StarsBackground />
 
       {/* Hero */}
       <section className="relative min-h-[70vh] flex items-end pb-24 overflow-hidden pt-32">
@@ -62,7 +64,7 @@ function Product() {
             OUR <br /><span className="text-outline">PRODUCT</span>
           </h1>
           <p className="max-w-2xl text-xl text-black/60 dark:text-white/60 leading-relaxed">
-            Building digital ecosystems with dynamic websites, intuitive apps, IoT automation, and marketing strategies that spark growth.
+            Building digital ecosystems with high-performance web platforms, intuitive mobile products, connected IoT systems, and automated growth structures.
           </p>
         </div>
       </section>

@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Target, Eye, Linkedin, Github, Mail } from 'lucide-react';
 import Footer from '../components/Home/footer';
+import StarsBackground from '../components/StarsBackground';
 
 const stats = [
   { value: "50+", label: "Supported Platforms" },
@@ -89,7 +90,8 @@ const coreTeam = [
 
 function AboutUs() {
   return (
-    <div className="bg-[#F8F7F2] dark:bg-[#050505] text-[#111110] dark:text-white transition-colors duration-300">
+    <div className="relative isolate bg-[#F8F7F2] dark:bg-[#050505] text-[#111110] dark:text-white transition-colors duration-300">
+      <StarsBackground />
 
       {/* Hero */}
       <section className="relative min-h-[70vh] flex items-end pb-24 overflow-hidden pt-32">
@@ -115,14 +117,14 @@ function AboutUs() {
               <span className="text-sm font-bold uppercase tracking-[0.3em] text-black/40 dark:text-white/50 block mb-6">Who We Are</span>
               <h2 className="text-5xl md:text-6xl font-black tracking-tighter leading-tight mb-8">Rise your Brand with CRIVO</h2>
               <p className="text-black/60 dark:text-white/60 text-lg leading-relaxed mb-6">
-                Crivo Tech is a full-service digital agency built for the modern era. We partner with businesses of all sizes — from ambitious startups to established enterprises — to design, build, and grow their digital presence.
+                Crivo Tech is a modern product tech company built for the digital era. We build robust, scalable platforms for businesses of all sizes — from ambitious startups to established enterprises — to power and grow their digital presence.
               </p>
               <p className="text-black/60 dark:text-white/60 text-lg leading-relaxed mb-10">
-                Our team combines deep technical expertise with strategic thinking to deliver solutions across web development, mobile apps, IoT automation, and digital marketing. We don't just deliver projects — we build long-term partnerships rooted in results.
+                Our team combines deep technical expertise with strategic thinking to engineer premium products across web platforms, mobile apps, IoT systems, and automated pipelines. We don't just deliver software — we build long-term value rooted in product excellence.
               </p>
               <Link to="/book-meet">
                 <button className="px-10 py-4 bg-[#111110] dark:bg-white text-white dark:text-black font-bold rounded-full hover:scale-105 transition-transform">
-                  START A PROJECT
+                  BUILD WITH US
                 </button>
               </Link>
             </div>
@@ -144,7 +146,7 @@ function AboutUs() {
           <div className="mb-20">
             <span className="text-sm font-bold uppercase tracking-[0.3em] text-black/40 dark:text-white/50 block mb-4">Purpose & Future</span>
             <h2 className="text-6xl md:text-8xl font-black tracking-tighter leading-none">
-              MISSION <br /> 
+             OUR <br /><span className="text-outline ml-10">MISSION</span> 
             </h2>
           </div>
           <div className="flex flex-col gap-10 md:gap-16">
@@ -153,25 +155,23 @@ function AboutUs() {
               <div className="w-16 h-16 rounded-2xl bg-black/5 dark:bg-white/10 group-hover:bg-white/20 dark:group-hover:bg-black/10 flex items-center justify-center mb-8 transition-colors duration-500">
                 <Target className="w-8 h-8 text-[#111110] dark:text-white group-hover:text-white dark:group-hover:text-black transition-colors duration-500" />
               </div>
-              <h3 className="text-3xl font-black tracking-tight mb-6 group-hover:text-white dark:group-hover:text-black transition-colors duration-500">Our Mission</h3>
               <p className="text-black/60 dark:text-white/60 text-lg leading-relaxed group-hover:text-white/80 dark:group-hover:text-black/70 transition-colors duration-500">
-                To democratize technology by offering accessible and affordable solutions while nurturing the next generation of innovators through practical education.
+                To democratize technology by offering accessible and affordable solutions while nurturing the next generation of innovators through practical education. We strive to bridge the gap between complex digital challenges and intuitive, human-centric solutions. By championing open collaboration and continuous learning, we empower teams to scale with confidence and efficiency.
               </p>
             </div>
 
             {/* Our Vision Card */}
             <div className="ml-auto">
              <h2 className="text-6xl md:text-8xl font-black tracking-tighter leading-none">
-              <span className="text-outline ml-10">VISION.</span> 
-            </h2> 
+             OUR <br /><span className="text-outline ml-10">VISION</span> 
+            </h2>
             </div>
-            <div className="group relative p-10 md:p-12 bg-white dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-[2.5rem] hover:bg-[#111110] dark:hover:bg-white hover:border-[#111110] dark:hover:border-white transition-all duration-700 shadow-xl hover:-translate-y-4 hover:shadow-2xl max-w-3xl ml-auto">
+            <div className="group relative p-8 bg-white dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-[2.5rem] hover:bg-[#111110] dark:hover:bg-white hover:border-[#111110] dark:hover:border-white transition-all duration-700 shadow-xl hover:-translate-y-4 hover:shadow-2xl max-w-3xl ml-auto">
               <div className="w-16 h-16 rounded-2xl bg-black/5 dark:bg-white/10 group-hover:bg-white/20 dark:group-hover:bg-black/10 flex items-center justify-center mb-8 transition-colors duration-500">
                 <Eye className="w-8 h-8 text-[#111110] dark:text-white group-hover:text-white dark:group-hover:text-black transition-colors duration-500" />
               </div>
-              <h3 className="text-3xl font-black tracking-tight mb-6 group-hover:text-white dark:group-hover:text-black transition-colors duration-500">Our Vision</h3>
               <p className="text-black/60 dark:text-white/60 text-lg leading-relaxed group-hover:text-white/80 dark:group-hover:text-black/70 transition-colors duration-500">
-                To create a world where technology is affordable, accessible, and backed by a workforce skilled through real-world experience.
+                To create a world where technology is affordable, accessible, and backed by a workforce skilled through real-world experience. We envision a future where high-quality engineering and enterprise-grade tools are accessible to every builder and organization. By fostering a diverse global community of skilled creators, we aim to drive positive, lasting change across the tech ecosystem.
               </p>
             </div>
           </div>

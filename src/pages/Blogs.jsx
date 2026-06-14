@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowUpRight } from 'lucide-react';
 import Footer from '../components/Home/footer';
+import StarsBackground from '../components/StarsBackground';
 
 const featured = {
   tag: "IoT & Infrastructure",
@@ -19,7 +20,7 @@ const posts = [
   { tag: "Digital Marketing", title: "The SEO Playbook That Actually Works in the Age of AI Search", excerpt: "Google's SGE has changed everything. Here's how to stay visible when AI-generated answers dominate the SERPs.", date: "May 14, 2025", readTime: "6 min read" },
   { tag: "Business", title: "From MVP to Scale: How to Architect Your Digital Product for Growth", excerpt: "Most startups build fast and break later. We walk you through the decisions that prevent expensive rewrites at scale.", date: "May 8, 2025", readTime: "8 min read" },
   { tag: "Design", title: "The Psychology of UI: How Visual Hierarchy Drives Conversions", excerpt: "Small design decisions — font weight, whitespace, button placement — have outsized effects on user behaviour.", date: "Apr 30, 2025", readTime: "5 min read" },
-  { tag: "Digital Marketing", title: "Email Marketing Is Not Dead — You're Just Doing It Wrong", excerpt: "A deep-dive into segmentation, personalisation, and the automation flows that generate 42x ROI for our clients.", date: "Apr 15, 2025", readTime: "4 min read" },
+  { tag: "Digital Marketing", title: "Email Marketing Is Not Dead — You're Just Doing It Wrong", excerpt: "A deep-dive into segmentation, personalisation, and the automation flows that generate 42x ROI for our users.", date: "Apr 15, 2025", readTime: "4 min read" },
 ];
 
 const tagColors = {
@@ -59,7 +60,8 @@ function Blogs() {
   };
 
   return (
-    <div className="bg-[#F8F7F2] dark:bg-[#050505] text-[#111110] dark:text-white transition-colors duration-300">
+    <div className="relative isolate bg-[#F8F7F2] dark:bg-[#050505] text-[#111110] dark:text-white transition-colors duration-300">
+      <StarsBackground />
 
       {/* Hero */}
       <section className="relative min-h-[60vh] flex items-end pb-24 overflow-hidden pt-32">

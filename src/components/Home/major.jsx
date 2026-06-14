@@ -79,7 +79,7 @@ function Major() {
                             onClick={() => document.getElementById('services').scrollIntoView({ behavior: 'smooth' })}
                             className="px-10 py-4 border border-white/20 text-white font-bold rounded-full hover:bg-white/10 transition-colors"
                         >
-                            OUR SERVICES
+                            EXPLORE SOLUTIONS
                         </button>
                     </div>
                 </div>

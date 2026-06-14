@@ -50,3 +50,27 @@
 ::-webkit-scrollbar-thumb {
   @apply bg-black/20 dark:bg-white/10 rounded-full;
 }
+
+/* Twinkling star animation */
+@keyframes twinkle {
+  0%, 100% {
+    opacity: 0.1;
+    transform: scale(0.65);
+  }
+  30% {
+    opacity: 0.85;
+    transform: scale(1.15);
+  }
+  65% {
+    opacity: 0.25;
+    transform: scale(0.75);
+  }
+  85% {
+    opacity: 0.95;
+    transform: scale(1.3);
+  }
+}
+
+.animate-twinkle {
+  animation: twinkle infinite ease-in-out;
+}

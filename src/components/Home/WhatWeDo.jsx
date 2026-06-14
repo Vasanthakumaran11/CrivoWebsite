@@ -2,27 +2,27 @@ import { Monitor, Smartphone, Cpu, BarChart3 } from 'lucide-react';
 
 const services = [
   {
-    title: "Web Development",
+    title: "Web Platforms",
     icon: Monitor,
-    description: "Crafting responsive, dynamic websites that engage and convert. We build high-performance platforms tailored to your brand and business goals.",
+    description: "Engineering responsive, scalable web applications that engage users and drive conversions. We build high-performance platforms engineered for your specific growth metrics.",
     number: "01"
   },
   {
-    title: "Mobile App Development",
+    title: "Mobile Products",
     icon: Smartphone,
-    description: "Creating intuitive, high-performance mobile apps for seamless experiences across iOS and Android that users love.",
+    description: "Creating intuitive, native-grade mobile products that offer seamless user experiences across iOS and Android environments.",
     number: "02"
   },
   {
-    title: "IoT Automation Services",
+    title: "IoT & Systems Automation",
     icon: Cpu,
-    description: "Smart IoT solutions for seamless automation and efficiency. We connect devices, data, and decisions to streamline your operations.",
+    description: "Smart IoT hardware and system integrations for seamless automation. We connect devices, data, and logic to optimize operations.",
     number: "03"
   },
   {
-    title: "Digital Marketing",
+    title: "Growth & Optimization",
     icon: BarChart3,
-    description: "Targeted campaigns, SEO, content creation, and social media strategies that drive growth and convert visitors into loyal customers.",
+    description: "Strategic campaign orchestration, SEO structures, and conversion funnel optimization that scale product reach and build customer loyalty.",
     number: "04"
   }
 ];
@@ -40,7 +40,7 @@ function WhatWeDo() {
             </h2>
           </div>
           <p className="text-black/50 dark:text-white/50 text-lg max-w-sm leading-relaxed md:text-right">
-            Building digital ecosystems with dynamic websites, intuitive apps, IoT automation, and comprehensive marketing strategies that spark growth.
+            Building digital ecosystems with high-performance web platforms, intuitive mobile products, connected IoT systems, and automated growth structures.
           </p>
         </div>
 

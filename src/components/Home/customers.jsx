@@ -45,7 +45,7 @@ function Customers() {
         <div className="mb-20">
           <span className="text-sm font-bold uppercase tracking-[0.3em] text-black/40 dark:text-white/50">Testimonials</span>
           <h2 className="text-6xl md:text-8xl font-black tracking-tighter leading-none mt-4 text-[#111110] dark:text-white">
-            WHAT CLIENTS <br />
+            WHAT CUSTOMERS <br />
             <span className="text-outline">SAY.</span>
           </h2>
         </div>

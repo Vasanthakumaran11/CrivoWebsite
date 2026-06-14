@@ -7,11 +7,11 @@ const navLinks = [
   { label: 'Reach Us', to: '/reach-us' },
 ];
 
-const services = [
-  'Web Development',
-  'Mobile App Development',
-  'IoT Automation Services',
-  'Digital Marketing',
+const solutions = [
+  'Web Platforms',
+  'Mobile Products',
+  'IoT & Systems Automation',
+  'Growth & Optimization',
 ];
 
 const socials = [
@@ -117,9 +117,9 @@ export default function Footer() {
               </ul>
             </div>
             <div className="space-y-6">
-              <h3 className="text-sm font-bold uppercase tracking-[0.2em] text-white/50">Services</h3>
+              <h3 className="text-sm font-bold uppercase tracking-[0.2em] text-white/50">Solutions</h3>
               <ul className="space-y-4 text-gray-400">
-                {services.map((s) => (
+                {solutions.map((s) => (
                   <li key={s}><Link to="/product" className="hover:text-white transition-colors">{s}</Link></li>
                 ))}
               </ul>
