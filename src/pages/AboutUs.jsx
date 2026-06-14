@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Target, Eye, Linkedin, Github, Mail } from 'lucide-react';
 import Footer from '../components/Home/footer';
@@ -16,7 +17,7 @@ const leaders = [
     role: "Founder & CEO", 
     initial: "B",
     linkedin: "https://linkedin.com/in/bharanidharan-rn",
-    github: "https://github.com/Bharanidharan-RN",
+ 
     email: "founder@crivo.in"
   },
   { 
@@ -24,7 +25,7 @@ const leaders = [
     role: "COO and Co-Founder", 
     initial: "H",
     linkedin: "https://linkedin.com/in/hareeni-s",
-    github: "#",
+    
     email: "coo@crivo.in"
   },
   { 
@@ -32,61 +33,96 @@ const leaders = [
     role: "CTO and Co-Founder", 
     initial: "G",
     linkedin: "https://linkedin.com/in/gokulnath-s",
-    github: "https://github.com/Gokulnath-S",
+   
     email: "cto@crivo.in"
   },
 ];
 
 const coreTeam = [
   { 
-    name: "Gokulnath Sundaramurthi", 
-    role: "Frontend Developer", 
-    email: "cto@crivo.in", 
-    initial: "G",
-    linkedin: "https://linkedin.com/in/gokulnath-s",
-    github: "https://github.com/Gokulnath-S"
+    name: "Vasantha Kumar", 
+    role: "Data Engineer & Frontend Developer", 
+    email: "vasanth@crivo.in",
+    image: "/VasanthaKumar.png",
+    pos: { left: "15%", top: "20%" },
+    github: "#",
+    linkedin: "#",
+    initial: "V"
   },
   { 
-    name: "Bharanidharan R N", 
+    name: "Dharshan", 
+    role: "Team Coordinator", 
+    email: "dharshan@crivo.in",
+    image: "/Dharshan.png",
+    pos: { left: "50%", top: "20%" },
+    github: "#",
+    linkedin: "#",
+    initial: "D"
+  },
+  { 
+    name: "Bharat Kumar", 
+    role: "Flutter Developer", 
+    email: "bharat@crivo.in",
+    image: "/BharatKumar.jpeg",
+    pos: { left: "85%", top: "20%" },
+    github: "#",
+    linkedin: "#",
+    initial: "B",
+    imgPos: "top"
+  },
+  { 
+    name: "Praneesh", 
     role: "Backend Developer", 
-    email: "founder@crivo.in", 
-    initial: "B",
-    linkedin: "https://linkedin.com/in/bharanidharan-rn",
-    github: "https://github.com/Bharanidharan-RN"
-  },
-  { 
-    name: "Hareeni S", 
-    role: "Operations Automation Manager", 
-    email: "coo@crivo.in", 
-    initial: "H",
-    linkedin: "https://linkedin.com/in/hareeni-s",
-    github: "#"
-  },
-  { 
-    name: "Darshan T P", 
-    role: "App Developer", 
-    email: "apps@crivo.in", 
-    initial: "D",
+    email: "praneesh@crivo.in",
+    image: "/Praneesh.png",
+    pos: { left: "15%", top: "80%" },
+    github: "#",
     linkedin: "#",
-    github: "#"
+    initial: "P"
   },
   { 
-    name: "Pavi", 
-    role: "Human Resources", 
-    email: "hr@crivo.in", 
-    initial: "P",
+    name: "Thirumalai Kumar", 
+    role: "ML Developer", 
+    email: "thirumalai@crivo.in",
+    image: "/ThirumalaiKumar.png",
+    pos: { left: "50%", top: "80%" },
+    github: "#",
     linkedin: "#",
-    github: "#"
+    initial: "T"
   },
   { 
-    name: "Badri Narayanan B R", 
-    role: "Automation Engineer", 
-    email: "automate@crivo.in", 
-    initial: "B",
+    name: "Antony Milton", 
+    role: "ML Developer", 
+    email: "antony@crivo.in",
+    image: "/AntonyMilton.png",
+    pos: { left: "85%", top: "80%" },
+    github: "#",
     linkedin: "#",
-    github: "#"
+    initial: "A"
   },
 ];
+
+function TeamMemberImage({ src, alt, initial, position = "center" }) {
+  const [error, setError] = useState(false);
+  
+  if (error || !src) {
+    return (
+      <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-black/5 to-black/10 dark:from-white/5 dark:to-white/10 text-4xl font-black text-black/40 dark:text-white/40">
+        {initial}
+      </div>
+    );
+  }
+  
+  return (
+    <img
+      src={src}
+      alt={alt}
+      onError={() => setError(true)}
+      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+      style={{ objectPosition: position }}
+    />
+  );
+}
 
 function AboutUs() {
   return (
@@ -140,39 +176,38 @@ function AboutUs() {
         </div>
       </section>
 
-      {/* Our Mission & Vision (Floating Staggered Cards) */}
+      {/* Our Mission & Vision (Alternate Side Consecutive) */}
       <section className="border-t border-black/10 dark:border-white/10 py-32">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="mb-20">
-            <span className="text-sm font-bold uppercase tracking-[0.3em] text-black/40 dark:text-white/50 block mb-4">Purpose & Future</span>
-            <h2 className="text-6xl md:text-8xl font-black tracking-tighter leading-none">
-             OUR <br /><span className="text-outline ml-10">MISSION</span> 
-            </h2>
-          </div>
-          <div className="flex flex-col gap-10 md:gap-16">
-            {/* Our Mission Card */}
-            <div className="group relative p-10 md:p-12 bg-white dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-[2.5rem] hover:bg-[#111110] dark:hover:bg-white hover:border-[#111110] dark:hover:border-white transition-all duration-700 shadow-xl hover:-translate-y-4 hover:shadow-2xl max-w-3xl mr-auto">
-              <div className="w-16 h-16 rounded-2xl bg-black/5 dark:bg-white/10 group-hover:bg-white/20 dark:group-hover:bg-black/10 flex items-center justify-center mb-8 transition-colors duration-500">
-                <Target className="w-8 h-8 text-[#111110] dark:text-white group-hover:text-white dark:group-hover:text-black transition-colors duration-500" />
+          <div className="grid grid-cols-1 lg:grid-cols-[480px_1fr] gap-x-12 gap-y-16 lg:gap-y-0 items-start">
+            {/* Mission Column (Row 1, Column 1) */}
+            <div className="flex flex-col gap-8 lg:col-start-1 lg:row-start-1">
+              <div>
+                <span className="text-sm font-bold uppercase tracking-[0.3em] text-black/40 dark:text-white/50 block mb-4">Purpose</span>
+                <h2 className="text-6xl md:text-8xl font-black tracking-tighter leading-none mb-8">
+                  OUR <br /><span className="text-outline">MISSION</span>
+                </h2>
               </div>
-              <p className="text-black/60 dark:text-white/60 text-lg leading-relaxed group-hover:text-white/80 dark:group-hover:text-black/70 transition-colors duration-500">
-                To democratize technology by offering accessible and affordable solutions while nurturing the next generation of innovators through practical education. We strive to bridge the gap between complex digital challenges and intuitive, human-centric solutions. By championing open collaboration and continuous learning, we empower teams to scale with confidence and efficiency.
-              </p>
-            </div>
-
-            {/* Our Vision Card */}
-            <div className="ml-auto">
-             <h2 className="text-6xl md:text-8xl font-black tracking-tighter leading-none">
-             OUR <br /><span className="text-outline ml-10">VISION</span> 
-            </h2>
-            </div>
-            <div className="group relative p-8 bg-white dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-[2.5rem] hover:bg-[#111110] dark:hover:bg-white hover:border-[#111110] dark:hover:border-white transition-all duration-700 shadow-xl hover:-translate-y-4 hover:shadow-2xl max-w-3xl ml-auto">
-              <div className="w-16 h-16 rounded-2xl bg-black/5 dark:bg-white/10 group-hover:bg-white/20 dark:group-hover:bg-black/10 flex items-center justify-center mb-8 transition-colors duration-500">
-                <Eye className="w-8 h-8 text-[#111110] dark:text-white group-hover:text-white dark:group-hover:text-black transition-colors duration-500" />
+              <div className="group relative p-8 md:p-10 bg-white dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-[2rem] hover:bg-[#111110] dark:hover:bg-white hover:border-[#111110] dark:hover:border-white transition-all duration-700 shadow-xl hover:-translate-y-2 hover:shadow-2xl w-full">
+                <p className="text-black/60 dark:text-white/60 text-lg leading-relaxed group-hover:text-white/80 dark:group-hover:text-black/70 transition-colors duration-500">
+                  To democratize technology by offering accessible and affordable solutions while nurturing the next generation of innovators through practical education. We strive to bridge the gap between complex digital challenges and intuitive, human-centric solutions. By championing open collaboration and continuous learning, we empower teams to scale with confidence and efficiency.
+                </p>
               </div>
-              <p className="text-black/60 dark:text-white/60 text-lg leading-relaxed group-hover:text-white/80 dark:group-hover:text-black/70 transition-colors duration-500">
-                To create a world where technology is affordable, accessible, and backed by a workforce skilled through real-world experience. We envision a future where high-quality engineering and enterprise-grade tools are accessible to every builder and organization. By fostering a diverse global community of skilled creators, we aim to drive positive, lasting change across the tech ecosystem.
-              </p>
+            </div>
+            
+            {/* Vision Column (Row 2, Column 2 - starts exactly where Mission ends) */}
+            <div className="flex flex-col gap-8 lg:col-start-2 lg:row-start-2 lg:pl-16 lg:mt-[-2cm]">
+              <div>
+                <span className="text-sm font-bold uppercase tracking-[0.3em] text-black/40 dark:text-white/50 block mb-4">Future</span>
+                <h2 className="text-6xl md:text-8xl font-black tracking-tighter leading-none mb-8">
+                  OUR <br /><span className="text-outline">VISION</span>
+                </h2>
+              </div>
+              <div className="group relative p-8 md:p-10 bg-white dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-[2rem] hover:bg-[#111110] dark:hover:bg-white hover:border-[#111110] dark:hover:border-white transition-all duration-700 shadow-xl hover:-translate-y-2 hover:shadow-2xl w-full lg:max-w-[480px]">
+                <p className="text-black/60 dark:text-white/60 text-lg leading-relaxed group-hover:text-white/80 dark:group-hover:text-black/70 transition-colors duration-500">
+                  To create a world where technology is affordable, accessible, and backed by a workforce skilled through real-world experience. We envision a future where high-quality engineering and enterprise-grade tools are accessible to every builder and organization. By fostering a diverse global community of skilled creators, we aim to drive positive, lasting change across the tech ecosystem.
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -208,11 +243,7 @@ function AboutUs() {
                   <a href={t.linkedin} target="_blank" rel="noopener noreferrer" className="text-black/40 dark:text-white/40 group-hover:text-white/60 dark:group-hover:text-black/50 hover:text-black dark:hover:text-white transition-colors">
                     <Linkedin className="w-4 h-4 hover:scale-110 transition-transform duration-300" />
                   </a>
-                  {t.github !== "#" && (
-                    <a href={t.github} target="_blank" rel="noopener noreferrer" className="text-black/40 dark:text-white/40 group-hover:text-white/60 dark:group-hover:text-black/50 hover:text-black dark:hover:text-white transition-colors">
-                      <Github className="w-4 h-4 hover:scale-110 transition-transform duration-300" />
-                    </a>
-                  )}
+                
                   <a href={`mailto:${t.email}`} className="text-black/40 dark:text-white/40 group-hover:text-white/60 dark:group-hover:text-black/50 hover:text-black dark:hover:text-white transition-colors">
                     <Mail className="w-4 h-4 hover:scale-110 transition-transform duration-300" />
                   </a>
@@ -227,32 +258,155 @@ function AboutUs() {
               CORE TEAM
             </h6>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+          {/* Desktop Layout (Futuristic Network Flow - Transparent Backdrop) */}
+          <div className="relative w-full h-[1050px] hidden lg:block z-10 my-12">
+            {/* SVG Connecting Paths */}
+            <svg className="absolute inset-0 w-full h-full pointer-events-none z-0" viewBox="0 0 100 100" preserveAspectRatio="none">
+              {/* Backing connection paths (grey/black in light mode, dark grey in dark mode) */}
+              <path d="M 50 50 V 20 H 15" className="stroke-black/15 dark:stroke-zinc-800" strokeWidth="0.4" fill="none" />
+              <path d="M 50 50 V 20" className="stroke-black/15 dark:stroke-zinc-800" strokeWidth="0.4" fill="none" />
+              <path d="M 50 50 V 20 H 85" className="stroke-black/15 dark:stroke-zinc-800" strokeWidth="0.4" fill="none" />
+              <path d="M 50 50 V 80 H 15" className="stroke-black/15 dark:stroke-zinc-800" strokeWidth="0.4" fill="none" />
+              <path d="M 50 50 V 80" className="stroke-black/15 dark:stroke-zinc-800" strokeWidth="0.4" fill="none" />
+              <path d="M 50 50 V 80 H 85" className="stroke-black/15 dark:stroke-zinc-800" strokeWidth="0.4" fill="none" />
+
+              {/* Glowing active circuit paths (animated dashes - dark/light responsive) */}
+              <path d="M 50 50 V 20 H 15" className="stroke-black/35 dark:stroke-white/40 animate-dash" strokeWidth="0.4" fill="none" />
+              <path d="M 50 50 V 20" className="stroke-black/35 dark:stroke-white/40 animate-dash" strokeWidth="0.4" fill="none" />
+              <path d="M 50 50 V 20 H 85" className="stroke-black/35 dark:stroke-white/40 animate-dash" strokeWidth="0.4" fill="none" />
+              <path d="M 50 50 V 80 H 15" className="stroke-black/35 dark:stroke-white/40 animate-dash" strokeWidth="0.4" fill="none" />
+              <path d="M 50 50 V 80" className="stroke-black/35 dark:stroke-white/40 animate-dash" strokeWidth="0.4" fill="none" />
+              <path d="M 50 50 V 80 H 85" className="stroke-black/35 dark:stroke-white/40 animate-dash" strokeWidth="0.4" fill="none" />
+            </svg>
+
+            {/* Central Node Card */}
+            <div
+              className="absolute bg-white dark:bg-[#070708] border border-black/10 dark:border-white/10 rounded-[2rem] p-6 text-center shadow-2xl flex flex-col justify-center items-center z-20 w-[320px] h-[140px]"
+              style={{ left: '50%', top: '50%', transform: 'translate(-50%, -50%)' }}
+            >
+              <h3 className="text-3xl font-black text-black dark:text-white tracking-tight uppercase leading-none mb-1">
+                OUR CORE
+              </h3>
+              <h3 className="text-3xl font-black text-outline tracking-tight uppercase leading-none mb-4">
+                TEAM
+              </h3>
+              <p className="text-black/40 dark:text-zinc-500 text-[9px] uppercase tracking-[0.3em] font-black">
+                THE MIND BEHIND CRIVO
+              </p>
+            </div>
+
+            {/* Core Team Cards */}
             {coreTeam.map((t, i) => (
-              <div key={i} className="group p-10 bg-white dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-[2.5rem] text-center hover:bg-[#111110] dark:hover:bg-white hover:border-[#111110] dark:hover:border-white transition-all duration-700 hover:-translate-y-2 hover:shadow-xl flex flex-col justify-between h-full">
-                <div>
-                  <div className="w-16 h-16 rounded-full bg-black/6 dark:bg-white/10 group-hover:bg-white/10 dark:group-hover:bg-black/10 transition-colors duration-500 flex items-center justify-center text-2xl font-black mx-auto mb-6 group-hover:text-white dark:group-hover:text-black">
-                    {t.initial}
-                  </div>
-                  <h4 className="font-black text-lg tracking-tight group-hover:text-white dark:group-hover:text-black transition-colors duration-500">{t.name}</h4>
-                  <p className="text-black/40 dark:text-white/40 text-sm mt-1 group-hover:text-white/60 dark:group-hover:text-black/50 transition-colors duration-500">{t.role}</p>
-                </div>
+              <div
+                key={i}
+                className="absolute group p-[1px] w-[280px] transition-all duration-500 hover:-translate-y-2 z-10"
+                style={{
+                  left: t.pos.left,
+                  top: t.pos.top,
+                  transform: 'translate(-50%, -50%)',
+                  clipPath: 'polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 0 100%)'
+                }}
+              >
+                {/* Glow Border */}
+                <div className="absolute inset-0 bg-black/10 dark:bg-white/10 group-hover:bg-black/30 group-hover:dark:bg-white/30 transition-all duration-500 rounded-[1.5rem]"></div>
                 
-                {/* Social icons */}
-                <div className="flex items-center justify-center gap-4 mt-8 pt-6 border-t border-black/5 dark:border-white/5 group-hover:border-white/10 dark:group-hover:border-black/10 transition-colors duration-500">
-                  {t.linkedin !== "#" && (
-                    <a href={t.linkedin} target="_blank" rel="noopener noreferrer" className="text-black/40 dark:text-white/40 group-hover:text-white/60 dark:group-hover:text-black/50 hover:text-black dark:hover:text-white transition-colors">
-                      <Linkedin className="w-4 h-4 hover:scale-110 transition-transform duration-300" />
+                {/* Inner Card */}
+                <div
+                  className="relative bg-white dark:bg-[#070708] p-6 w-full flex flex-col justify-between"
+                  style={{
+                    clipPath: 'polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 0 100%)',
+                    minHeight: '380px'
+                  }}
+                >
+                  <div>
+                    {/* Member image with full color and max clarity */}
+                    <div className="w-full h-56 bg-zinc-100 dark:bg-zinc-900 rounded-xl overflow-hidden relative mb-5 border border-black/5 dark:border-white/5">
+                      <TeamMemberImage
+                        src={t.image}
+                        alt={t.name}
+                        initial={t.initial}
+                        position={t.imgPos}
+                      />
+                    </div>
+                    <h4 className="font-black text-xl tracking-tight text-black dark:text-white leading-tight">
+                      {t.name}
+                    </h4>
+                    <p className="text-black/60 dark:text-zinc-400 text-sm mt-1 font-medium leading-tight">
+                      {t.role}
+                    </p>
+                  </div>
+                  {/* Contact details */}
+                  <div className="flex items-center justify-between mt-6 pt-4 border-t border-black/10 dark:border-white/10 text-xs text-black/50 dark:text-zinc-500">
+                    <a href={`mailto:${t.email}`} className="hover:text-black dark:hover:text-white transition-colors truncate max-w-[130px]" title={t.email}>
+                      {t.email}
                     </a>
-                  )}
-                  {t.github !== "#" && (
-                    <a href={t.github} target="_blank" rel="noopener noreferrer" className="text-black/40 dark:text-white/40 group-hover:text-white/60 dark:group-hover:text-black/50 hover:text-black dark:hover:text-white transition-colors">
-                      <Github className="w-4 h-4 hover:scale-110 transition-transform duration-300" />
+                    <div className="flex items-center gap-2.5">
+                      <a href={t.linkedin} target="_blank" rel="noopener noreferrer" className="hover:text-black dark:hover:text-white transition-colors font-semibold">
+                        LinkedIn
+                      </a>
+                      <span>·</span>
+                      <a href={t.github} target="_blank" rel="noopener noreferrer" className="hover:text-black dark:hover:text-white transition-colors font-semibold">
+                        GitHub
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Mobile/Tablet Layout (Grid) */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:hidden gap-8 mt-12">
+            {coreTeam.map((t, i) => (
+              <div
+                key={i}
+                className="group relative p-[1px] w-full max-w-[340px] mx-auto transition-all duration-500 hover:-translate-y-2"
+                style={{ clipPath: 'polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 0 100%)' }}
+              >
+                {/* Glow Border */}
+                <div className="absolute inset-0 bg-black/10 dark:bg-white/10 group-hover:bg-black/30 group-hover:dark:bg-white/30 transition-all duration-500 rounded-[1.5rem]"></div>
+                
+                {/* Inner Card */}
+                <div
+                  className="relative bg-white dark:bg-[#070708] p-6 w-full flex flex-col justify-between"
+                  style={{
+                    clipPath: 'polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 0 100%)',
+                    minHeight: '380px'
+                  }}
+                >
+                  <div>
+                    {/* Member image with full color and max clarity */}
+                    <div className="w-full h-56 bg-zinc-100 dark:bg-zinc-900 rounded-xl overflow-hidden relative mb-5 border border-black/5 dark:border-white/5">
+                      <TeamMemberImage
+                        src={t.image}
+                        alt={t.name}
+                        initial={t.initial}
+                        position={t.imgPos}
+                      />
+                    </div>
+                    <h4 className="font-black text-xl tracking-tight text-black dark:text-white leading-tight">
+                      {t.name}
+                    </h4>
+                    <p className="text-black/60 dark:text-zinc-400 text-sm mt-1 font-medium leading-tight">
+                      {t.role}
+                    </p>
+                  </div>
+                  {/* Contact details */}
+                  <div className="flex items-center justify-between mt-6 pt-4 border-t border-black/10 dark:border-white/10 text-xs text-black/50 dark:text-zinc-500">
+                    <a href={`mailto:${t.email}`} className="hover:text-black dark:hover:text-white transition-colors truncate max-w-[130px]" title={t.email}>
+                      {t.email}
                     </a>
-                  )}
-                  <a href={`mailto:${t.email}`} className="text-black/40 dark:text-white/40 group-hover:text-white/60 dark:group-hover:text-black/50 hover:text-black dark:hover:text-white transition-colors">
-                    <Mail className="w-4 h-4 hover:scale-110 transition-transform duration-300" />
-                  </a>
+                    <div className="flex items-center gap-2.5">
+                      <a href={t.linkedin} target="_blank" rel="noopener noreferrer" className="hover:text-black dark:hover:text-white transition-colors font-semibold">
+                        LinkedIn
+                      </a>
+                      <span>·</span>
+                      <a href={t.github} target="_blank" rel="noopener noreferrer" className="hover:text-black dark:hover:text-white transition-colors font-semibold">
+                        GitHub
+                      </a>
+                    </div>
+                  </div>
                 </div>
               </div>
             ))}

@@ -54,23 +54,35 @@
 /* Twinkling star animation */
 @keyframes twinkle {
   0%, 100% {
-    opacity: 0.1;
-    transform: scale(0.65);
+    opacity: 0.3;
+    transform: scale(0.8);
   }
   30% {
-    opacity: 0.85;
-    transform: scale(1.15);
-  }
-  65% {
-    opacity: 0.25;
-    transform: scale(0.75);
-  }
-  85% {
     opacity: 0.95;
     transform: scale(1.3);
+  }
+  65% {
+    opacity: 0.5;
+    transform: scale(0.9);
+  }
+  85% {
+    opacity: 1.0;
+    transform: scale(1.45);
   }
 }
 
 .animate-twinkle {
   animation: twinkle infinite ease-in-out;
 }
+
+/* Animated Dash for Circuit Paths */
+@keyframes dash {
+  to {
+    stroke-dashoffset: -40;
+  }
+}
+.animate-dash {
+  stroke-dasharray: 8 12;
+  animation: dash 3s linear infinite;
+}
+

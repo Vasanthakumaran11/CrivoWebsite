@@ -7,10 +7,10 @@ const StarsBackground = () => {
     for (let i = 0; i < starCount; i++) {
       const top = Math.random() * 100; // Percentage
       const left = Math.random() * 100; // Percentage
-      const size = Math.random() * 1.5 + 1; // 1px to 2.5px
+      const size = Math.random() * 1.5 + 1.2; // 1.2px to 2.7px
       const duration = Math.random() * 3 + 2.5; // 2.5s to 5.5s duration (faster twinkling)
       const delay = Math.random() * 5; // 0s to 5s delay
-      const opacity = Math.random() * 0.4 + 0.5; // Base opacity between 0.5 and 0.9
+      const opacity = Math.random() * 0.3 + 0.7; // Base opacity between 0.7 and 1.0
 
       items.push({
         id: i,
@@ -43,7 +43,7 @@ const StarsBackground = () => {
           <div
             key={star.id}
             style={star.style}
-            className="absolute rounded-full bg-white shadow-[0_0_8px_rgba(255,255,255,0.8)] animate-twinkle pointer-events-none"
+            className="absolute rounded-full bg-white shadow-[0_0_10px_rgba(255,255,255,0.95),_0_0_4px_rgba(255,255,255,0.8)] animate-twinkle pointer-events-none"
           />
         ))}
       </div>
