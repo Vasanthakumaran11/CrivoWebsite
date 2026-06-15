@@ -2,28 +2,25 @@ import { Monitor, Smartphone, Cpu, BarChart3 } from 'lucide-react';
 
 const services = [
   {
-    title: "Web Platforms",
+    title: "CRIVO CSMS",
     icon: Monitor,
-    description: "Engineering responsive, scalable web applications that engage users and drive conversions. We build high-performance platforms engineered for your specific growth metrics.",
-    number: "01"
+    description: "CRIVO CSMS is a comprehensive Customer Support Management System that helps businesses streamline their customer support operations. With features like automated responses, and real-time analytics.",
+    number: "01",
+    status: "Active"
   },
   {
-    title: "Mobile Products",
+    title: "Smart EV-Trip Planner",
     icon: Smartphone,
-    description: "Creating intuitive, native-grade mobile products that offer seamless user experiences across iOS and Android environments.",
-    number: "02"
+    description: "An AI based smart EV-Trip Planner that helps EV owners plan their trips efficiently. With features like route planning, charging station locator, and trip optimization, Smart EV-Trip Planner helps you make the most of your EV.",
+    number: "02",
+    status :"Active"
   },
   {
-    title: "IoT & Systems Automation",
+    title: "Sector Logistics ",
     icon: Cpu,
-    description: "Smart IoT hardware and system integrations for seamless automation. We connect devices, data, and logic to optimize operations.",
-    number: "03"
-  },
-  {
-    title: "Growth & Optimization",
-    icon: BarChart3,
-    description: "Strategic campaign orchestration, SEO structures, and conversion funnel optimization that scale product reach and build customer loyalty.",
-    number: "04"
+    description: "We are developing an innovative solution to optimize logistics operations specifically tailored for the Indian market.",
+    number: "03",
+    status: "Upcoming"
   }
 ];
 
@@ -36,7 +33,7 @@ function WhatWeDo() {
             <span className="text-sm font-bold uppercase tracking-[0.3em] text-black/40 dark:text-white/50">Our Expertise</span>
             <h2 className="text-6xl md:text-8xl font-black tracking-tighter leading-none text-[#111110] dark:text-white">
               WHAT WE <br />
-              <span className="text-outline">DO.</span>
+              <span className="text-outline">HAVE.</span>
             </h2>
           </div>
           <p className="text-black/50 dark:text-white/50 text-lg max-w-sm leading-relaxed md:text-right">
@@ -68,6 +65,11 @@ function WhatWeDo() {
                     <p className="text-black/50 dark:text-white/50 text-xl font-medium leading-relaxed group-hover:text-white/70 dark:group-hover:text-black/70 transition-colors duration-500 pr-12">
                       {service.description}
                     </p>
+                    <div className="flex pt-2">
+                      <span className="text-xl font-bold tracking-tight group-hover:text-white dark:group-hover:text-black transition-colors duration-500">
+                        {service.status}
+                      </span>
+                    </div>
                   </div>
                 </div>
 

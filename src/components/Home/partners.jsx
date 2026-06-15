@@ -15,7 +15,7 @@ function Partners() {
   return (
     <section className="py-20 border-t border-black/10 dark:border-white/10 overflow-hidden bg-[#F8F7F2] dark:bg-transparent">
       <div className="max-w-7xl mx-auto px-6">
-        <p className="text-center text-sm font-bold uppercase tracking-[0.3em] text-black/30 dark:text-white/30 mb-14">
+        <p className="text-center text-sm font-bold uppercase tracking-[0.3em] text-black/30 text-white mb-14">
           Trusted Technologies &amp; Partners
         </p>
 

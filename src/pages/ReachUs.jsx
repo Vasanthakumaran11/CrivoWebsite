@@ -368,11 +368,12 @@ function ReachUs() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 lg:gap-24 py-8">
+          {/* Desktop view (lg and above) */}
+          <div className="hidden lg:grid lg:grid-cols-6 gap-8 lg:gap-24 py-8">
             {directoryCards.map((card, i) => {
               const Icon = card.icon;
               return (
-                <div key={i} className="group relative w-full h-[220px] lg:h-[360px] rounded-[2.5rem] border border-black/10 dark:border-white/10 bg-white dark:bg-white/5 flex flex-col items-center justify-between py-6 lg:py-10 px-4 cursor-pointer transition-all duration-500 hover:shadow-2xl">
+                <div key={i} className="group relative w-full h-[360px] rounded-[2.5rem] border border-black/10 dark:border-white/10 bg-white dark:bg-white/5 flex flex-col items-center justify-between py-10 px-4 cursor-pointer transition-all duration-500 hover:shadow-2xl">
                   {/* Default State */}
                   <div className="flex flex-col items-center justify-between h-full w-full transition-all duration-500 group-hover:opacity-0 group-hover:scale-90">
                     <div className="w-12 h-12 rounded-xl bg-black/5 dark:bg-white/10 flex items-center justify-center">
@@ -384,12 +385,21 @@ function ReachUs() {
                   </div>
 
                   {/* Hover Popup State (Enlarged and Opacity Background) */}
-                  <div className="absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 w-[290px] sm:w-[320px] h-[108%] opacity-0 scale-95 pointer-events-none group-hover:opacity-100 group-hover:scale-100 group-hover:pointer-events-auto transition-all duration-300 ease-out z-20 flex flex-col justify-between p-8 bg-[#F8F7F2]/98 dark:bg-[#050505]/98 backdrop-blur-xl border border-black/15 dark:border-white/10 rounded-[2.5rem] shadow-2xl text-left">
+                  <div className="absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 w-[320px] h-[108%] opacity-0 scale-95 pointer-events-none group-hover:opacity-100 group-hover:scale-100 group-hover:pointer-events-auto transition-all duration-300 ease-out z-20 flex flex-col justify-between p-8 bg-[#F8F7F2]/98 dark:bg-[#050505]/98 backdrop-blur-xl border border-black/15 dark:border-white/10 rounded-[2.5rem] shadow-2xl text-left">
                     {card.details}
                   </div>
                 </div>
               );
             })}
+          </div>
+
+          {/* Mobile & Tablet view (below lg) */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:hidden gap-6 py-8">
+            {directoryCards.map((card, i) => (
+              <div key={i} className="relative w-full rounded-[2rem] border border-black/10 dark:border-white/10 bg-white dark:bg-white/5 flex flex-col justify-between p-6 sm:p-8 text-left shadow-sm hover:shadow-md transition-shadow">
+                {card.details}
+              </div>
+            ))}
           </div>
         </div>
       </section>

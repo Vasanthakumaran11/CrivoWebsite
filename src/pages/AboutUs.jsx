@@ -13,7 +13,7 @@ const stats = [
 
 const leaders = [
   { 
-    name: "Bharanidharan", 
+    name: "Bharanidharan R N", 
     role: "Founder & CEO", 
     initial: "B",
     linkedin: "https://linkedin.com/in/bharanidharan-rn",

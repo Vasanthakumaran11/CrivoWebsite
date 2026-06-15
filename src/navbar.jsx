@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Sun, Moon } from 'lucide-react';
+import { Sun, Moon, X } from 'lucide-react';
 import { useTheme } from './context/ThemeContext';
 
 const navLinks = [
@@ -37,6 +37,17 @@ function Navbar() {
     useEffect(() => {
         setIsMenuOpen(false);
     }, [location.pathname]);
+
+    useEffect(() => {
+        if (isMenuOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+        return () => {
+            document.body.style.overflow = '';
+        };
+    }, [isMenuOpen]);
 
     const navBg = isBookMeet
         ? 'bg-black/80 border-b border-white/10 py-4'
@@ -144,29 +155,68 @@ function Navbar() {
                 </div>
             </div>
 
-            {/* Mobile Menu */}
-            <div className={`fixed inset-0 z-[-1] transition-all duration-500 md:hidden ${
-                isDark ? 'bg-black/95 backdrop-blur-2xl' : 'bg-[#F8F7F2]/98 backdrop-blur-2xl'
-            } ${isMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
-                <div className="flex flex-col items-center justify-center h-full space-y-8 px-6">
-                    {navLinks.map((item) => (
-                        <Link
-                            key={item.label}
-                            to={item.to}
-                            className={`text-2xl font-bold tracking-tighter transition-colors ${
-                                isDark ? 'text-white hover:text-gray-400' : 'text-[#111110] hover:text-black/50'
-                            }`}
-                        >
-                            {item.label}
-                        </Link>
-                    ))}
-                    <Link to="/book-meet" className="w-full max-w-xs pt-4">
-                        <button className={`w-full font-bold py-4 rounded-full tracking-widest text-sm ${
-                            isDark ? 'bg-white text-black' : 'bg-[#111110] text-white'
+            {/* Backdrop overlay */}
+            <div 
+                className={`fixed inset-0 z-40 bg-black/60 backdrop-blur-sm transition-opacity duration-300 md:hidden ${
+                    isMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+                }`}
+                onClick={() => setIsMenuOpen(false)}
+            />
+
+            {/* Mobile Sidebar */}
+            <div className={`fixed top-0 right-0 bottom-0 z-50 w-[300px] h-screen transition-transform duration-300 ease-out md:hidden shadow-2xl flex flex-col ${
+                isDark ? 'bg-[#0f0f0f] border-l border-white/10 text-white' : 'bg-[#F8F7F2]/98 border-l border-black/10 text-[#111110]'
+            } ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+                
+                {/* Sidebar Header */}
+                <div className="flex items-center justify-between px-6 py-6 border-b border-black/5 dark:border-white/5">
+                    <Link to="/" className="flex items-center gap-3 group" onClick={() => setIsMenuOpen(false)}>
+                        <div className={`w-9 h-9 rounded-full flex items-center justify-center font-black text-base shrink-0 transition-all duration-300 ${
+                            isDark
+                                ? 'border border-white/30 bg-white/10 text-white'
+                                : 'border border-black/30 bg-black/8 text-[#111110]'
                         }`}>
-                            BOOK A MEET
-                        </button>
+                            C
+                        </div>
+                        <span className="font-bold tracking-tight text-lg leading-none">CRIVO</span>
                     </Link>
+                    <button
+                        onClick={() => setIsMenuOpen(false)}
+                        className={`p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors ${
+                            isDark ? 'text-white/70' : 'text-black/70'
+                        }`}
+                        aria-label="Close menu"
+                    >
+                        <X className="w-5 h-5" />
+                    </button>
+                </div>
+
+                {/* Sidebar Content */}
+                <div className="flex flex-col justify-between flex-1 p-6">
+                    <div className="flex flex-col space-y-6 pt-4">
+                        {navLinks.map((item) => (
+                            <Link
+                                key={item.label}
+                                to={item.to}
+                                onClick={() => setIsMenuOpen(false)}
+                                className={`text-xl font-bold tracking-tight transition-colors py-2 border-b border-black/5 dark:border-white/5 ${
+                                    isDark ? 'text-white hover:text-gray-400' : 'text-[#111110] hover:text-black/50'
+                                }`}
+                            >
+                                {item.label}
+                            </Link>
+                        ))}
+                    </div>
+                    
+                    <div className="pt-6">
+                        <Link to="/book-meet" className="w-full" onClick={() => setIsMenuOpen(false)}>
+                            <button className={`w-full font-bold py-4 rounded-full tracking-widest text-sm transition-transform active:scale-95 ${
+                                isDark ? 'bg-white text-black' : 'bg-[#111110] text-white'
+                            }`}>
+                                BOOK A MEET
+                            </button>
+                        </Link>
+                    </div>
                 </div>
             </div>
         </nav>

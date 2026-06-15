@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Footer from './footer';
 import WhatWeDo from './WhatWeDo';
-import Customers from './customers';
+import Client from './Client';
 import Partners from './partners';
 
 function Major() {
@@ -86,7 +86,7 @@ function Major() {
             {/* Content Sections */}
             <WhatWeDo />
             <Partners />
-            <Customers />
+            <Client />
 
             {/* Footer */}
             <Footer />

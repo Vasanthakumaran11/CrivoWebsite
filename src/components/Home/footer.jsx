@@ -134,7 +134,7 @@ export default function Footer() {
             <a href="#" className="hover:text-white transition-colors">Terms &amp; Conditions</a>
             <a href="#" className="hover:text-white transition-colors">Accessibility Statement</a>
           </div>
-          <p className="text-gray-500 text-sm">Made with <span className="text-red-400">♥</span> by Crivo Team</p>
+          <p className="text-gray-500 text-sm">Made by Crivo Team</p>
         </div>
       </div>
     </footer>
