@@ -47,14 +47,7 @@ function Major() {
                         showContent ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
                     }`}
                 >
-                    {/* Keyword pills */}
-                    <div className="flex items-center justify-center gap-3 mb-8 flex-wrap">
-                        {['Digitalize', 'Engage', 'Automate'].map((kw, i) => (
-                            <span key={i} className="px-4 py-1.5 border border-white/50 rounded-full text-xs font-bold uppercase tracking-[0.2em] text-white/90 bg-white/10">
-                                {kw}
-                            </span>
-                        ))}
-                    </div>
+                    
 
                     <p className="text-white/80 text-sm font-bold uppercase tracking-[0.35em] mb-6">
                         Rise your Brand

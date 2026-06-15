@@ -91,7 +91,7 @@ const coreTeam = [
     initial: "T"
   },
   { 
-    name: "Antony Milton", 
+    name: "Anthoni Milton", 
     role: "ML Developer", 
     email: "antony@crivo.in",
     image: "/AntonyMilton.png",

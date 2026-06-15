@@ -1,5 +1,6 @@
 import { Routes, Route } from 'react-router-dom'
 import Navbar from './navbar'
+import ScrollToTop from './components/ScrollToTop'
 import Major from './components/Home/major'
 import BookMeet from './components/BookMeet'
 import Product from './pages/Product'
@@ -11,6 +12,7 @@ import Blog from './components/Blog/blog'
 function App() {
   return (
     <>
+      <ScrollToTop />
       <Navbar />
       <Routes>
         <Route path="/" element={<Major />} />
