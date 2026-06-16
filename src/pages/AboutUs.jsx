@@ -14,27 +14,24 @@ const stats = [
 const leaders = [
   { 
     name: "Bharanidharan R N", 
-    role: "Founder & CEO", 
-    initial: "B",
-    linkedin: "https://linkedin.com/in/bharanidharan-rn",
- 
+    role: "Co-Founder & CEO", 
+    image: "/Bharanidharan.jpeg",
+    linkedin: "https://www.linkedin.com/in/bharanidharanrn/",
     email: "founder@crivo.in"
   },
   { 
-    name: "Hareeni S", 
-    role: "COO and Co-Founder", 
-    initial: "H",
-    linkedin: "https://linkedin.com/in/hareeni-s",
-    
-    email: "coo@crivo.in"
+    name: "Gokulnath Sundaramurthi", 
+    role: "Co-Founder & CTO", 
+    image: "/Gokulnath.jpeg",
+    linkedin: "https://www.linkedin.com/in/gokulnath-bs/",
+    email: "cto@crivo.in"
   },
   { 
-    name: "Gokulnath Sundaramurthi", 
-    role: "CTO and Co-Founder", 
-    initial: "G",
-    linkedin: "https://linkedin.com/in/gokulnath-s",
-   
-    email: "cto@crivo.in"
+    name: "Hareeni S", 
+    role: "Co-Founder & COO", 
+    image: "/Hareeni.png",
+    linkedin: "https://www.linkedin.com/in/hareenis?utm_source=share_via&utm_content=profile&utm_medium=member_ios",
+    email: "coo@crivo.in"
   },
 ];
 
@@ -177,7 +174,7 @@ function AboutUs() {
       </section>
 
       {/* Our Mission & Vision (Alternate Side Consecutive) */}
-      <section className="border-t border-black/10 dark:border-white/10 py-32">
+      <section className="border-t border-black/10 dark:border-white/10 py-31">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-[480px_1fr] gap-x-12 gap-y-16 lg:gap-y-0 items-start">
             {/* Mission Column (Row 1, Column 1) */}
@@ -188,24 +185,23 @@ function AboutUs() {
                   OUR <br /><span className="text-outline">MISSION</span>
                 </h2>
               </div>
-              <div className="group relative p-8 md:p-10 bg-white dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-[2rem] hover:bg-[#111110] dark:hover:bg-white hover:border-[#111110] dark:hover:border-white transition-all duration-700 shadow-xl hover:-translate-y-2 hover:shadow-2xl w-full">
+              <div className="group relative p-8 md:p-18 bg-white dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-[2rem] hover:bg-[#111110] dark:hover:bg-white hover:border-[#111110] dark:hover:border-white transition-all duration-700 shadow-xl hover:-translate-y-2 hover:shadow-2xl w-full">
                 <p className="text-black/60 dark:text-white/60 text-lg leading-relaxed group-hover:text-white/80 dark:group-hover:text-black/70 transition-colors duration-500">
-                  To democratize technology by offering accessible and affordable solutions while nurturing the next generation of innovators through practical education. We strive to bridge the gap between complex digital challenges and intuitive, human-centric solutions. By championing open collaboration and continuous learning, we empower teams to scale with confidence and efficiency.
-                </p>
+                  To democratize technology by offering accessible and affordable solutions while nurturing the next generation of innovators through practical education. We strive to bridge the gap between complex digital challenges and intuitive, human-centric solutions. </p>
               </div>
             </div>
             
             {/* Vision Column (Row 2, Column 2 - starts exactly where Mission ends) */}
-            <div className="flex flex-col gap-8 lg:col-start-2 lg:row-start-2 lg:pl-16 lg:mt-[-2cm]">
+            <div className="flex flex-col gap-8 lg:col-start-2 lg:row-start-2 lg:pl-40 lg:mt-[-2.5cm]">
               <div>
                 <span className="text-sm font-bold uppercase tracking-[0.3em] text-black/40 dark:text-white/50 block mb-4">Future</span>
                 <h2 className="text-6xl md:text-8xl font-black tracking-tighter leading-none mb-8">
                   OUR <br /><span className="text-outline">VISION</span>
                 </h2>
               </div>
-              <div className="group relative p-8 md:p-10 bg-white dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-[2rem] hover:bg-[#111110] dark:hover:bg-white hover:border-[#111110] dark:hover:border-white transition-all duration-700 shadow-xl hover:-translate-y-2 hover:shadow-2xl w-full lg:max-w-[480px]">
+              <div className="group relative p-8 md:p-17 bg-white dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-[2rem] hover:bg-[#111110] dark:hover:bg-white hover:border-[#111110] dark:hover:border-white transition-all duration-700 shadow-xl hover:-translate-y-2 hover:shadow-2xl w-full lg:max-w-[480px]">
                 <p className="text-black/60 dark:text-white/60 text-lg leading-relaxed group-hover:text-white/80 dark:group-hover:text-black/70 transition-colors duration-500">
-                  To create a world where technology is affordable, accessible, and backed by a workforce skilled through real-world experience. We envision a future where high-quality engineering and enterprise-grade tools are accessible to every builder and organization. By fostering a diverse global community of skilled creators, we aim to drive positive, lasting change across the tech ecosystem.
+                  To create a world where technology is affordable, accessible, and backed by a workforce skilled through real-world experience. We envision a future where high-quality engineering and enterprise-grade tools are accessible to every builder and organization
                 </p>
               </div>
             </div>
@@ -214,7 +210,7 @@ function AboutUs() {
       </section>
 
       {/* Team */}
-      <section className="border-t border-black/10 dark:border-white/10 py-32">
+      <section className="border-t border-black/10 dark:border-white/10 py-30">
         <div className="max-w-7xl mx-auto px-6">
           <div className="mb-20">
             <span className="text-sm font-bold uppercase tracking-[0.3em] text-black/40 dark:text-white/50 block mb-4">The People</span>
@@ -227,26 +223,59 @@ function AboutUs() {
               LEADERS
             </h6>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
             {leaders.map((t, i) => (
-              <div key={i} className="group p-10 bg-white dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-[2.5rem] text-center hover:bg-[#111110] dark:hover:bg-white hover:border-[#111110] dark:hover:border-white transition-all duration-700 hover:-translate-y-2 hover:shadow-xl flex flex-col justify-between h-full">
-                <div>
-                  <div className="w-16 h-16 rounded-full bg-black/6 dark:bg-white/10 group-hover:bg-white/10 dark:group-hover:bg-black/10 transition-colors duration-500 flex items-center justify-center text-2xl font-black mx-auto mb-6 group-hover:text-white dark:group-hover:text-black">
-                    {t.initial}
-                  </div>
-                  <h4 className="font-black text-lg tracking-tight group-hover:text-white dark:group-hover:text-black transition-colors duration-500">{t.name}</h4>
-                  <p className="text-black/40 dark:text-white/40 text-sm mt-1 group-hover:text-white/60 dark:group-hover:text-black/50 transition-colors duration-500">{t.role}</p>
+              <div
+                key={i}
+                className="group relative h-[480px] w-full rounded-[2.5rem] overflow-hidden border border-black/10 dark:border-white/10 bg-white dark:bg-[#070708] hover:border-black/30 dark:hover:border-white/30 transition-all duration-500 shadow-lg hover:shadow-2xl hover:-translate-y-2 flex flex-col justify-end"
+              >
+                {/* Photo container */}
+                <div className="absolute inset-0 w-full h-full z-0 overflow-hidden">
+                  <img
+                    src={t.image}
+                    alt={t.name}
+                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 scale-100 group-hover:scale-105 transition-all duration-700 ease-out"
+                    style={{ objectPosition: 'top center' }}
+                  />
+                  {/* Gradient Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent dark:from-black/95 dark:via-black/50 dark:to-transparent opacity-90 group-hover:opacity-95 transition-opacity duration-500"></div>
                 </div>
-                
-                {/* Social icons */}
-                <div className="flex items-center justify-center gap-4 mt-8 pt-6 border-t border-black/5 dark:border-white/5 group-hover:border-white/10 dark:group-hover:border-black/10 transition-colors duration-500">
-                  <a href={t.linkedin} target="_blank" rel="noopener noreferrer" className="text-black/40 dark:text-white/40 group-hover:text-white/60 dark:group-hover:text-black/50 hover:text-black dark:hover:text-white transition-colors">
-                    <Linkedin className="w-4 h-4 hover:scale-110 transition-transform duration-300" />
-                  </a>
-                
-                  <a href={`mailto:${t.email}`} className="text-black/40 dark:text-white/40 group-hover:text-white/60 dark:group-hover:text-black/50 hover:text-black dark:hover:text-white transition-colors">
-                    <Mail className="w-4 h-4 hover:scale-110 transition-transform duration-300" />
-                  </a>
+
+                {/* Glassmorphic details overlay */}
+                <div className="relative z-10 p-8 w-full transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500 ease-out text-left">
+                  {/* Role Tag */}
+                  <span className="inline-block px-3.5 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-widest bg-white/10 text-white/90 border border-white/10 backdrop-blur-md mb-4 shadow-sm">
+                    {t.role}
+                  </span>
+                  
+                  {/* Name */}
+                  <h4 className="font-black text-2xl tracking-tight text-white mb-2 leading-tight drop-shadow-md">
+                    {t.name}
+                  </h4>
+
+                  {/* Divider line that expands on hover */}
+                  <div className="w-12 group-hover:w-full h-[1px] bg-white/20 group-hover:bg-white/40 transition-all duration-500 my-4"></div>
+
+                  {/* Actions / Contact */}
+                  <div className="flex items-center justify-between opacity-80 group-hover:opacity-100 transition-opacity duration-500">
+                    <a
+                      href={`mailto:${t.email}`}
+                      className="text-white/70 hover:text-white text-xs font-semibold hover:underline flex items-center gap-1.5 transition-colors"
+                    >
+                      <Mail className="w-3.5 h-3.5" />
+                      <span>{t.email}</span>
+                    </a>
+                    
+                    <a
+                      href={t.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-8 h-8 rounded-full bg-white/10 hover:bg-white text-white hover:text-black flex items-center justify-center border border-white/10 hover:border-transparent transition-all duration-300"
+                      title="LinkedIn Profile"
+                    >
+                      <Linkedin className="w-4 h-4" />
+                    </a>
+                  </div>
                 </div>
               </div>
             ))}
