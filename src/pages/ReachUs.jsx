@@ -107,8 +107,8 @@ const directoryCards = [
           <h4 className="font-bold text-lg">Socials</h4>
         </div>
 
-        {/* Orbit Loop */}
-        <div className="orbit-container relative w-44 h-44 flex items-center justify-center my-auto">
+        {/* Orbit Loop (Mobile/Tablet View) */}
+        <div className="orbit-container relative w-44 h-44 flex items-center justify-center my-auto lg:hidden">
           {/* Inner circle track */}
           <div className="absolute inset-4 rounded-full border border-dashed border-black/15 dark:border-white/15"></div>
           
@@ -148,6 +148,35 @@ const directoryCards = [
               );
             })}
           </div>
+        </div>
+
+        {/* Standard Vertically Placed Format (Desktop View) */}
+        <div className="hidden lg:flex flex-col gap-2.5 w-full mt-4">
+          {[
+            { icon: Linkedin, name: 'LinkedIn', url: '#' },
+            { icon: Twitter, name: 'X', url: '#' },
+            { icon: Instagram, name: 'Instagram', url: '#' },
+            { icon: Youtube, name: 'Youtube', url: '#' }
+          ].map((soc, i) => {
+            const SocIcon = soc.icon;
+            return (
+              <a
+                key={i}
+                href={soc.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-between p-3.5 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl hover:bg-[#111110] dark:hover:bg-white hover:text-white dark:hover:text-black transition-all duration-300"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-lg bg-black/5 dark:bg-white/10 flex items-center justify-center">
+                    <SocIcon className="w-4 h-4 text-black/70 dark:text-white/70" />
+                  </div>
+                  <span className="font-bold text-sm">{soc.name}</span>
+                </div>
+                <ArrowUpRight className="w-4 h-4 opacity-50" />
+              </a>
+            );
+          })}
         </div>
       </div>
     )

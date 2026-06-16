@@ -1,84 +1,65 @@
-import { Monitor, Smartphone, Cpu, BarChart3 } from 'lucide-react';
+const whyUs = [
+  { title: "Innovation-Driven Solutions", desc: "We focus on creating forward-thinking digital experiences that adapt to the latest technologies by embracing cutting-edge tools and strategies." },
+  { title: "Holistic Approach", desc: "Seamlessly integrates every aspect of your digital presence — from web development and mobile apps to marketing strategies — under one roof." },
+  { title: "Data-Backed Results", desc: "Every strategy implemented is driven by precise insights and analytics to optimise performance and maximise ROI for your business." },
+];
 
-const services = [
-  {
-    title: "CRIVO CSMS",
-    icon: Monitor,
-    description: "CRIVO CSMS is a comprehensive Customer Support Management System that helps businesses streamline their customer support operations. With features like automated responses, and real-time analytics.",
-    number: "01",
-    status: "Active"
-  },
-  {
-    title: "Smart EV-Trip Planner",
-    icon: Smartphone,
-    description: "An AI based smart EV-Trip Planner that helps EV owners plan their trips efficiently. With features like route planning, charging station locator, and trip optimization, Smart EV-Trip Planner helps you make the most of your EV.",
-    number: "02",
-    status :"Active"
-  },
-  {
-    title: "Sector Logistics ",
-    icon: Cpu,
-    description: "We are developing an innovative solution to optimize logistics operations specifically tailored for the Indian market.",
-    number: "03",
-    status: "Upcoming"
-  }
+const process = [
+  { step: "01", title: "Discovery", desc: "We deep-dive into your business, goals, and competition to build a solid foundation." },
+  { step: "02", title: "Strategy", desc: "A tailored roadmap covering tech stack, timeline, milestones, and success metrics." },
+  { step: "03", title: "Build", desc: "Design and development sprints with weekly demos so you always see progress." },
+  { step: "04", title: "Launch", desc: "Rigorous testing, staging review, and a seamless go-live with zero downtime." },
+  { step: "05", title: "Grow", desc: "Post-launch support, analytics reviews, and iteration cycles to keep you ahead." },
 ];
 
 function WhatWeDo() {
   return (
     <section id="services" className="py-32 bg-[#F8F7F2] dark:bg-transparent text-[#111110] dark:text-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-6">
+        
+        {/* Why Choose Crivo */}
         <div className="mb-24 flex flex-col md:flex-row md:items-end justify-between gap-8">
           <div className="space-y-4">
-            <span className="text-sm font-bold uppercase tracking-[0.3em] text-black/40 dark:text-white/50">Our Expertise</span>
+            <span className="text-sm font-bold uppercase tracking-[0.3em] text-black/40 dark:text-white/50">Development for you</span>
             <h2 className="text-6xl md:text-8xl font-black tracking-tighter leading-none text-[#111110] dark:text-white">
-              WHAT WE <br />
-              <span className="text-outline">HAVE.</span>
+              WHY CHOOSE <br />
+              <span className="text-outline">CRIVO?</span>
             </h2>
           </div>
           <p className="text-black/50 dark:text-white/50 text-lg max-w-sm leading-relaxed md:text-right">
-            Building digital ecosystems with high-performance web platforms, intuitive mobile products, connected IoT systems, and automated growth structures.
+            Where Innovation Meets Solutions: Explore Our Offerings
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {services.map((service, index) => {
-            const Icon = service.icon;
-            return (
-              <div
-                key={index}
-                className="group relative h-full flex flex-col justify-between p-10 bg-white dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-[2.5rem] hover:bg-[#111110] dark:hover:bg-white hover:border-[#111110] dark:hover:border-white transition-all duration-700 overflow-hidden"
-              >
-                <div className="absolute top-10 right-10 text-8xl font-black opacity-10 group-hover:opacity-20 transition-opacity duration-500 pointer-events-none select-none">
-                  {service.number}
-                </div>
-
-                <div className="relative z-10 space-y-10">
-                  <div className="w-14 h-14 rounded-2xl bg-black/6 dark:bg-white/10 group-hover:bg-white/10 dark:group-hover:bg-black/10 transition-colors duration-500 flex items-center justify-center">
-                    <Icon className="w-7 h-7 text-[#111110] dark:text-white group-hover:text-white dark:group-hover:text-black transition-colors duration-500" />
-                  </div>
-
-                  <div className="space-y-4">
-                    <h3 className="text-4xl font-bold tracking-tight group-hover:text-white dark:group-hover:text-black transition-colors duration-500">
-                      {service.title}
-                    </h3>
-                    <p className="text-black/50 dark:text-white/50 text-xl font-medium leading-relaxed group-hover:text-white/70 dark:group-hover:text-black/70 transition-colors duration-500 pr-12">
-                      {service.description}
-                    </p>
-                    <div className="flex pt-2">
-                      <span className="text-xl font-bold tracking-tight group-hover:text-white dark:group-hover:text-black transition-colors duration-500">
-                        {service.status}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="mt-12 h-1 w-0 bg-white dark:bg-black group-hover:w-full transition-all duration-700"></div>
-                <div className="absolute -bottom-24 -right-24 w-64 h-64 bg-black/3 dark:bg-white/5 rounded-full blur-[100px] group-hover:bg-white/5 dark:group-hover:bg-black/10 transition-all duration-700"></div>
-              </div>
-            );
-          })}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-32">
+          {whyUs.map((w, i) => (
+            <div key={i} className="group p-10 bg-white dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-[2.5rem] hover:bg-[#111110] dark:hover:bg-white hover:border-[#111110] dark:hover:border-white transition-all duration-700">
+              <span className="text-5xl font-black text-black/10 dark:text-white/10 group-hover:text-white/10 dark:group-hover:text-black/10 transition-colors duration-500 leading-none block mb-8 select-none">0{i + 1}</span>
+              <h3 className="text-2xl font-black tracking-tight mb-4 group-hover:text-white dark:group-hover:text-black transition-colors duration-500">{w.title}</h3>
+              <p className="text-black/50 dark:text-white/50 leading-relaxed group-hover:text-white/70 dark:group-hover:text-black/60 transition-colors duration-500">{w.desc}</p>
+            </div>
+          ))}
         </div>
+
+        {/* Process */}
+        <div className="pt-24 border-t border-black/10 dark:border-white/10">
+          <div className="mb-20">
+            <span className="text-sm font-bold uppercase tracking-[0.3em] text-black/40 dark:text-white/50 block mb-4">How We Work</span>
+            <h2 className="text-6xl md:text-8xl font-black tracking-tighter leading-none text-[#111110] dark:text-white">THE PROCESS</h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-5 border border-black/10 dark:border-white/10 rounded-[2.5rem] overflow-hidden bg-white dark:bg-white/5">
+            {process.map((p, i) => (
+              <div key={i} className={`p-8 flex flex-col gap-6 ${i < process.length - 1 ? 'border-b md:border-b-0 md:border-r border-black/10 dark:border-white/10' : ''}`}>
+                <span className="text-4xl font-black text-black/10 dark:text-white/10 select-none">{p.step}</span>
+                <div>
+                  <h3 className="text-2xl font-black tracking-tight mb-4 group-hover:text-white dark:group-hover:text-black transition-colors duration-500">{p.title}</h3>
+                  <p className="text-black/50 dark:text-white/50 leading-relaxed group-hover:bg-white/70 dark:group-hover:bg-black/60 transition-colors duration-500">{p.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
       </div>
     </section>
   );

@@ -4,6 +4,8 @@ import ScrollToTop from './components/ScrollToTop'
 import Major from './components/Home/major'
 import BookMeet from './components/BookMeet'
 import Product from './pages/Product'
+import CSMS from './pages/CSMS'
+import Planner from './pages/Planner'
 import Blogs from './pages/Blogs'
 import ReachUs from './pages/ReachUs'
 import AboutUs from './pages/AboutUs'
@@ -18,6 +20,8 @@ function App() {
         <Route path="/" element={<Major />} />
         <Route path="/book-meet" element={<BookMeet />} />
         <Route path="/product" element={<Product />} />
+        <Route path="/product/csms" element={<CSMS />} />
+        <Route path="/product/planner" element={<Planner />} />
         <Route path="/about" element={<AboutUs />} />
         <Route path="/blogs" element={<Blogs />} />
         <Route path="/blogs/ev-charging-control-systems" element={<Blog />} />
