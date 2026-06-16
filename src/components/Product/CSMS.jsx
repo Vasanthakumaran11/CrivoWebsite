@@ -6,8 +6,8 @@ import {
   CheckCircle2, ArrowRight, Clock, Power, Sliders, Server, 
   Cpu, FileText, ChevronRight, Check
 } from 'lucide-react';
-import Footer from '../components/Home/footer';
-import StarsBackground from '../components/StarsBackground';
+import Footer from '../Home/footer';
+import StarsBackground from '../StarsBackground';
 
 // Initial stations state
 const initialStations = [

@@ -5,8 +5,8 @@ import {
   Check, Activity, Cloud, Compass, Battery, Play, Pause, 
   RotateCcw, CheckCircle2, Smartphone, MapPin, TrendingUp, Loader2
 } from 'lucide-react';
-import Footer from '../components/Home/footer';
-import StarsBackground from '../components/StarsBackground';
+import Footer from '../Home/footer';
+import StarsBackground from '../StarsBackground';
 
 // Milestones on the Mumbai -> Pune -> Kolhapur route
 const milestones = [
@@ -175,66 +175,14 @@ function Planner() {
             <div className="absolute w-[350px] h-[350px] bg-black/5 dark:bg-white/[0.03] border border-black/10 dark:border-white/5 rounded-full animate-[spin_40s_linear_infinite]" />
             <div className="absolute w-[450px] h-[450px] bg-transparent border border-dashed border-black/10 dark:border-white/5 rounded-full" />
             
-            <div className="relative group max-w-[340px] md:max-w-none p-6">
+            <div className="relative group max-w-[340px] md:max-w-none p-4">
               <div className="absolute -inset-3 bg-gradient-to-tr from-black/5 dark:from-white/10 to-transparent opacity-0 group-hover:opacity-100 rounded-3xl blur-2xl transition-opacity duration-700" />
-              <div className="relative bg-white dark:bg-white/5 border border-black/15 dark:border-white/10 p-5 rounded-[2.5rem] shadow-2xl backdrop-blur-xl transition-all duration-700 hover:translate-y-[-8px]">
-                <div className="h-[380px] w-full rounded-[1.8rem] bg-[#0c0c0e] border border-white/5 flex flex-col justify-between p-6 text-left relative overflow-hidden">
-                  {/* Dynamic Gradient lines */}
-                  <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-white/[0.03] via-transparent to-transparent pointer-events-none" />
-                  
-                  <div className="flex items-center justify-between z-10">
-                    <div className="flex items-center gap-2">
-                      <div className="w-2.5 h-2.5 rounded-full bg-white animate-pulse" />
-                      <span className="text-[10px] uppercase font-bold tracking-widest text-white/70">AI TRIP INSTANCE</span>
-                    </div>
-                    <Compass className="w-4 h-4 text-white animate-spin-slow" />
-                  </div>
-                  
-                  <div className="space-y-4 my-auto z-10">
-                    <p className="text-xs font-bold uppercase tracking-widest text-white/40">Active Navigation Route</p>
-                    <p className="text-2xl font-black tracking-tight text-white leading-none">Mumbai ➔ Kolhapur</p>
-                    <div className="bg-white/5 rounded-xl p-3 border border-white/5 text-[11px] font-mono text-white/75 space-y-1">
-                      <div className="flex justify-between">
-                        <span>Range Remaining:</span>
-                        <span className="font-bold">{(simulatedBattery * 3.2).toFixed(0)} km</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>AC Power Draw:</span>
-                        <span className="font-bold">{acOn ? "1.8 kW (Active)" : "0.0 kW (Off)"}</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>Predicted Consumption:</span>
-                        <span className="font-bold">{(consumptionFactor * 100).toFixed(0)} Wh/km</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="flex justify-between items-center text-[10px] z-10 font-mono text-white/40 pt-4 border-t border-white/5">
-                    <span>Engine Status: Active</span>
-                    <span>v2.1-Predict</span>
-                  </div>
-                </div>
-
-                {/* Overlaid widgets */}
-                <div className="absolute -bottom-6 -left-6 bg-white dark:bg-[#111112] border border-black/10 dark:border-white/10 rounded-2xl p-4 shadow-xl flex items-center gap-3 backdrop-blur-md">
-                  <div className="w-10 h-10 rounded-xl bg-black/5 dark:bg-white/10 flex items-center justify-center shrink-0">
-                    <Battery className="w-5 h-5 text-black dark:text-white" />
-                  </div>
-                  <div>
-                    <p className="text-[9px] uppercase tracking-widest text-black/40 dark:text-white/45 font-bold">Simulated SOC</p>
-                    <p className="font-extrabold text-sm text-[#111110] dark:text-white">{simulatedBattery}%</p>
-                  </div>
-                </div>
-
-                <div className="absolute -top-6 -right-6 bg-white dark:bg-[#111112] border border-black/10 dark:border-white/10 rounded-2xl p-4 shadow-xl flex items-center gap-3 backdrop-blur-md">
-                  <div className="w-10 h-10 rounded-xl bg-black/5 dark:bg-white/10 flex items-center justify-center shrink-0">
-                    <Navigation className="w-5 h-5 text-black dark:text-white" />
-                  </div>
-                  <div>
-                    <p className="text-[9px] uppercase tracking-widest text-black/40 dark:text-white/45 font-bold">Next Stop</p>
-                    <p className="font-extrabold text-sm text-[#111110] dark:text-white truncate max-w-[100px]">{currentSegment.name}</p>
-                  </div>
-                </div>
+              <div className="relative bg-white dark:bg-white/5 border border-black/15 dark:border-white/10 p-2.5 rounded-[2rem] shadow-2xl backdrop-blur-xl transition-all duration-700 hover:translate-y-[-8px]">
+                <img 
+                  src="/designdashboard.png" 
+                  alt="Smart EV-Trip Planner Interface" 
+                  className="rounded-[1.6rem] w-full object-cover filter contrast-[1.02] brightness-[0.98] shadow-md animate-fade-in"
+                />
               </div>
             </div>
           </div>
@@ -243,15 +191,26 @@ function Planner() {
 
       {/* Intro Description */}
       <section className="py-24 border-t border-black/10 dark:border-white/10 relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6 text-center">
-          <div className="max-w-3xl mx-auto space-y-6">
-            <h2 className="text-3xl md:text-5xl font-black tracking-tight uppercase leading-tight">
-              Predictive Trip Intelligence <br />
-              <span className="text-outline">Designed for the Indian Terrain</span>
-            </h2>
-            <p className="text-lg text-black/60 dark:text-white/60 leading-relaxed font-normal">
-              Crivo Technologies Smart Trip Planner leverages advanced machine learning models to solve range anxiety. Our platform predicts battery health and range degradation using real-world factors such as weather drag, gradient climb ratios, passenger loads, and AC draw.
-            </p>
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center text-left">
+            <div className="lg:col-span-7 space-y-6">
+              <h2 className="text-3xl md:text-5xl font-black tracking-tight uppercase leading-tight">
+                Predictive Trip Intelligence <br />
+                <span className="text-outline">Designed for the Indian Terrain</span>
+              </h2>
+              <p className="text-base md:text-lg text-black/60 dark:text-white/60 leading-relaxed font-normal">
+                Crivo's predictive Trip Planner leverages advanced machine learning to eliminate range anxiety. Our platform dynamically calculates battery health and range degradation using real-world factors like weather wind drag, elevation gradients, passenger loads, and AC cabin draw.
+              </p>
+            </div>
+            <div className="lg:col-span-5">
+              <div className="bg-white dark:bg-white/5 border border-black/15 dark:border-white/10 p-2.5 rounded-[2rem] shadow-xl backdrop-blur-xl group hover:translate-y-[-4px] transition-transform duration-500">
+                <img 
+                  src="/SmartTip.png" 
+                  alt="AI Range Smart Tip Widget" 
+                  className="rounded-[1.6rem] w-full object-cover filter contrast-[1.01] shadow-sm"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -527,30 +486,30 @@ function Planner() {
             {/* Bottom Row: AI Recommendation Map Graphic */}
             <div className="relative group overflow-hidden rounded-[2rem] border border-black/10 dark:border-white/10 bg-white dark:bg-white/5 p-2 shadow-2xl backdrop-blur-md">
               <div className="relative w-full aspect-[16/9] min-h-[300px] bg-[#0c0c0e] rounded-[1.8rem] overflow-hidden flex flex-col justify-between p-6 md:p-10 text-left">
-                {/* Simulated grid map line drawing overlay */}
-                <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none" />
-                <div className="absolute top-[40%] left-[10%] right-[10%] h-[2px] border-t border-dashed border-white/10 pointer-events-none" />
+                {/* Active Route Map Background */}
+                <img 
+                  src="/map.png" 
+                  alt="Active Route Map" 
+                  className="absolute inset-0 w-full h-full object-cover opacity-40 group-hover:opacity-50 transition-opacity duration-500 pointer-events-none" 
+                />
                 
-                {/* Dynamic path curve drawing */}
-                <svg className="absolute inset-0 w-full h-full pointer-events-none stroke-current text-white/5" fill="none">
-                  <path d="M 100 250 Q 350 50 600 250 T 1100 250" strokeWidth="2" strokeDasharray="5 5" />
-                </svg>
-
+                {/* Simulated grid overlay */}
+                <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.01)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.01)_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none" />
+                
                 {/* Live Animation Marker on Map */}
                 <div 
-                  className="absolute w-4 h-4 bg-white rounded-full animate-ping pointer-events-none" 
+                  className="absolute w-4 h-4 bg-white rounded-full animate-ping pointer-events-none z-20" 
                   style={{
-                    left: `${10 + progress * 0.8}%`,
-                    top: `${40 + Math.sin(progress * 0.1) * 15}%`,
+                    left: `${15 + progress * 0.7}%`,
+                    top: `${50 + Math.sin(progress * 0.1) * 8}%`,
                     transform: 'translate(-50%, -50%)',
                     transition: 'left 0.3s ease-out, top 0.3s ease-out'
                   }}
                 />
-                
-                <div className="absolute w-2 h-2 bg-white rounded-full pointer-events-none" 
+                <div className="absolute w-2.5 h-2.5 bg-white rounded-full pointer-events-none z-20 shadow-[0_0_10px_rgba(255,255,255,0.8)]" 
                   style={{
-                    left: `${10 + progress * 0.8}%`,
-                    top: `${40 + Math.sin(progress * 0.1) * 15}%`,
+                    left: `${15 + progress * 0.7}%`,
+                    top: `${50 + Math.sin(progress * 0.1) * 8}%`,
                     transform: 'translate(-50%, -50%)',
                     transition: 'left 0.3s ease-out, top 0.3s ease-out'
                   }}
@@ -566,7 +525,7 @@ function Planner() {
                   </div>
                 </div>
 
-                <div className="z-10 grid grid-cols-2 md:grid-cols-4 gap-6 text-white pt-6 border-t border-white/5">
+                <div className="z-10 grid grid-cols-2 md:grid-cols-4 gap-6 text-white pt-6 border-t border-white/5 bg-gradient-to-t from-black/80 via-black/40 to-transparent -mx-6 md:-mx-10 px-6 md:px-10 pb-2">
                   <div>
                     <p className="text-[9px] uppercase tracking-wider text-white/30 font-bold mb-1">CPO Interoperability</p>
                     <p className="font-extrabold text-sm">Full Sync</p>
@@ -775,24 +734,15 @@ function Planner() {
                 <span className="text-outline">SPECIFICATIONS</span>
               </h2>
               <p className="text-base text-black/50 dark:text-white/50 leading-relaxed">
-                We combine route elevation graphs, historical weather patterns, real-time traffic profiles, and vehicle battery cell state estimations into a high-performance ML optimizer.
+                We integrate elevation curves, weather profiles, real-time charger statuses, and battery telemetry into a high-performance optimization grid.
               </p>
               
-              <div className="space-y-3 pt-4">
-                {[
-                  "Real-time AC Load Compensation Calculation",
-                  "Elevation Profile (Slope/Gradient Climb) Integration",
-                  "Consolidated Payment Settlement Interface (CPO Multi-sync)",
-                  "Compatible with ISO 15118 Autocharge handshake checks",
-                  "Offline-first route preservation capability"
-                ].map((std, idx) => (
-                  <div key={idx} className="flex items-center gap-3 text-sm font-semibold">
-                    <div className="w-5 h-5 rounded-full bg-black/5 dark:bg-white/10 text-black dark:text-white flex items-center justify-center shrink-0">
-                      <Check className="w-3.5 h-3.5" />
-                    </div>
-                    <span>{std}</span>
-                  </div>
-                ))}
+              <div className="border border-black/15 dark:border-white/10 rounded-[2rem] p-2 bg-white dark:bg-white/5 shadow-md overflow-hidden hover:translate-y-[-4px] transition-transform duration-500">
+                <img 
+                  src="/feetracker.png" 
+                  alt="Fleet Tracker Live Telemetry Console" 
+                  className="rounded-[1.6rem] w-full object-cover filter contrast-[1.01] shadow-sm" 
+                />
               </div>
             </div>
 

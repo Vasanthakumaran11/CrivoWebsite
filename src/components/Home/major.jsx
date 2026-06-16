@@ -1,46 +1,14 @@
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Footer from './footer';
 import WhatWeDo from './WhatWeDo';
 import Client from './Client';
 import Partners from './partners';
 
-function Major() {
-    const [showContent, setShowContent] = useState(false);
-
-    const handleTimeUpdate = (event) => {
-        if (event.target.currentTime > 3.5) {
-            setShowContent(true);
-        }
-    };
-
-    const handleVideoLoop = (event) => {
-        const video = event.target;
-        if (video.duration > 5) {
-            video.currentTime = 4.5;
-        } else {
-            video.currentTime = 0;
-        }
-        video.play();
-    };
-
+function Major({ showContent = false }) {
     return (
         <div className="relative">
-            {/* Hero Section with Video Background */}
+            {/* Hero Section */}
             <section className="relative h-screen flex items-center justify-center overflow-hidden">
-                <div className="fixed inset-0 -z-10 bg-black">
-                    <video
-                        autoPlay
-                        muted
-                        playsInline
-                        onEnded={handleVideoLoop}
-                        onTimeUpdate={handleTimeUpdate}
-                        className="w-full h-full object-cover opacity-60"
-                    >
-                        <source src="/Digital%20globe.mp4" type="video/mp4" />
-                    </video>
-                    <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black"></div>
-                </div>
 
                 <div
                     className={`max-w-7xl mx-auto px-6 text-center transition-all duration-1000 transform ${

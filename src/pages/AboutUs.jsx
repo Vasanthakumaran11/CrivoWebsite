@@ -192,14 +192,14 @@ function AboutUs() {
             </div>
             
             {/* Vision Column (Row 2, Column 2 - starts exactly where Mission ends) */}
-            <div className="flex flex-col gap-8 lg:col-start-2 lg:row-start-2 lg:pl-40 lg:mt-[-2.5cm]">
+            <div className="flex flex-col gap-8 lg:col-start-2 lg:row-start-2 lg:pl-[calc(10rem+1.5cm)] lg:mt-[-2.5cm]">
               <div>
                 <span className="text-sm font-bold uppercase tracking-[0.3em] text-black/40 dark:text-white/50 block mb-4">Future</span>
                 <h2 className="text-6xl md:text-8xl font-black tracking-tighter leading-none mb-8">
                   OUR <br /><span className="text-outline">VISION</span>
                 </h2>
               </div>
-              <div className="group relative p-8 md:p-17 bg-white dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-[2rem] hover:bg-[#111110] dark:hover:bg-white hover:border-[#111110] dark:hover:border-white transition-all duration-700 shadow-xl hover:-translate-y-2 hover:shadow-2xl w-full lg:max-w-[480px]">
+              <div className="group relative p-8 md:p-17 bg-white dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-[2rem] hover:bg-[#111110] dark:hover:bg-white hover:border-[#111110] dark:hover:border-white transition-all duration-700 shadow-xl hover:-translate-y-2 hover:shadow-2xl w-full lg:max-w-[560px]">
                 <p className="text-black/60 dark:text-white/60 text-lg leading-relaxed group-hover:text-white/80 dark:group-hover:text-black/70 transition-colors duration-500">
                   To create a world where technology is affordable, accessible, and backed by a workforce skilled through real-world experience. We envision a future where high-quality engineering and enterprise-grade tools are accessible to every builder and organization
                 </p>

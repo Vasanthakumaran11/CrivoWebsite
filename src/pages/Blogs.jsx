@@ -95,7 +95,7 @@ function Blogs() {
                 <p className="text-black/60 dark:text-white/60 text-lg leading-relaxed group-hover:text-white/70 dark:group-hover:text-black/70 transition-colors duration-500">
                   {featured.excerpt}
                 </p>
-                <div className="flex items-center gap-4 text-sm text-black/40 dark:text-white/40 group-hover:text-white/50 dark:group-hover:text-black/50 transition-colors duration-500">
+                <div className="flex items-center gap-4 text-sm text-black/40 dark:text-white/40 group-hover:text-white/50 dark:group-hover:text-black/65 transition-colors duration-500">
                   <span>{featured.author}</span><span>·</span><span>{featured.date}</span><span>·</span><span>{featured.readTime}</span>
                 </div>
               </div>
@@ -133,7 +133,7 @@ function Blogs() {
                   </p>
                 </div>
                 <div className="flex items-center justify-between mt-8 pt-6 border-t border-black/10 dark:border-white/10 group-hover:border-white/10 dark:group-hover:border-black/10 transition-colors duration-500">
-                  <div className="flex items-center gap-3 text-xs text-black/40 dark:text-white/40 group-hover:text-white/50 dark:group-hover:text-black/40 transition-colors duration-500">
+                  <div className="flex items-center gap-3 text-xs text-black/40 dark:text-white/40 group-hover:text-white/50 dark:group-hover:text-black/60 transition-colors duration-500">
                     <span>{post.date}</span><span>·</span><span>{post.readTime}</span>
                   </div>
                   <ArrowUpRight className="w-4 h-4 text-black/30 dark:text-white/30 group-hover:text-white/50 dark:group-hover:text-black/40 transition-colors duration-500" />
@@ -148,7 +148,7 @@ function Blogs() {
       {toastMessage && (
         <div className="fixed bottom-8 right-8 z-50 animate-fade-in-up">
           <div className="bg-[#111110]/90 dark:bg-white/95 text-white dark:text-black backdrop-blur-md border border-white/10 dark:border-black/10 px-6 py-4 rounded-2xl shadow-2xl flex items-center gap-3 font-semibold text-sm max-w-sm">
-            <div className="w-2 h-2 rounded-full bg-amber-500 animate-ping"></div>
+            <div className="w-2 h-2 rounded-full bg-current animate-ping opacity-75"></div>
             <span>{toastMessage}</span>
           </div>
         </div>
