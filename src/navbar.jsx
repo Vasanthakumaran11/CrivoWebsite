@@ -74,7 +74,7 @@ function Navbar() {
                             }`}>
                                 C
                             </div>
-                            <span className="font-bold tracking-tight text-lg leading-none">CRIVO</span>
+                            <span className="font-bold tracking-tight text-2xl leading-none ">CRIVO</span>
                         </Link>
                     </div>
 

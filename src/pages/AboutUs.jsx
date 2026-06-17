@@ -37,33 +37,33 @@ const leaders = [
 
 const coreTeam = [
   { 
-    name: "Vasantha Kumar", 
+    name: "Vasantha Kumar A", 
     role: "Data Engineer & Frontend Developer", 
-    email: "vasanth@crivo.in",
+    email: "vasanthakumaran0011@gmail.com",
     image: "/VasanthaKumar.png",
     pos: { left: "15%", top: "20%" },
-    github: "#",
-    linkedin: "#",
+    github: "https://github.com/Vasanthakumaran11",
+    linkedin: "https://www.linkedin.com/in/vasanthakumaran11/",
     initial: "V"
   },
   { 
-    name: "Dharsan", 
-    role: "Team Coordinator", 
-    email: "dharshan@crivo.in",
+    name: "Darshan T P", 
+    role: "Product Lead", 
+    email: "darshantp13@gmail.com",
     image: "/dharsan.png",
     pos: { left: "50%", top: "20%" },
-    github: "#",
-    linkedin: "#",
+    github: "https://github.com/Darshan-T-P",
+    linkedin: "https://www.linkedin.com/in/darshantp13/",
     initial: "D"
   },
   { 
-    name: "Bharat Kumar", 
+    name: "Bharat Kumar J", 
     role: "Flutter Developer", 
-    email: "bharat@crivo.in",
+    email: "bharathkumar037@gmail.com",
     image: "/BharatKumar.jpeg",
     pos: { left: "85%", top: "20%" },
-    github: "#",
-    linkedin: "#",
+    linkedin: "https://www.linkedin.com/in/bharathkumar-j-373598386/",
+    github: "https://github.com/Bharathkumar2024",
     initial: "B",
     imgPos: "top"
   },
@@ -78,7 +78,7 @@ const coreTeam = [
     initial: "P"
   },
   { 
-    name: "Thirumalai Kumar", 
+    name: "Thirumalai Kumar C", 
     role: "ML Developer", 
     email: "thirumalai@crivo.in",
     image: "/ThirumalaiKumar.png",
@@ -88,7 +88,7 @@ const coreTeam = [
     initial: "T"
   },
   { 
-    name: "Anthoni Milton", 
+    name: "Anthoni Milton R", 
     role: "ML Developer", 
     email: "antony@crivo.in",
     image: "/AntonyMilton.png",
@@ -366,15 +366,15 @@ function AboutUs() {
                     </p>
                   </div>
                   {/* Contact details */}
-                  <div className="flex items-center justify-between mt-6 pt-4 border-t border-black/10 dark:border-white/10 text-xs text-black/50 dark:text-zinc-500">
-                    <a href={`mailto:${t.email}`} className="hover:text-black dark:hover:text-white transition-colors truncate max-w-[130px]" title={t.email}>
-                      {t.email}
+                  <div className="flex items-center justify-center mx-2 mt-6 pt-4 border-t border-black/10 dark:border-white/10 text-xs text-black/50 dark:text-zinc-500">
+                  <div className="flex items-center gap-2.5">
+                    <a href={`mailto:${t.email}`} className="hover:text-black dark:hover:text-white transition-colors truncate max-w-[130px] font-semibold" title={t.email}>
+                      Email
                     </a>
-                    <div className="flex items-center gap-2.5">
+                    
                       <a href={t.linkedin} target="_blank" rel="noopener noreferrer" className="hover:text-black dark:hover:text-white transition-colors font-semibold">
                         LinkedIn
                       </a>
-                      <span>·</span>
                       <a href={t.github} target="_blank" rel="noopener noreferrer" className="hover:text-black dark:hover:text-white transition-colors font-semibold">
                         GitHub
                       </a>
