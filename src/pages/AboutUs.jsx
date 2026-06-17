@@ -47,10 +47,10 @@ const coreTeam = [
     initial: "V"
   },
   { 
-    name: "Dharshan", 
+    name: "Dharsan", 
     role: "Team Coordinator", 
     email: "dharshan@crivo.in",
-    image: "/Dharshan.png",
+    image: "/dharsan.png",
     pos: { left: "50%", top: "20%" },
     github: "#",
     linkedin: "#",
