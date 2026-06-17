@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect, lazy, Suspense } from 'react'
 import { Routes, Route, useLocation } from 'react-router-dom'
 import Navbar from './navbar'
 import ScrollToTop from './components/ScrollToTop'
@@ -11,25 +11,90 @@ import Blogs from './pages/Blogs'
 import ReachUs from './pages/ReachUs'
 import AboutUs from './pages/AboutUs'
 import Blog from './components/Blog/blog'
+import ApplyToJoin from './pages/ApplyToJoin'
+const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'))
+const TermsConditions = lazy(() => import('./pages/TermsConditions'))
+const AccessibilityStatement = lazy(() => import('./pages/AccessibilityStatement'))
 
 function App() {
   const location = useLocation()
   const isHome = location.pathname === '/'
   const [showContent, setShowContent] = useState(false)
+  const loopStartRef = useRef(null) // null = first play, number = loop start time (seconds)
+
+  // Fallback: show hero content after 2.5s even if video doesn't autoplay
+  useEffect(() => {
+    const timer = setTimeout(() => setShowContent(true), 2500)
+    return () => clearTimeout(timer)
+  }, [])
+
+  // Scroll-reveal: animate sections below the fold as they enter the viewport
+  useEffect(() => {
+    let observer
+    let fallbackTimer
+
+    const reveal = (section) => {
+      section.style.opacity = '1'
+      section.style.transform = 'translateY(0)'
+    }
+
+    const timer = setTimeout(() => {
+      const sections = Array.from(document.querySelectorAll('section'))
+
+      sections.forEach(section => {
+        const rect = section.getBoundingClientRect()
+        if (rect.top >= window.innerHeight) {
+          section.style.opacity = '0'
+          section.style.transform = 'translateY(24px)'
+          section.style.transition = 'opacity 0.65s ease-out, transform 0.65s ease-out'
+        }
+      })
+
+      observer = new IntersectionObserver(
+        entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              reveal(entry.target)
+              observer.unobserve(entry.target)
+            }
+          })
+        },
+        { threshold: 0.05, rootMargin: '0px 0px -20px 0px' }
+      )
+
+      sections.forEach(section => observer.observe(section))
+
+      // Hard failsafe: make everything visible after 1.5s no matter what
+      fallbackTimer = setTimeout(() => {
+        sections.forEach(reveal)
+      }, 1500)
+    }, 300)
+
+    return () => {
+      clearTimeout(timer)
+      clearTimeout(fallbackTimer)
+      if (observer) observer.disconnect()
+    }
+  }, [location.pathname])
 
   const handleTimeUpdate = (event) => {
-    if (event.target.currentTime > 3.5) {
+    const video = event.target
+    if (video.currentTime > 3.5) {
       setShowContent(true)
+    }
+    // Seamless loop: when near the end (in loop mode), jump back before onEnded fires
+    if (loopStartRef.current !== null && video.duration > 0 && video.currentTime >= video.duration - 0.2) {
+      video.currentTime = loopStartRef.current
     }
   }
 
-  const handleVideoLoop = (event) => {
+  const handleVideoEnded = (event) => {
     const video = event.target
-    if (video.duration > 5) {
-      video.currentTime = 4.5
-    } else {
-      video.currentTime = 0
+    // First completion: lock the loop to the last ~6 seconds (globe steady rotation)
+    if (loopStartRef.current === null) {
+      loopStartRef.current = Math.max(0, video.duration - 6)
     }
+    video.currentTime = loopStartRef.current
     video.play()
   }
 
@@ -39,12 +104,12 @@ function App() {
       <Navbar />
 
       {/* Global Background Video (Globe) */}
-      <div className={`fixed inset-0 -z-10 bg-black transition-opacity duration-1000 ${isHome ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
+      <div className={`fixed inset-0 z-0 bg-black transition-opacity duration-1000 ${isHome ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
         <video
           autoPlay
           muted
           playsInline
-          onEnded={handleVideoLoop}
+          onEnded={handleVideoEnded}
           onTimeUpdate={handleTimeUpdate}
           className="w-full h-full object-cover opacity-60"
         >
@@ -53,17 +118,25 @@ function App() {
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black"></div>
       </div>
 
-      <Routes>
-        <Route path="/" element={<Major showContent={showContent} />} />
-        <Route path="/book-meet" element={<BookMeet />} />
-        <Route path="/product" element={<Product />} />
-        <Route path="/product/csms" element={<CSMS />} />
-        <Route path="/product/planner" element={<Planner />} />
-        <Route path="/about" element={<AboutUs />} />
-        <Route path="/blogs" element={<Blogs />} />
-        <Route path="/blogs/ev-charging-control-systems" element={<Blog />} />
-        <Route path="/reach-us" element={<ReachUs />} />
-      </Routes>
+      <div key={location.pathname} className="page-transition relative z-10">
+        <Suspense fallback={null}>
+        <Routes>
+          <Route path="/" element={<Major showContent={showContent} />} />
+          <Route path="/book-meet" element={<BookMeet />} />
+          <Route path="/product" element={<Product />} />
+          <Route path="/product/csms" element={<CSMS />} />
+          <Route path="/product/planner" element={<Planner />} />
+          <Route path="/about" element={<AboutUs />} />
+          <Route path="/blogs" element={<Blogs />} />
+          <Route path="/blogs/ev-charging-control-systems" element={<Blog />} />
+          <Route path="/reach-us" element={<ReachUs />} />
+          <Route path="/apply" element={<ApplyToJoin />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/terms" element={<TermsConditions />} />
+          <Route path="/accessibility" element={<AccessibilityStatement />} />
+        </Routes>
+        </Suspense>
+      </div>
     </>
   )
 }

@@ -399,7 +399,7 @@ function CSMS() {
       </section>
 
       {/* Intro Description */}
-      <section className="py-24 border-t border-black/10 dark:border-white/10 relative overflow-hidden">
+      <section className="py-24 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 text-center">
           <div className="max-w-3xl mx-auto space-y-6">
             <h2 className="text-3xl md:text-5xl font-black tracking-tight uppercase leading-tight">
@@ -407,14 +407,14 @@ function CSMS() {
               <span className="text-outline">For EV Charging Infrastructure</span>
             </h2>
             <p className="text-lg text-black/60 dark:text-white/60 leading-relaxed font-normal">
-              Crivo Technologies CSMS is built to connect, monitor, control, and optimize EV charging operations at scale. From charger connectivity and remote diagnostic runs to session analytics, billing management, and intelligent power distribution — manage your entire charging ecosystem from one centralized platform.
+              Crivo CSMS is built to connect, monitor, control, and optimize EV charging operations at scale. From charger connectivity and remote diagnostic runs to session analytics, billing management, and intelligent power distribution — manage your entire charging ecosystem from one centralized platform.
             </p>
           </div>
         </div>
       </section>
 
       {/* Interactive Live Simulator Section */}
-      <section id="demo" className="py-28 border-t border-black/10 dark:border-white/10 bg-black/[0.01] dark:bg-white/[0.01] relative">
+      <section id="demo" className="py-28 bg-black/[0.01] dark:bg-white/[0.01] relative">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16 space-y-4">
             <span className="text-xs font-bold uppercase tracking-[0.3em] text-black/60 dark:text-white/60 block">Interactive Live Demo</span>
@@ -601,7 +601,7 @@ function CSMS() {
       </section>
 
       {/* How it Works / OCPP Cloud Pipeline */}
-      <section className="py-32 border-t border-black/10 dark:border-white/10 relative overflow-hidden">
+      <section className="py-32 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 text-center space-y-12">
           
           <div className="space-y-4 max-w-3xl mx-auto">
@@ -610,7 +610,7 @@ function CSMS() {
               CONNECTING EV CHARGERS TO <br />
               <span className="text-outline " style={{ fontSize: '4.5rem' }}>A SMART CENTRAL SYSTEM</span >        </h2>
             <p className="text-base text-black/50 dark:text-white/50">
-              Every charger connects securely to the Crivo Technologies CSMS platform through OCPP. Real-time charger data, session activity, health monitoring, alerts, and remote operations are managed from a centralized cloud dashboard.
+              Every charger connects securely to the Crivo CSMS platform through OCPP. Real-time charger data, session activity, health monitoring, alerts, and remote operations are managed from a centralized cloud dashboard.
             </p>
           </div>
 
@@ -626,7 +626,7 @@ function CSMS() {
       </section>
 
       {/* Bento Grid Feature Layout */}
-      <section className="py-32 border-t border-black/10 dark:border-white/10 relative">
+      <section className="py-32 relative">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex flex-col md:flex-row md:items-center justify-between mb-16 gap-8">
             <div className="text-left space-y-4">
@@ -653,7 +653,7 @@ function CSMS() {
       </section>
 
       {/* Specifications / Highlights Section */}
-      <section className="py-32 border-t border-black/10 dark:border-white/10 bg-black/[0.01] dark:bg-white/[0.01] relative">
+      <section className="py-32 bg-black/[0.01] dark:bg-white/[0.01] relative">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-16 items-start">
             
@@ -711,7 +711,7 @@ function CSMS() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-32 border-t border-black/10 dark:border-white/10 relative overflow-hidden">
+      <section className="py-32 relative overflow-hidden">
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-black/[0.01] dark:bg-white/[0.01] rounded-full blur-[130px]"></div>
         </div>
@@ -734,6 +734,7 @@ function CSMS() {
             </button>
           </Link>
         </div>
+        <div className="pb-16" />
       </section>
 
       <Footer />

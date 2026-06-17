@@ -91,7 +91,7 @@ function Product() {
       </section>
 
       {/* Showcase list with alternating layouts */}
-      <section id="products" className="py-24 border-t border-black/10 dark:border-white/10">
+      <section id="products" className="py-24">
         <div className="max-w-7xl mx-auto px-6 space-y-36">
           
           {/* Product 01: CSMS */}
@@ -331,7 +331,7 @@ function Product() {
       </section>
 
       {/* FAQ Accordion Section */}
-      <section className="py-32 border-t border-black/10 dark:border-white/10 bg-black/[0.01] dark:bg-white/[0.01] relative">
+      <section className="py-32 bg-black/[0.01] dark:bg-white/[0.01] relative">
         <div className="max-w-7xl mx-auto px-6 text-left space-y-12">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
             <div className="space-y-4 max-w-2xl">
@@ -375,7 +375,7 @@ function Product() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-32 border-t border-black/10 dark:border-white/10 relative overflow-hidden">
+      <section className="py-32 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 text-center space-y-8">
           <span className="text-xs font-bold uppercase tracking-[0.35em] text-black/40 dark:text-white/40 block">SCALING SOLUTIONS</span>
           <h2 className="text-5xl md:text-7xl font-black tracking-tighter leading-none mb-6">

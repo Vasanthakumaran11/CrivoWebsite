@@ -143,7 +143,7 @@ function AboutUs() {
       </section>
 
       {/* Mission */}
-      <section className="border-t border-black/10 dark:border-white/10 py-32">
+      <section className="pt-8 pb-32">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
             <div>
@@ -161,11 +161,11 @@ function AboutUs() {
                 </button>
               </Link>
             </div>
-            <div className="grid grid-cols-2 gap-6">
+            <div className="grid grid-cols-2 gap-4 md:gap-6">
               {stats.map((s, i) => (
-                <div key={i} className="p-8 bg-white dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-[2rem] flex flex-col justify-between gap-4">
-                  <span className="text-6xl font-black leading-none">{s.value}</span>
-                  <span className="text-black/50 dark:text-white/50 font-medium text-sm uppercase tracking-wider">{s.label}</span>
+                <div key={i} className="p-5 md:p-8 bg-white dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-[1.5rem] md:rounded-[2rem] flex flex-col justify-between gap-3 md:gap-4">
+                  <span className="text-4xl md:text-6xl font-black leading-none">{s.value}</span>
+                  <span className="text-black/50 dark:text-white/50 font-medium text-xs md:text-sm uppercase tracking-wider">{s.label}</span>
                 </div>
               ))}
             </div>
@@ -174,7 +174,7 @@ function AboutUs() {
       </section>
 
       {/* Our Mission & Vision (Alternate Side Consecutive) */}
-      <section className="border-t border-black/10 dark:border-white/10 py-31">
+      <section className="py-31">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-[480px_1fr] gap-x-12 gap-y-16 lg:gap-y-0 items-start">
             {/* Mission Column (Row 1, Column 1) */}
@@ -210,20 +210,20 @@ function AboutUs() {
       </section>
 
       {/* Team */}
-      <section className="border-t border-black/10 dark:border-white/10 py-30">
+      <section className="py-30">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="mb-20">
+          <div className="mb-10">
             <span className="text-sm font-bold uppercase tracking-[0.3em] text-black/40 dark:text-white/50 block mb-4">The People</span>
             <h2 className="text-6xl md:text-8xl font-black tracking-tighter leading-none">
               OUR <br /><span className="text-outline">TEAM.</span>
             </h2>
           </div>
           <div>
-            <h6 className="text-4xl md:text-5xl font-black tracking-tighter leading-none mb-8">
+            <h6 className="text-4xl md:text-5xl font-black tracking-tighter leading-none mb-6">
               LEADERS
             </h6>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-6">
             {leaders.map((t, i) => (
               <div
                 key={i}
@@ -444,7 +444,7 @@ function AboutUs() {
       </section>
 
       {/* CTA */}
-      <section className="border-t border-black/10 dark:border-white/10 py-32">
+      <section className="py-32">
         <div className="max-w-7xl mx-auto px-6 text-center">
           <span className="text-sm font-bold uppercase tracking-[0.3em] text-black/40 dark:text-white/50 block mb-6">Work With Us</span>
           <h2 className="text-6xl md:text-8xl font-black tracking-tighter leading-none mb-10">

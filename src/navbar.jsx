@@ -50,11 +50,11 @@ function Navbar() {
     }, [isMenuOpen]);
 
     const navBg = isBookMeet
-        ? 'bg-black/80 border-b border-white/10 py-4'
+        ? 'bg-black/80 py-4'
         : isLightNav
             ? `bg-[#F8F7F2]/95 backdrop-blur-xl border-b border-black/10 ${scrolled ? 'py-4 shadow-sm' : 'py-6'}`
             : scrolled
-                ? 'bg-black/20 backdrop-blur-xl border-b border-white/5 py-4'
+                ? 'bg-black/30 backdrop-blur-xl py-4'
                 : 'bg-transparent py-6';
 
     const textColor = isLightNav ? 'text-[#111110]' : 'text-white';
@@ -156,16 +156,16 @@ function Navbar() {
             </div>
 
             {/* Backdrop overlay */}
-            <div 
-                className={`fixed inset-0 z-40 bg-black/60 backdrop-blur-sm transition-opacity duration-300 md:hidden ${
+            <div
+                className={`fixed inset-0 z-[60] bg-black/70 transition-opacity duration-300 md:hidden ${
                     isMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
                 }`}
                 onClick={() => setIsMenuOpen(false)}
             />
 
             {/* Mobile Sidebar */}
-            <div className={`fixed top-0 right-0 bottom-0 z-50 w-[300px] h-screen transition-transform duration-300 ease-out md:hidden shadow-2xl flex flex-col ${
-                isDark ? 'bg-[#0f0f0f] border-l border-white/10 text-white' : 'bg-[#F8F7F2]/98 border-l border-black/10 text-[#111110]'
+            <div className={`fixed top-0 right-0 bottom-0 z-[70] w-full sm:w-[320px] h-screen transition-transform duration-300 ease-out md:hidden shadow-2xl flex flex-col ${
+                isDark ? 'bg-[#0f0f0f] border-l border-white/10 text-white' : 'bg-[#F8F7F2] border-l border-black/10 text-[#111110]'
             } ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
                 
                 {/* Sidebar Header */}

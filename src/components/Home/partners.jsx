@@ -13,9 +13,9 @@ const partners = [
 
 function Partners() {
   return (
-    <section className="py-20 border-t border-black/10 dark:border-white/10 overflow-hidden bg-[#F8F7F2] dark:bg-transparent">
+    <section className="py-20 overflow-hidden bg-[#F8F7F2] dark:bg-transparent">
       <div className="max-w-7xl mx-auto px-6">
-        <p className="text-center text-sm font-bold uppercase tracking-[0.3em] text-black/30 text-white mb-14">
+        <p className="text-center text-sm font-bold uppercase tracking-[0.3em] text-black/50 dark:text-white/50 mb-14">
           Trusted Technologies &amp; Partners
         </p>
 
@@ -28,7 +28,7 @@ function Partners() {
               {[...partners, ...partners].map((p, i) => (
                 <div
                   key={i}
-                  className="shrink-0 px-8 py-4 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-full text-black/40 dark:text-white/40 font-semibold text-sm tracking-wide hover:text-[#111110] dark:hover:text-white/70 hover:border-black/20 dark:hover:border-white/20 transition-colors cursor-default whitespace-nowrap"
+                  className="shrink-0 px-8 py-4 bg-black/5 dark:bg-white/5 border border-black/15 dark:border-white/10 rounded-full text-black/60 dark:text-white/40 font-semibold text-sm tracking-wide hover:text-[#111110] dark:hover:text-white/70 hover:border-black/30 dark:hover:border-white/20 transition-colors cursor-default whitespace-nowrap"
                 >
                   {p.name}
                 </div>
@@ -38,7 +38,7 @@ function Partners() {
               {[...partners, ...partners].map((p, i) => (
                 <div
                   key={i}
-                  className="shrink-0 px-8 py-4 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-full text-black/40 dark:text-white/40 font-semibold text-sm tracking-wide hover:text-[#111110] dark:hover:text-white/70 hover:border-black/20 dark:hover:border-white/20 transition-colors cursor-default whitespace-nowrap"
+                  className="shrink-0 px-8 py-4 bg-black/5 dark:bg-white/5 border border-black/15 dark:border-white/10 rounded-full text-black/60 dark:text-white/40 font-semibold text-sm tracking-wide hover:text-[#111110] dark:hover:text-white/70 hover:border-black/30 dark:hover:border-white/20 transition-colors cursor-default whitespace-nowrap"
                 >
                   {p.name}
                 </div>

@@ -28,8 +28,8 @@ const directoryCards = [
           </p>
         </div>
         <div className="space-y-2 pt-4 border-t border-black/5 dark:border-white/5">
-          <a href="tel:91+ 6369079187" className="block font-bold text-black dark:text-white hover:underline text-xl">
-            91+ 6369079187
+          <a href="tel:+919600760063" className="block font-bold text-black dark:text-white hover:underline text-xl">
+            +91 96007 60063
           </a>
           <a href="mailto:info@crivo.in" className="block text-black/50 dark:text-white/40 hover:underline text-xl">
             info@crivo.in
@@ -295,7 +295,7 @@ function ReachUs() {
       </section>
 
       {/* Contact + Form */}
-      <section className="border-t border-black/10 dark:border-white/10 py-24">
+      <section className="py-24">
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16">
 
           {/* Left */}
@@ -379,7 +379,7 @@ function ReachUs() {
       </section>
 
       {/* Section 3: The Interoperability Gateway (Partner with Us) */}
-      <section className="py-32 border-t border-black/10 dark:border-white/10 bg-transparent">
+      <section className="py-32 bg-transparent">
         <div className="max-w-7xl mx-auto px-6">
           <div className="mb-16 text-left">
             <span className="text-sm font-bold uppercase tracking-[0.3em] text-black/45 dark:text-white/40 block mb-4">Partner With Us</span>
@@ -634,11 +634,11 @@ function ReachUs() {
 
               <div className="space-y-4 mt-6">
                 <a 
-                  href="tel:+916369079187"
+                  href="tel:+919600760063"
                   className="w-full flex items-center justify-center gap-1.5 py-3.5 bg-white/10 hover:bg-white text-white hover:text-black border border-white/20 hover:border-transparent font-bold rounded-2xl text-xs uppercase tracking-wider transition-all duration-300 hover:scale-[1.02]"
                 >
                   <Phone className="w-4 h-4" />
-                  <span>91+ 6369079187</span>
+                  <span>+91 96007 60063</span>
                 </a>
               </div>
             </div>
@@ -648,7 +648,7 @@ function ReachUs() {
       </section>
 
       {/* Information Cards Directory */}
-      <section className="border-t border-black/10 dark:border-white/10 py-32">
+      <section className="py-32">
         <div className="max-w-7xl mx-auto px-6">
           <div className="mb-20">
             <span className="text-sm font-bold uppercase tracking-[0.3em] text-black/40 dark:text-white/50 block mb-4">Quick Access</span>

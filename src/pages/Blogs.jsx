@@ -7,7 +7,7 @@ import StarsBackground from '../components/StarsBackground';
 const featured = {
   tag: "IoT & Infrastructure",
   title: "Smart Charging Infrastructure: Demystifying EV Chargers & Their Control Systems",
-  excerpt: "Behind every EV charger is a complex network of microcontrollers and cloud software. Discover how modern CSMS platforms orchestrate charging loads and communicate via OCPP.",
+  excerpt: "Behind every EV charger is a complex network of microcontrollers and cloud software. Discover how modern CSMS platforms orchestrate charging loads and communicate via OCPP — and why getting this right is the foundation of India's EV future.",
   author: "Crivo Power Lab",
   date: "June 13, 2026",
   readTime: "8 min read",
@@ -15,21 +15,60 @@ const featured = {
 };
 
 const posts = [
-  { tag: "Web Development", title: "Why Your Business Needs a Performance-First Website in 2025", excerpt: "Page speed is no longer just a technical metric — it's a revenue lever. We break down how Core Web Vitals, server-side rendering, and smart caching directly impact your bottom line.", date: "May 28, 2025", readTime: "7 min read" },
-  { tag: "App Development", title: "React Native vs Flutter: Which One Is Right for Your Next App?", excerpt: "A no-BS comparison of the two dominant cross-platform frameworks in 2025 — performance, ecosystem, and team fit.", date: "May 20, 2025", readTime: "5 min read" },
-  { tag: "Digital Marketing", title: "The SEO Playbook That Actually Works in the Age of AI Search", excerpt: "Google's SGE has changed everything. Here's how to stay visible when AI-generated answers dominate the SERPs.", date: "May 14, 2025", readTime: "6 min read" },
-  { tag: "Business", title: "From MVP to Scale: How to Architect Your Digital Product for Growth", excerpt: "Most startups build fast and break later. We walk you through the decisions that prevent expensive rewrites at scale.", date: "May 8, 2025", readTime: "8 min read" },
-  { tag: "Design", title: "The Psychology of UI: How Visual Hierarchy Drives Conversions", excerpt: "Small design decisions — font weight, whitespace, button placement — have outsized effects on user behaviour.", date: "Apr 30, 2025", readTime: "5 min read" },
-  { tag: "Digital Marketing", title: "Email Marketing Is Not Dead — You're Just Doing It Wrong", excerpt: "A deep-dive into segmentation, personalisation, and the automation flows that generate 42x ROI for our users.", date: "Apr 15, 2025", readTime: "4 min read" },
+  {
+    tag: "Company",
+    title: "From Freelance Studio to Product Company: Crivo's Journey into EV Tech",
+    excerpt: "We spent years building websites, apps, and marketing campaigns for clients across industries. Here's the story of how that work gave us the tools — and the conviction — to build products that actually matter.",
+    date: "June 10, 2026",
+    readTime: "6 min read"
+  },
+  {
+    tag: "IoT & Infrastructure",
+    title: "OCPP Explained: The Open Protocol Powering Smart EV Charging Networks",
+    excerpt: "OCPP 1.6J and 2.0.1 are the backbone of every cloud-managed EV charger. We break down how the protocol works, why it matters, and what operators need to understand before deploying infrastructure at scale.",
+    date: "June 5, 2026",
+    readTime: "8 min read"
+  },
+  {
+    tag: "EV Tech",
+    title: "Range Anxiety Is a Data Problem — Not a Battery Problem",
+    excerpt: "Most EV owners overestimate how quickly their battery drains. We explain why real-world range differs from rated specs, and how AI-powered trip planning finally closes the gap using terrain, weather, speed, and AC load data.",
+    date: "May 28, 2026",
+    readTime: "5 min read"
+  },
+  {
+    tag: "Product",
+    title: "Why India Needs a Unified EV Charging Wallet — And How We Built One",
+    excerpt: "Indian EV drivers juggle 4–6 different apps just to charge their vehicles. Crivo's unified CPO wallet integrates Zeon, ChargeZone, Statiq, Jio-bp, and more into one seamless balance — no switching apps, no separate logins.",
+    date: "May 20, 2026",
+    readTime: "7 min read"
+  },
+  {
+    tag: "Business",
+    title: "What 50+ Client Projects Taught Us About Building a Digital Brand",
+    excerpt: "Before Crivo built products, we built brands. From e-commerce platforms to mobile apps and performance marketing campaigns, here are the lessons that now drive every product decision we make.",
+    date: "May 12, 2026",
+    readTime: "6 min read"
+  },
+  {
+    tag: "IoT & Infrastructure",
+    title: "Cloud-Native EV Infrastructure: How We Architect for Scale",
+    excerpt: "Running a CSMS at scale means managing thousands of concurrent WebSocket connections, real-time charger telemetry, and billing cycles simultaneously. Here's how we built a serverless architecture on AWS that handles it.",
+    date: "May 3, 2026",
+    readTime: "9 min read"
+  },
 ];
 
 const tagColors = {
-  "Web Development":   "bg-black/5 dark:bg-white/5 text-black/60 dark:text-white/60 border-black/10 dark:border-white/10",
-  "App Development":   "bg-black/5 dark:bg-white/5 text-black/60 dark:text-white/60 border-black/10 dark:border-white/10",
-  "Digital Marketing": "bg-black/5 dark:bg-white/5 text-black/60 dark:text-white/60 border-black/10 dark:border-white/10",
-  "Business":          "bg-black/5 dark:bg-white/5 text-black/60 dark:text-white/60 border-black/10 dark:border-white/10",
-  "Design":            "bg-black/5 dark:bg-white/5 text-black/60 dark:text-white/60 border-black/10 dark:border-white/10",
+  "Web Development":      "bg-black/5 dark:bg-white/5 text-black/60 dark:text-white/60 border-black/10 dark:border-white/10",
+  "App Development":      "bg-black/5 dark:bg-white/5 text-black/60 dark:text-white/60 border-black/10 dark:border-white/10",
+  "Digital Marketing":    "bg-black/5 dark:bg-white/5 text-black/60 dark:text-white/60 border-black/10 dark:border-white/10",
+  "Business":             "bg-black/5 dark:bg-white/5 text-black/60 dark:text-white/60 border-black/10 dark:border-white/10",
+  "Design":               "bg-black/5 dark:bg-white/5 text-black/60 dark:text-white/60 border-black/10 dark:border-white/10",
   "IoT & Infrastructure": "bg-black/5 dark:bg-white/5 text-black/60 dark:text-white/60 border-black/10 dark:border-white/10",
+  "EV Tech":              "bg-black/5 dark:bg-white/5 text-black/60 dark:text-white/60 border-black/10 dark:border-white/10",
+  "Company":              "bg-black/5 dark:bg-white/5 text-black/60 dark:text-white/60 border-black/10 dark:border-white/10",
+  "Product":              "bg-black/5 dark:bg-white/5 text-black/60 dark:text-white/60 border-black/10 dark:border-white/10",
 };
 
 function TagBadge({ tag }) {
@@ -46,9 +85,7 @@ function Blogs() {
 
   useEffect(() => {
     if (toastMessage) {
-      const timer = setTimeout(() => {
-        setToastMessage(null);
-      }, 3000);
+      const timer = setTimeout(() => setToastMessage(null), 3000);
       return () => clearTimeout(timer);
     }
   }, [toastMessage]);
@@ -74,13 +111,13 @@ function Blogs() {
             OUR <br /><span className="text-outline">BLOG</span>
           </h1>
           <p className="max-w-xl text-xl text-black/60 dark:text-white/60 leading-relaxed">
-            Deep dives, practical guides, and honest opinions from the Crivo team.
+            From our freelancing roots to building EV infrastructure — deep dives, product thinking, and honest lessons from the Crivo team.
           </p>
         </div>
       </section>
 
       {/* Featured post */}
-      <section className="border-t border-black/10 dark:border-white/10">
+      <section className="border-none">
         <div className="max-w-7xl mx-auto px-6 py-20">
           <Link to={featured.to} className="group block relative p-10 md:p-16 bg-white dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-[2.5rem] hover:bg-[#111110] dark:hover:bg-white hover:border-[#111110] dark:hover:border-white transition-all duration-700 overflow-hidden cursor-pointer">
             <div className="absolute top-8 right-10 text-[8rem] font-black text-black/5 dark:text-white/5 leading-none select-none pointer-events-none group-hover:text-white/5 dark:group-hover:text-black/5">
@@ -110,7 +147,7 @@ function Blogs() {
       </section>
 
       {/* Posts grid */}
-      <section className="border-t border-black/10 dark:border-white/10 pb-32">
+      <section className="border-none pb-32">
         <div className="max-w-7xl mx-auto px-6 py-20">
           <div className="flex items-end justify-between mb-14">
             <h3 className="text-4xl font-black tracking-tight">All Articles</h3>
@@ -132,7 +169,7 @@ function Blogs() {
                     {post.excerpt}
                   </p>
                 </div>
-                <div className="flex items-center justify-between mt-8 pt-6 border-t border-black/10 dark:border-white/10 group-hover:border-white/10 dark:group-hover:border-black/10 transition-colors duration-500">
+                <div className="flex items-center justify-between mt-8 pt-6 border-none group-hover:border-white/10 dark:group-hover:border-black/10 transition-colors duration-500">
                   <div className="flex items-center gap-3 text-xs text-black/40 dark:text-white/40 group-hover:text-white/50 dark:group-hover:text-black/60 transition-colors duration-500">
                     <span>{post.date}</span><span>·</span><span>{post.readTime}</span>
                   </div>
@@ -144,7 +181,7 @@ function Blogs() {
         </div>
       </section>
 
-      {/* Floating Glassmorphic Notification Toast */}
+      {/* Toast */}
       {toastMessage && (
         <div className="fixed bottom-8 right-8 z-50 animate-fade-in-up">
           <div className="bg-[#111110]/90 dark:bg-white/95 text-white dark:text-black backdrop-blur-md border border-white/10 dark:border-black/10 px-6 py-4 rounded-2xl shadow-2xl flex items-center gap-3 font-semibold text-sm max-w-sm">
@@ -155,13 +192,13 @@ function Blogs() {
       )}
 
       {/* Newsletter */}
-      <section className="border-t border-black/10 dark:border-white/10 py-32">
+      <section className="border-none py-32">
         <div className="max-w-7xl mx-auto px-6 text-center">
           <span className="text-sm font-bold uppercase tracking-[0.3em] text-black/40 dark:text-white/50 block mb-6">Stay Updated</span>
           <h2 className="text-5xl md:text-7xl font-black tracking-tighter leading-none mb-6">
             GET THE LATEST <br /><span className="text-outline">IN YOUR INBOX.</span>
           </h2>
-          <p className="text-black/50 dark:text-white/50 mb-10 text-lg">No spam. Just deep dives, guides, and updates from the team.</p>
+          <p className="text-black/50 dark:text-white/50 mb-10 text-lg">No spam. EV tech deep dives, product updates, and insights from the Crivo team.</p>
           <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
             <input
               type="email"

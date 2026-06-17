@@ -38,7 +38,7 @@ const socials = [
   },
   {
     name: 'LinkedIn',
-    href: '#',
+    href: 'https://www.linkedin.com/company/crivo-tech/',
     icon: (
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
@@ -97,7 +97,7 @@ export default function Footer() {
 
             <div className="flex items-center gap-3">
               {socials.map((s) => (
-                <a key={s.name} href={s.href} aria-label={s.name}
+                <a key={s.name} href={s.href} aria-label={s.name} target="_blank" rel="noopener noreferrer"
                   className="w-10 h-10 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-white/50 hover:text-white hover:border-white/30 transition-all">
                   {s.icon}
                 </a>
@@ -113,7 +113,7 @@ export default function Footer() {
                   <li key={l.label}><Link to={l.to} className="hover:text-white transition-colors">{l.label}</Link></li>
                 ))}
                 <li><Link to="/book-meet" className="hover:text-white transition-colors">Book a Meet</Link></li>
-                <li><a href="#" className="hover:text-white transition-colors">Apply to Join</a></li>
+                <li><Link to="/apply" className="hover:text-white transition-colors">Apply to Join</Link></li>
               </ul>
             </div>
             <div className="space-y-6">
@@ -128,13 +128,13 @@ export default function Footer() {
         </div>
 
         <div className="pt-10 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-gray-500 text-sm">© 2025 by Crivo. All Rights Reserved.</p>
+          <p className="text-gray-500 text-sm">©  2026 By Crivo. All Rights Reserved.</p>
           <div className="flex gap-6 text-xs text-gray-500">
-            <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-white transition-colors">Terms &amp; Conditions</a>
-            <a href="#" className="hover:text-white transition-colors">Accessibility Statement</a>
+            <Link to="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</Link>
+            <Link to="/terms" className="hover:text-white transition-colors">Terms &amp; Conditions</Link>
+            <Link to="/accessibility" className="hover:text-white transition-colors">Accessibility Statement</Link>
           </div>
-          <p className="text-gray-500 text-sm">Made by Crivo Team</p>
+          <p className="text-gray-500 text-sm"> Made by Crivo</p>
         </div>
       </div>
     </footer>

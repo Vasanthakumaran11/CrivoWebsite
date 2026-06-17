@@ -190,7 +190,7 @@ function Planner() {
       </section>
 
       {/* Intro Description */}
-      <section className="py-24 border-t border-black/10 dark:border-white/10 relative overflow-hidden">
+      <section className="py-24 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center text-left">
             <div className="lg:col-span-7 space-y-6">
@@ -216,7 +216,7 @@ function Planner() {
       </section>
 
       {/* Interactive AI Route Planner & Range Factor Simulator Section */}
-      <section className="py-28 border-t border-black/10 dark:border-white/10 bg-black/[0.01] dark:bg-white/[0.01] relative">
+      <section className="py-28 bg-black/[0.01] dark:bg-white/[0.01] relative">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16 space-y-4">
             <span className="text-xs font-bold uppercase tracking-[0.3em] text-black/60 dark:text-white/60 block">Route Intelligence Simulator</span>
@@ -551,7 +551,7 @@ function Planner() {
       </section>
 
       {/* Unified EV Wallet Section */}
-      <section className="py-32 border-t border-black/10 dark:border-white/10 relative overflow-hidden bg-black/[0.01] dark:bg-white/[0.01]">
+      <section className="py-32 relative overflow-hidden bg-black/[0.01] dark:bg-white/[0.01]">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
             
@@ -646,7 +646,7 @@ function Planner() {
       </section>
 
       {/* Core Capabilities Section (06 Modules Grid) */}
-      <section className="py-32 border-t border-black/10 dark:border-white/10 relative">
+      <section className="py-32 relative">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8">
             <div className="text-left space-y-4">
@@ -722,7 +722,7 @@ function Planner() {
       </section>
 
       {/* Specifications & Technical Details */}
-      <section className="py-32 border-t border-black/10 dark:border-white/10 bg-black/[0.01] dark:bg-white/[0.01] relative">
+      <section className="py-32 bg-black/[0.01] dark:bg-white/[0.01] relative">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-16 items-start">
             
@@ -771,7 +771,7 @@ function Planner() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-32 border-t border-black/10 dark:border-white/10 relative overflow-hidden">
+      <section className="py-32 relative overflow-hidden">
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-black/[0.01] dark:bg-white/[0.01] rounded-full blur-[130px]"></div>
         </div>
@@ -788,11 +788,13 @@ function Planner() {
             Consolidate your charging payments and optimize your long-distance routes. Schedule a demo session with our EV engineering team today.
           </p>
 
-          <Link to="/book-meet">
-            <button className="px-12 py-5 bg-[#111110] dark:bg-white text-white dark:text-black font-bold rounded-full hover:scale-105 transition-transform text-base tracking-wide shadow-xl">
-              BOOK A MEET
-            </button>
-          </Link>
+          <div className="mt-8">
+            <Link to="/book-meet">
+              <button className="px-12 py-5 bg-[#111110] dark:bg-white text-white dark:text-black font-bold rounded-full hover:scale-105 transition-transform text-base tracking-wide shadow-xl">
+                BOOK A MEET
+              </button>
+            </Link>
+          </div>
         </div>
       </section>
 

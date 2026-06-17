@@ -15,30 +15,35 @@ function Major({ showContent = false }) {
                         showContent ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
                     }`}
                 >
-                    
+                    {/* Badge eyebrow */}
+                    <div className="inline-flex items-center gap-2.5 border border-white/15 rounded-full px-5 py-2 mb-10 bg-white/[0.04] backdrop-blur-md">
+                        <span className="w-1.5 h-1.5 rounded-full bg-sky-400 shadow-[0_0_8px_rgba(56,189,248,0.9)]"></span>
+                        <span className="text-white/60 text-[11px] font-semibold uppercase tracking-[0.4em]">Build With Purpose</span>
+                    </div>
 
-                    <p className="text-white/80 text-sm font-bold uppercase tracking-[0.35em] mb-6">
-                        Rise your Brand
-                    </p>
-
-                    <h1 className="text-5xl md:text-7xl font-black text-white leading-[1.05] tracking-tighter mb-10 drop-shadow-2xl max-w-5xl mx-auto">
-                        Seamlessly blending technology with{' '}
-                        <span className="text-white/70">Unparalleled Business Vision</span>
+                    <h1 className="font-black leading-[0.95] tracking-[-0.03em] mb-8 max-w-4xl mx-auto">
+                        <span className="block text-5xl md:text-7xl lg:text-[88px] text-white drop-shadow-[0_2px_40px_rgba(255,255,255,0.12)]">
+                            Technology Built
+                        </span>
+                        <span className="block text-5xl md:text-7xl lg:text-[88px] text-white/70">
+                            For What's Next.
+                        </span>
                     </h1>
 
-                    <p className="max-w-2xl mx-auto text-lg md:text-xl font-body text-white/80 leading-relaxed mb-12">
-                        Crafting intelligent solutions that combine innovation, technology, and vision for unmatched business transformation success.
+                    <p className="max-w-xl mx-auto text-base md:text-lg font-light text-white/50 leading-loose tracking-wide mb-14">
+                        Precision-crafted products for smart infrastructure,{' '}
+                        intelligent mobility, and the brands that lead tomorrow.
                     </p>
 
-                    <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
+                    <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                         <Link to="/book-meet">
-                            <button className="px-10 py-4 bg-white text-black font-bold rounded-full hover:scale-105 transition-transform">
+                            <button className="px-10 py-4 bg-white text-black text-sm font-bold rounded-full hover:scale-105 hover:shadow-[0_0_32px_rgba(255,255,255,0.25)] transition-all duration-300 tracking-widest">
                                 BOOK A MEET
                             </button>
                         </Link>
                         <button
                             onClick={() => document.getElementById('services').scrollIntoView({ behavior: 'smooth' })}
-                            className="px-10 py-4 border border-white/20 text-white font-bold rounded-full hover:bg-white/10 transition-colors"
+                            className="px-10 py-4 border border-white/20 text-white/80 text-sm font-semibold rounded-full hover:bg-white/10 hover:border-white/40 transition-all duration-300 tracking-widest"
                         >
                             EXPLORE SOLUTIONS
                         </button>
