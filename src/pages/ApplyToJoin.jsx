@@ -4,13 +4,42 @@ import { ArrowUpRight, Zap } from 'lucide-react';
 import Footer from '../components/Home/footer';
 import StarsBackground from '../components/background/StarsBackground';
 
+const W3F_KEY = import.meta.env.VITE_WEB3FORMS_KEY;
+import { canSubmit, recordSubmit, secondsUntilNextSubmit } from '../utils/formSecurity';
+const FORM_KEY = 'apply';
+
 function ApplyToJoin() {
   const [formData, setFormData] = useState({ name: '', email: '', role: '', portfolio: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const [cooldown, setCooldown] = useState(0);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitted(true);
+    const wait = secondsUntilNextSubmit(FORM_KEY);
+    if (!canSubmit(FORM_KEY)) { setCooldown(wait); setError('cooldown'); return; }
+
+    setLoading(true);
+    setError(false);
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          access_key: W3F_KEY,
+          botcheck: '',
+          subject: `[Crivo] Job Application — ${formData.role}`,
+          name: formData.name,
+          email: formData.email,
+          message: `Role: ${formData.role}\nPortfolio: ${formData.portfolio || 'Not provided'}\n\n${formData.message}`,
+        }),
+      });
+      const data = await res.json();
+      if (data.success) { setSubmitted(true); recordSubmit(FORM_KEY); }
+      else setError(true);
+    } catch { setError(true); }
+    finally { setLoading(false); }
   };
 
   return (
@@ -124,11 +153,22 @@ function ApplyToJoin() {
                 />
               </div>
 
+              {error === true && (
+                <p className="text-red-500 dark:text-red-400 text-xs font-semibold text-center">
+                  Something went wrong. Please try again.
+                </p>
+              )}
+              {error === 'cooldown' && (
+                <p className="text-amber-500 dark:text-amber-400 text-xs font-semibold text-center">
+                  Please wait {cooldown}s before submitting again.
+                </p>
+              )}
               <button
                 type="submit"
-                className="w-full py-5 bg-[#111110] dark:bg-white text-white dark:text-black font-bold rounded-2xl hover:scale-[1.01] transition-transform text-sm tracking-widest uppercase"
+                disabled={loading}
+                className="w-full py-5 bg-[#111110] dark:bg-white text-white dark:text-black font-bold rounded-2xl hover:scale-[1.01] transition-transform text-sm tracking-widest uppercase disabled:opacity-60 disabled:scale-100 disabled:cursor-not-allowed"
               >
-                Submit Application →
+                {loading ? 'Submitting...' : 'Submit Application →'}
               </button>
             </form>
           )}

@@ -1,8 +1,8 @@
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Footer from '../Home/footer';
 import StarsBackground from '../background/StarsBackground';
 import ContactInfo from './ContactInfo';
+import ContactForm from './ContactForm';
 import DirectoryCards from './DirectoryCards';
 import EmergencyDesk from './EmergencyDesk';
 
@@ -50,47 +50,7 @@ function ReachUs() {
           </div>
 
           {/* Right — Form */}
-          <div className="bg-white dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-[2rem] p-8 md:p-12 text-left">
-            <h3 className="text-2xl font-black tracking-tight mb-8">Send us a message</h3>
-            <form className="space-y-6">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <label className="text-xs font-bold uppercase tracking-widest text-black/50 dark:text-white/50">Name</label>
-                  <input type="text" placeholder="Your name"
-                    className="w-full bg-black/4 dark:bg-white/5 border border-black/15 dark:border-white/10 rounded-xl px-4 py-3.5 text-[#111110] dark:text-white placeholder:text-black/25 dark:placeholder:text-white/20 focus:outline-none focus:border-black/30 dark:focus:border-white/30 transition-colors text-sm" />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-xs font-bold uppercase tracking-widest text-black/50 dark:text-white/50">Email</label>
-                  <input type="email" placeholder="name@company.com"
-                    className="w-full bg-black/4 dark:bg-white/5 border border-black/15 dark:border-white/10 rounded-xl px-4 py-3.5 text-[#111110] dark:text-white placeholder:text-black/25 dark:placeholder:text-white/20 focus:outline-none focus:border-black/30 dark:focus:border-white/30 transition-colors text-sm" />
-                </div>
-              </div>
-              <div className="space-y-2">
-                <label className="text-xs font-bold uppercase tracking-widest text-black/50 dark:text-white/50">Subject</label>
-                <div className="relative">
-                  <select className="w-full bg-black/4 dark:bg-white/5 border border-black/15 dark:border-white/10 rounded-xl px-4 py-3.5 text-[#111110] dark:text-white appearance-none focus:outline-none focus:border-black/30 dark:focus:border-white/30 transition-colors text-sm cursor-pointer">
-                    <option value="" disabled className="text-black/50 dark:text-white/30 bg-white dark:bg-[#050505]">Select a topic</option>
-                    <option className="text-black dark:text-white bg-white dark:bg-[#050505]">CRIVO CSMS Platform Support</option>
-                    <option className="text-black dark:text-white bg-white dark:bg-[#050505]">Smart EV-Trip Planner Licensing</option>
-                    <option className="text-black dark:text-white bg-white dark:bg-[#050505]">Sector Logistics Collaboration</option>
-                    <option className="text-black dark:text-white bg-white dark:bg-[#050505]">Custom API & Developer Integration</option>
-                    <option className="text-black dark:text-white bg-white dark:bg-[#050505]">General Product Query</option>
-                  </select>
-                  <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-black/40 dark:text-white/40">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6"/></svg>
-                  </div>
-                </div>
-              </div>
-              <div className="space-y-2">
-                <label className="text-xs font-bold uppercase tracking-widest text-black/50 dark:text-white/50">Message</label>
-                <textarea rows="5" placeholder="Tell us about your project or query..."
-                  className="w-full bg-black/4 dark:bg-white/5 border border-black/15 dark:border-white/10 rounded-xl px-4 py-3.5 text-[#111110] dark:text-white placeholder:text-black/25 dark:placeholder:text-white/20 focus:outline-none focus:border-black/30 dark:focus:border-white/30 transition-colors resize-none text-sm"></textarea>
-              </div>
-              <button type="submit" className="w-full py-4 bg-[#111110] dark:bg-white text-white dark:text-black font-bold rounded-full hover:scale-[1.02] transition-transform text-sm tracking-widest">
-                SEND MESSAGE
-              </button>
-            </form>
-          </div>
+          <ContactForm />
         </div>
       </section>
 

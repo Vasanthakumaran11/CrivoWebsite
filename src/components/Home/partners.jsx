@@ -16,7 +16,7 @@ function Partners() {
     <section className="py-20 overflow-hidden bg-[#F8F7F2] dark:bg-transparent">
       <div className="max-w-7xl mx-auto px-6">
         <p className="text-center text-sm font-bold uppercase tracking-[0.3em] text-black/50 dark:text-white/50 mb-14">
-          Trusted Technologies &amp; Partners
+          Trusted Technologies
         </p>
 
         <div className="relative">

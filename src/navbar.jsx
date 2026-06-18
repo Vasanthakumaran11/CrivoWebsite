@@ -66,15 +66,8 @@ function Navbar() {
 
                     {/* Logo */}
                     <div className="flex-shrink-0">
-                        <Link to="/" className="flex items-center gap-3 group">
-                            <div className={`w-9 h-9 rounded-full flex items-center justify-center font-black text-base shrink-0 transition-all duration-300 ${
-                                isLightNav
-                                    ? 'border border-black/30 bg-black/8 text-[#111110] group-hover:bg-[#111110] group-hover:text-white'
-                                    : 'border border-white/30 bg-white/10 text-white group-hover:bg-white group-hover:text-black'
-                            }`}>
-                                C
-                            </div>
-                            <span className="font-bold tracking-tight text-2xl leading-none ">CRIVO</span>
+                        <Link to="/" className="flex items-center group">
+                            <span className="font-bold tracking-tight text-2xl leading-none">CRIVO</span>
                         </Link>
                     </div>
 
@@ -170,14 +163,7 @@ function Navbar() {
                 
                 {/* Sidebar Header */}
                 <div className="flex items-center justify-between px-6 py-6 border-b border-black/5 dark:border-white/5">
-                    <Link to="/" className="flex items-center gap-3 group" onClick={() => setIsMenuOpen(false)}>
-                        <div className={`w-9 h-9 rounded-full flex items-center justify-center font-black text-base shrink-0 transition-all duration-300 ${
-                            isDark
-                                ? 'border border-white/30 bg-white/10 text-white'
-                                : 'border border-black/30 bg-black/8 text-[#111110]'
-                        }`}>
-                            C
-                        </div>
+                    <Link to="/" className="flex items-center group" onClick={() => setIsMenuOpen(false)}>
                         <span className="font-bold tracking-tight text-lg leading-none">CRIVO</span>
                     </Link>
                     <button

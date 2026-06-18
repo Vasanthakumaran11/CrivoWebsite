@@ -182,7 +182,7 @@ const directoryCardsList = [
             Easily find us on map services to schedule an in-person meeting or office tour.
           </p>
         </div>
-        <a href="https://what3words.com/radius.timesaver.poised" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 font-bold text-black dark:text-white hover:underline text-xs">
+        <a href="https://www.google.com/maps/search/?api=1&query=221+R.K+Building+Uthukuli+Tiruppur+638751" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 font-bold text-black dark:text-white hover:underline text-xs">
           Way to Crivo <ArrowRight className="w-3.5 h-3.5" />
         </a>
       </div>

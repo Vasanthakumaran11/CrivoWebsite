@@ -3,7 +3,7 @@ import { Mail, Phone, MapPin, ArrowUpRight } from 'lucide-react';
 const contactInfoList = [
   { icon: Mail, label: "Email Us", value: "info@crivo.in", href: "mailto:info@crivo.in" },
   { icon: Phone, label: "Call Us", value: "+91 96007 60063", href: "tel:+919600760063" },
-  { icon: MapPin, label: "Find Us", value: "///radius.timesaver.poised", href: "https://what3words.com/radius.timesaver.poised" },
+  { icon: MapPin, label: "Find Us", value: "221 R.K Building, Uthukuli, Tiruppur - 638751", href: "https://www.google.com/maps/search/?api=1&query=221+R.K+Building+Uthukuli+Tiruppur+638751" },
 ];
 
 function ContactInfo() {

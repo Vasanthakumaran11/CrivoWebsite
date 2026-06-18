@@ -12,9 +12,34 @@
   }
   body {
     @apply bg-[#F8F7F2] text-[#111110] dark:bg-[#050505] dark:text-white font-['Inter'] antialiased transition-colors duration-300;
+    /* Disable text selection site-wide */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
   }
   h1, h2, h3, h4, h5, h6 {
     @apply font-['Outfit'];
+  }
+
+  /* Re-enable selection only inside form controls */
+  input, textarea, select {
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+  }
+
+  /* Prevent image drag / long-press save */
+  img, video {
+    -webkit-user-drag: none;
+    user-drag: none;
+    pointer-events: none;
+  }
+
+  /* Re-enable pointer events on interactive images (links) */
+  a img {
+    pointer-events: auto;
   }
 }
 

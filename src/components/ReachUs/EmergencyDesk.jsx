@@ -1,13 +1,15 @@
 import { useState } from 'react';
 import { Check, Copy, Terminal, ArrowLeft, Send, Loader2, Phone, ChevronRight } from 'lucide-react';
 
+const W3F_KEY = import.meta.env.VITE_WEB3FORMS_KEY;
+import { canSubmit, recordSubmit } from '../../utils/formSecurity';
+const FORM_KEY = 'emergency';
+
 function EmergencyDesk() {
   const [supportCopied, setSupportCopied] = useState(false);
-  const [activeForm, setActiveForm] = useState(null); // 'help' | null
-  
-  // Help Form State
-  const [helpForm, setHelpForm] = useState({ contact: '', topic: 'General Support', description: '' });
-  const [helpSubmitStatus, setHelpSubmitStatus] = useState('idle'); // 'idle' | 'submitting' | 'success'
+  const [activeForm, setActiveForm] = useState(null);
+  const [helpForm, setHelpForm] = useState({ contact: '', topic: 'Trip Issue', description: '' });
+  const [helpSubmitStatus, setHelpSubmitStatus] = useState('idle');
   const [helpLogStep, setHelpLogStep] = useState(0);
 
   const copyToClipboard = (text) => {
@@ -16,19 +18,43 @@ function EmergencyDesk() {
     setTimeout(() => setSupportCopied(false), 2000);
   };
 
-  const handleHelpSubmit = (e) => {
+  const handleHelpSubmit = async (e) => {
     e.preventDefault();
+    if (!canSubmit(FORM_KEY)) return;
     setHelpSubmitStatus('submitting');
     setHelpLogStep(0);
-    
-    // Simulate connection log sequence
+
+    // Start terminal animation
     setTimeout(() => setHelpLogStep(1), 500);
     setTimeout(() => setHelpLogStep(2), 1000);
     setTimeout(() => setHelpLogStep(3), 1500);
-    setTimeout(() => {
-      setHelpSubmitStatus('success');
-      setHelpForm({ contact: '', topic: 'General Support', description: '' });
-    }, 2000);
+
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          access_key: W3F_KEY,
+          botcheck: '',
+          subject: `[Crivo Emergency] ${helpForm.topic}`,
+          name: helpForm.contact,
+          email: helpForm.contact.includes('@') ? helpForm.contact : 'support@crivo.in',
+          message: `Contact: ${helpForm.contact}\nTopic: ${helpForm.topic}\n\nDetails:\n${helpForm.description}`,
+        }),
+      });
+      const data = await res.json();
+      setTimeout(() => {
+        if (data.success) {
+          setHelpSubmitStatus('success');
+          setHelpForm({ contact: '', topic: 'Trip Issue', description: '' });
+          recordSubmit(FORM_KEY);
+        } else {
+          setHelpSubmitStatus('idle');
+        }
+      }, 2000);
+    } catch {
+      setTimeout(() => setHelpSubmitStatus('idle'), 2000);
+    }
   };
 
   return (

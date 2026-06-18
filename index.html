@@ -3,10 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta http-equiv="X-Frame-Options" content="DENY" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https:; media-src 'self' blob:; connect-src 'self' https://api.web3forms.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com;" />
     <title>Crivo</title>
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='16' fill='%23111110'/><circle cx='16' cy='16' r='15' fill='none' stroke='rgba(255,255,255,0.3)' stroke-width='1'/><text x='16' y='21' font-family='Inter,sans-serif' font-size='16' font-weight='900' text-anchor='middle' fill='white'>C</text></svg>" />
     <script>
       (function () {
+        // Theme detection
         try {
           var saved = localStorage.getItem('crivo-theme');
           var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -16,6 +20,77 @@
             document.documentElement.classList.remove('dark');
           }
         } catch (e) {}
+
+        // ── Anti-scraping & content protection ──────────────────────────
+
+        // 1. Disable right-click on non-form elements
+        document.addEventListener('contextmenu', function (e) {
+          var tag = e.target.tagName;
+          if (tag !== 'INPUT' && tag !== 'TEXTAREA' && tag !== 'SELECT') {
+            e.preventDefault();
+          }
+        });
+
+        // 2. Block Ctrl+U (view-source), Ctrl+S (save page), Ctrl+P (print)
+        document.addEventListener('keydown', function (e) {
+          if (
+            (e.ctrlKey && e.key === 'u') ||
+            (e.ctrlKey && e.key === 's') ||
+            (e.ctrlKey && e.key === 'p')
+          ) {
+            e.preventDefault();
+          }
+        });
+
+        // 3. Disable image drag (prevents easy image theft)
+        document.addEventListener('dragstart', function (e) {
+          if (e.target.tagName === 'IMG' || e.target.tagName === 'VIDEO') {
+            e.preventDefault();
+          }
+        });
+
+        // 4. Disable print via keyboard (Ctrl+P already blocked above)
+        window.addEventListener('beforeprint', function (e) {
+          e.preventDefault();
+          return false;
+        });
+
+        // 5. Block copy & cut clipboard events on non-form elements
+        document.addEventListener('copy', function (e) {
+          var tag = document.activeElement && document.activeElement.tagName;
+          if (tag !== 'INPUT' && tag !== 'TEXTAREA') {
+            e.preventDefault();
+            e.clipboardData && e.clipboardData.setData('text/plain', '');
+          }
+        });
+        document.addEventListener('cut', function (e) {
+          var tag = document.activeElement && document.activeElement.tagName;
+          if (tag !== 'INPUT' && tag !== 'TEXTAREA') {
+            e.preventDefault();
+          }
+        });
+
+        // 6. Block text selection via keyboard on non-form elements
+        document.addEventListener('keydown', function (e) {
+          var tag = document.activeElement && document.activeElement.tagName;
+          var inForm = tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT';
+          if (!inForm) {
+            // Ctrl+A (select all), Ctrl+C (copy), Ctrl+X (cut)
+            if (e.ctrlKey && (e.key === 'a' || e.key === 'A' ||
+                              e.key === 'c' || e.key === 'C' ||
+                              e.key === 'x' || e.key === 'X')) {
+              e.preventDefault();
+            }
+          }
+        }, true);
+
+        // 7. Prevent text selection via mouse/touch
+        document.addEventListener('selectstart', function (e) {
+          var tag = e.target.tagName;
+          if (tag !== 'INPUT' && tag !== 'TEXTAREA') {
+            e.preventDefault();
+          }
+        });
       })();
     </script>
   </head>
