@@ -31,7 +31,6 @@ const coreTeamList = [
     linkedin: "https://www.linkedin.com/in/bharathkumar-j-373598386/",
     github: "https://github.com/Bharathkumar2024",
     initial: "B",
-    position: "top"
   },
   { 
     name: "Praneesh S", 
