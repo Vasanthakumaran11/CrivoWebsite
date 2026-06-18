@@ -1,15 +1,15 @@
 import { useState, useRef, useEffect, lazy, Suspense } from 'react'
-import { Routes, Route, useLocation } from 'react-router-dom'
+import { Routes, Route, useLocation, useNavigate, Navigate } from 'react-router-dom'
 import Navbar from './navbar'
 import ScrollToTop from './components/ScrollToTop'
 import Major from './components/Home/major'
-import BookMeet from './components/BookMeet'
-import Product from './pages/Product'
+import BookMeet from './pages/BookMeet'
+import Product from './components/Product/Product'
 import CSMS from './components/Product/CSMS'
 import Planner from './components/Product/Planner'
-import Blogs from './pages/Blogs'
-import ReachUs from './pages/ReachUs'
-import AboutUs from './pages/AboutUs'
+import Blogs from './components/Blog/Blogs'
+import ReachUs from './components/ReachUs/ReachUs'
+import AboutUs from './components/AboutUs/AboutUs'
 import Blog from './components/Blog/blog'
 import ApplyToJoin from './pages/ApplyToJoin'
 const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'))
@@ -18,9 +18,28 @@ const AccessibilityStatement = lazy(() => import('./pages/AccessibilityStatement
 
 function App() {
   const location = useLocation()
+  const navigate = useNavigate()
   const isHome = location.pathname === '/'
   const [showContent, setShowContent] = useState(false)
   const loopStartRef = useRef(null) // null = first play, number = loop start time (seconds)
+
+  // Redirect to landing page and scroll to top on page refresh
+  useEffect(() => {
+    const navigationEntries = performance.getEntriesByType('navigation')
+    const isReload =
+      (navigationEntries.length > 0 && navigationEntries[0].type === 'reload') ||
+      performance.navigation?.type === 1
+
+    if (isReload) {
+      if ('scrollRestoration' in window.history) {
+        window.history.scrollRestoration = 'manual'
+      }
+      window.scrollTo(0, 0)
+      if (location.pathname !== '/') {
+        navigate('/', { replace: true })
+      }
+    }
+  }, [])
 
   // Fallback: show hero content after 2.5s even if video doesn't autoplay
   useEffect(() => {
@@ -134,6 +153,7 @@ function App() {
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/terms" element={<TermsConditions />} />
           <Route path="/accessibility" element={<AccessibilityStatement />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
         </Suspense>
       </div>

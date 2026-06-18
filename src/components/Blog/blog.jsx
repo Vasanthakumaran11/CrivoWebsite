@@ -832,7 +832,7 @@ export default function Blog() {
           </div>
           <Link to="/book-meet" className="shrink-0">
             <button className="px-8 py-4 bg-[#111110] dark:bg-white text-white dark:text-black font-bold rounded-full hover:scale-105 transition-transform text-sm tracking-wide">
-              DISCUSSS WITH ENGINEERS
+              DISCUSS WITH ENGINEERS
             </button>
           </Link>
         </section>

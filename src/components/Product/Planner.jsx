@@ -6,7 +6,7 @@ import {
   RotateCcw, CheckCircle2, Smartphone, MapPin, TrendingUp, Loader2
 } from 'lucide-react';
 import Footer from '../Home/footer';
-import StarsBackground from '../StarsBackground';
+import StarsBackground from '../background/StarsBackground';
 
 // Milestones on the Mumbai -> Pune -> Kolhapur route
 const milestones = [
@@ -485,6 +485,7 @@ function Planner() {
 
             {/* Bottom Row: AI Recommendation Map Graphic */}
             <div className="relative group overflow-hidden rounded-[2rem] border border-black/10 dark:border-white/10 bg-white dark:bg-white/5 p-2 shadow-2xl backdrop-blur-md">
+              {/* Map viewport */}
               <div className="relative w-full aspect-[16/9] min-h-[300px] bg-[#0c0c0e] rounded-[1.8rem] overflow-hidden flex flex-col justify-between p-6 md:p-10 text-left">
                 {/* Active Route Map Background */}
                 <img 
@@ -525,23 +526,27 @@ function Planner() {
                   </div>
                 </div>
 
-                <div className="z-10 grid grid-cols-2 md:grid-cols-4 gap-6 text-white pt-6 border-t border-white/5 bg-gradient-to-t from-black/80 via-black/40 to-transparent -mx-6 md:-mx-10 px-6 md:px-10 pb-2">
-                  <div>
-                    <p className="text-[9px] uppercase tracking-wider text-white/30 font-bold mb-1">CPO Interoperability</p>
-                    <p className="font-extrabold text-sm">Full Sync</p>
-                  </div>
-                  <div>
-                    <p className="text-[9px] uppercase tracking-wider text-white/30 font-bold mb-1">Total Distance</p>
-                    <p className="font-extrabold text-sm font-mono">385 km</p>
-                  </div>
-                  <div>
-                    <p className="text-[9px] uppercase tracking-wider text-white/30 font-bold mb-1">Active Optimizer</p>
-                    <p className="font-extrabold text-sm">Gradient & Temp</p>
-                  </div>
-                  <div>
-                    <p className="text-[9px] uppercase tracking-wider text-white/30 font-bold mb-1">Unified CPO Wallet</p>
-                    <p className="font-extrabold text-sm">Connected (4 CPOs)</p>
-                  </div>
+                {/* Empty bottom space to justify content layout */}
+                <div />
+              </div>
+
+              {/* Stats Panel underneath the Map */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-6 p-6 md:p-8 text-[#111110] dark:text-white border-t border-black/5 dark:border-white/5 bg-transparent">
+                <div className="border-r border-black/5 dark:border-white/5 pr-2 md:pr-4">
+                  <p className="text-[9px] uppercase tracking-wider text-black/50 dark:text-white/45 font-bold mb-1.5">CPO Interoperability</p>
+                  <p className="font-extrabold text-xs sm:text-sm md:text-base">Full Sync</p>
+                </div>
+                <div className="md:border-r border-black/5 dark:border-white/5 pr-2 md:pr-4">
+                  <p className="text-[9px] uppercase tracking-wider text-black/50 dark:text-white/45 font-bold mb-1.5">Total Distance</p>
+                  <p className="font-extrabold text-xs sm:text-sm md:text-base font-mono">385 km</p>
+                </div>
+                <div className="border-r border-black/5 dark:border-white/5 pr-2 md:pr-4">
+                  <p className="text-[9px] uppercase tracking-wider text-black/50 dark:text-white/45 font-bold mb-1.5">Active Optimizer</p>
+                  <p className="font-extrabold text-xs sm:text-sm md:text-base">Gradient & Temp</p>
+                </div>
+                <div>
+                  <p className="text-[9px] uppercase tracking-wider text-black/50 dark:text-white/45 font-bold mb-1.5">Unified CPO Wallet</p>
+                  <p className="font-extrabold text-xs sm:text-sm md:text-base">Connected (4 CPOs)</p>
                 </div>
               </div>
             </div>

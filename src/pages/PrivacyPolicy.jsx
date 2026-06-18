@@ -1,5 +1,5 @@
 import Footer from '../components/Home/footer';
-import StarsBackground from '../components/StarsBackground';
+import StarsBackground from '../components/background/StarsBackground';
 
 const policySections = [
   {

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowUpRight, Zap } from 'lucide-react';
 import Footer from '../components/Home/footer';
-import StarsBackground from '../components/StarsBackground';
+import StarsBackground from '../components/background/StarsBackground';
 
 function ApplyToJoin() {
   const [formData, setFormData] = useState({ name: '', email: '', role: '', portfolio: '', message: '' });

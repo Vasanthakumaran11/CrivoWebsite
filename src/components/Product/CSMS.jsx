@@ -7,7 +7,7 @@ import {
   Cpu, FileText, ChevronRight, Check
 } from 'lucide-react';
 import Footer from '../Home/footer';
-import StarsBackground from '../StarsBackground';
+import StarsBackground from '../background/StarsBackground';
 
 // Initial stations state
 const initialStations = [

@@ -1,10 +1,11 @@
-import { Link } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
 import Footer from './footer';
 import WhatWeDo from './WhatWeDo';
 import Client from './Client';
 import Partners from './partners';
 
 function Major({ showContent = false }) {
+    const navigate = useNavigate();
     return (
         <div className="relative">
             {/* Hero Section */}
@@ -42,10 +43,10 @@ function Major({ showContent = false }) {
                             </button>
                         </Link>
                         <button
-                            onClick={() => document.getElementById('services').scrollIntoView({ behavior: 'smooth' })}
+                            onClick={() => navigate('/product')}
                             className="px-10 py-4 border border-white/20 text-white/80 text-sm font-semibold rounded-full hover:bg-white/10 hover:border-white/40 transition-all duration-300 tracking-widest"
                         >
-                            EXPLORE SOLUTIONS
+                            EXPLORE OUR PRODUCTS
                         </button>
                     </div>
                 </div>

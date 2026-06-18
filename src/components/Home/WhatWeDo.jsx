@@ -49,11 +49,22 @@ function WhatWeDo() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-5 border border-black/10 dark:border-white/10 rounded-[2.5rem] overflow-hidden bg-white dark:bg-white/5">
             {process.map((p, i) => (
-              <div key={i} className={`p-8 flex flex-col gap-6 ${i < process.length - 1 ? 'border-b md:border-b-0 md:border-r border-black/10 dark:border-white/10' : ''}`}>
-                <span className="text-4xl font-black text-black/10 dark:text-white/10 select-none">{p.step}</span>
+              <div 
+                key={i} 
+                className={`group p-8 flex flex-col gap-6 hover:bg-[#111110] dark:hover:bg-white transition-all duration-500 ${
+                  i < process.length - 1 ? 'border-b md:border-b-0 md:border-r border-black/10 dark:border-white/10' : ''
+                }`}
+              >
+                <span className="text-4xl font-black text-black/10 dark:text-white/10 group-hover:text-white/15 dark:group-hover:text-black/15 transition-colors duration-500 select-none">
+                  {p.step}
+                </span>
                 <div>
-                  <h3 className="text-2xl font-black tracking-tight mb-4 group-hover:text-white dark:group-hover:text-black transition-colors duration-500">{p.title}</h3>
-                  <p className="text-black/50 dark:text-white/50 leading-relaxed group-hover:bg-white/70 dark:group-hover:bg-black/60 transition-colors duration-500">{p.desc}</p>
+                  <h3 className="text-2xl font-black tracking-tight mb-4 group-hover:text-white dark:group-hover:text-black transition-colors duration-500">
+                    {p.title}
+                  </h3>
+                  <p className="text-black/50 dark:text-white/50 leading-relaxed group-hover:text-white/70 dark:group-hover:text-black/70 transition-colors duration-500">
+                    {p.desc}
+                  </p>
                 </div>
               </div>
             ))}
