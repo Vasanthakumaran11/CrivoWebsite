@@ -8,16 +8,14 @@ const navLinks = [
 ];
 
 const solutions = [
-  'Web Platforms',
-  'Mobile Products',
-  'IoT & Systems Automation',
-  'Growth & Optimization',
+  'Crivo CSMS',
+  'Smart EV Trip Planner'
 ];
 
 const socials = [
   {
     name: 'Instagram',
-    href: '#',
+    href: 'https://www.instagram.com/crivo_tech_?igsh=bnB6ZTVua3RuZ2dk',
     icon: (
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
@@ -49,7 +47,7 @@ const socials = [
   },
   {
     name: 'X',
-    href: '#',
+    href: 'https://x.com/Crivo_Tech',
     icon: (
       <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
         <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.253 5.622 5.91-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
@@ -117,7 +115,7 @@ export default function Footer() {
               </ul>
             </div>
             <div className="space-y-6">
-              <h3 className="text-sm font-bold uppercase tracking-[0.2em] text-white/50">Solutions</h3>
+              <h3 className="text-sm font-bold uppercase tracking-[0.2em] text-white/50">Products</h3>
               <ul className="space-y-4 text-gray-400">
                 {solutions.map((s) => (
                   <li key={s}><Link to="/product" className="hover:text-white transition-colors">{s}</Link></li>

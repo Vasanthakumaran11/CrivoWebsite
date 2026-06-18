@@ -65,16 +65,16 @@ const coreTeam = [
     linkedin: "https://www.linkedin.com/in/bharathkumar-j-373598386/",
     github: "https://github.com/Bharathkumar2024",
     initial: "B",
-    imgPos: "top"
+    position :"top"
   },
   { 
-    name: "Praneesh", 
+    name: "Praneesh S", 
     role: "Backend Developer", 
-    email: "praneesh@crivo.in",
+    email: "spraneesh2007@gmail.com ",
     image: "/Praneesh.png",
     pos: { left: "15%", top: "80%" },
-    github: "#",
-    linkedin: "#",
+    github: "https://github.com/SelvaPraneesh",
+    linkedin: "https://www.linkedin.com/in/praneeshs",
     initial: "P"
   },
   { 
@@ -83,18 +83,18 @@ const coreTeam = [
     email: "thirumalai@crivo.in",
     image: "/ThirumalaiKumar.png",
     pos: { left: "50%", top: "80%" },
-    github: "#",
-    linkedin: "#",
+    github: "https://github.com/thirumalaikumar07",
+    linkedin: "https://www.linkedin.com/in/thirumalaikumar-c-62b158365",
     initial: "T"
   },
   { 
     name: "Anthoni Milton R", 
     role: "ML Developer", 
-    email: "antony@crivo.in",
+    email: "miltonanthonimilton@gmail.com ",
     image: "/AntonyMilton.png",
     pos: { left: "85%", top: "80%" },
-    github: "#",
-    linkedin: "#",
+    github: "https://github.com/anthonimilton07",
+    linkedin: "https://www.linkedin.com/in/anthoni-milton-milton-1842ab315/",
     initial: "A"
   },
 ];
