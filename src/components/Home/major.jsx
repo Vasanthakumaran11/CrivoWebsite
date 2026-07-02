@@ -19,12 +19,12 @@ function Major({ showContent = false }) {
                     {/* Badge eyebrow */}
                     <div className="inline-flex items-center gap-2.5 border border-white/15 rounded-full px-5 py-2 mb-10 bg-white/[0.04] backdrop-blur-md">
                         <span className="w-1.5 h-1.5 rounded-full bg-sky-400 shadow-[0_0_8px_rgba(56,189,248,0.9)]"></span>
-                        <span className="text-white/60 text-[11px] font-semibold uppercase tracking-[0.4em]">Build With Purpose</span>
+                        <span className="text-white/60 text-[11px] font-semibold uppercase tracking-[0.4em]">Built With Purpose</span>
                     </div>
 
                     <h1 className="font-black leading-[0.95] tracking-[-0.03em] mb-8 max-w-4xl mx-auto">
                         <span className="block text-5xl md:text-7xl lg:text-[88px] text-white drop-shadow-[0_2px_40px_rgba(255,255,255,0.12)]">
-                            Technology Build
+                            Technology Built
                         </span>
                         <span className="block text-5xl md:text-7xl lg:text-[88px] text-white/70">
                             For What's Next.
@@ -32,8 +32,8 @@ function Major({ showContent = false }) {
                     </h1>
 
                     <p className="max-w-xl mx-auto text-base md:text-lg font-light text-white/50 leading-loose tracking-wide mb-14">
-                        Precision-crafted products for smart infrastructure,{' '}
-                        intelligent mobility, and the brands that lead tomorrow.
+                        Precision-crafted products for smart infrastructure,
+                        intelligent mobility and the brands that lead tomorrow.
                     </p>
 
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-4">

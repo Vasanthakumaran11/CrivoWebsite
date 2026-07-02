@@ -135,7 +135,7 @@ function Client() {
             <div className="flex flex-col items-center justify-center shrink-0 hover:scale-105 transition-transform duration-300">
               <div className="flex flex-col items-center text-center">
                 <span className="text-3xl font-extrabold tracking-tight text-black dark:text-white font-sans">Twincord</span>
-                <span className="text-[9px] font-black tracking-widest uppercase text-black/45 dark:text-white/45 mt-1">tech need simplified</span>
+                <span className="text-[9px] font-black tracking-widest uppercase text-black/45 dark:text-white/45 mt-1">Tech made simple</span>
               </div>
             </div>
           </div>

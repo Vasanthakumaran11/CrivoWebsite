@@ -35,7 +35,7 @@ const coreTeamList = [
   { 
     name: "Praneesh S", 
     role: "Backend Developer", 
-    email: "spraneesh2007@gmail.com ",
+    email: "spraneesh2007@gmail.com",
     image: "/Praneesh.png",
     pos: { left: "15%", top: "80%" },
     github: "https://github.com/SelvaPraneesh",
@@ -55,7 +55,7 @@ const coreTeamList = [
   { 
     name: "Anthoni Milton R", 
     role: "ML Developer", 
-    email: "miltonanthonimilton@gmail.com ",
+    email: "miltonanthonimilton@gmail.com",
     image: "/AntonyMilton.png",
     pos: { left: "85%", top: "80%" },
     github: "https://github.com/anthonimilton07",

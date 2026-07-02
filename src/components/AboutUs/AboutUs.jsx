@@ -22,7 +22,7 @@ function AboutUs() {
             ABOUT <br /><span className="text-outline">CRIVO.</span>
           </h1>
           <p className="max-w-2xl text-xl text-black/60 dark:text-white/60 leading-relaxed">
-            Seamlessly blending technology with unparalleled business vision — crafting intelligent solutions that combine innovation, technology, and vision for unmatched transformation success.
+            Seamlessly blending technology with unparalleled business vision to craft intelligent, innovative solutions for unmatched transformation success.
           </p>
         </div>
       </section>
@@ -34,7 +34,7 @@ function AboutUs() {
       <MissionVision />
 
       {/* Leadership Team */}
-      <section className="py-30">
+      <section className="py-32">
         <div className="max-w-7xl mx-auto px-6">
           <Leaders />
           

@@ -19,7 +19,7 @@ const termsSections = [
   {
     title: "Intellectual Property",
     body: [
-      "All content on this website including text, graphics, logos, product names, and code is the property of Crivo and is protected by applicable intellectual property laws.",
+      "All content on this website, including text, graphics, logos, product names, and code, is the property of Crivo and is protected by applicable intellectual property laws.",
       "You may not reproduce, distribute, modify, or create derivative works from any content on this site without prior written permission from Crivo.",
     ],
   },

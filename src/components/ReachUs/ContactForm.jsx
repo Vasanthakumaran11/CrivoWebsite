@@ -11,7 +11,7 @@ const labelClass = 'text-xs font-bold uppercase tracking-widest text-black/50 da
 
 const SUBJECTS = [
   'CRIVO CSMS Platform Support',
-  'Smart EV-Trip Planner Licensing',
+  'Smart EV Trip Planner Licensing',
   'Sector Logistics Collaboration',
   'Custom API & Developer Integration',
   'General Product Query',

@@ -46,11 +46,11 @@ const directoryCardsList = [
           <div className="space-y-4">
             <div>
               <p className="text-[10px] uppercase tracking-widest text-black/40 dark:text-white/40 font-bold mb-1">Mon - Sat</p>
-              <p className="font-semibold text-xl">[9.00 pm - 5.00 am]</p>
+              <p className="font-semibold text-xl">[9:00 am - 5:00 pm]</p>
             </div>
             <div>
               <p className="text-[10px] uppercase tracking-widest text-black/40 dark:text-white/40 font-bold mb-1">Sunday</p>
-              <p className="font-semibold text-xl">[9.00 am - 5.00 am] <span className="text-xs font-normal opacity-70">(calls only)</span></p>
+              <p className="font-semibold text-xl">[9:00 am - 5:00 pm] <span className="text-xs font-normal opacity-70">(calls only)</span></p>
             </div>
           </div>
         </div>

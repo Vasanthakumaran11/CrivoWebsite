@@ -20,7 +20,7 @@ const posts = [
   {
     tag: "EV Tech",
     title: "Range Anxiety Is a Data Problem — Not a Battery Problem",
-    excerpt: "Most EV owners overestimate how quickly their battery drains. We explain why real-world range differs from rated specs, and how AI-powered trip planning finally closes the gap using terrain, weather, speed, and AC load data.",
+    excerpt: "Most EV owners overestimate how quickly their batteries drain. We explain why real-world range differs from rated specs, and how AI-powered trip planning finally closes the gap using terrain, weather, speed, and AC load data.",
     date: "May 28, 2026",
     readTime: "5 min read"
   },

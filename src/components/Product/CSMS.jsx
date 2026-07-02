@@ -608,7 +608,7 @@ function CSMS() {
             <span className="text-xs font-bold uppercase tracking-[0.3em] text-black/60 dark:text-white/60 block">System Architecture</span>
             <h2 className="text-5xl md:text-6xl font-black tracking-tighter leading-none uppercase">
               CONNECTING EV CHARGERS TO <br />
-              <span className="text-outline " style={{ fontSize: '4.5rem' }}>A SMART CENTRAL SYSTEM</span >        </h2>
+              <span className="text-outline " style={{ fontSize: '4.5rem' }}>A SMART CENTRAL SYSTEM</span>        </h2>
             <p className="text-base text-black/50 dark:text-white/50">
               Every charger connects securely to the Crivo CSMS platform through OCPP. Real-time charger data, session activity, health monitoring, alerts, and remote operations are managed from a centralized cloud dashboard.
             </p>
@@ -692,11 +692,11 @@ function CSMS() {
               
               <div className="divide-y divide-black/5 dark:divide-white/5 text-sm">
                 {[
-                  { label: "Deployment Modes", val: "Cloud hosting (AWS Serverless) / On-premise local servers options" },
+                  { label: "Deployment Modes", val: "Cloud hosting (AWS Serverless) / On-premise local server options" },
                   { label: "Charger Interoperability", val: "Any OCPP compliant hardware (Tritium, ABB, Delta, Alpitronic, EVBox, etc.)" },
-                  { label: "Real-time Notifications", val: "WebSocket message relays, Webhooks alerts, email triggers, Slack/Telegram bots alerts" },
+                  { label: "Real-time Notifications", val: "WebSocket message relays, Webhook alerts, email triggers, Slack/Telegram bot alerts" },
                   { label: "Smart Power Distribution", val: "Dynamic load limits updates, daisy-chained charging prioritizations, local grid peak-shaving overrides" },
-                  { label: "User Authentication", val: "RFID cards authorization, Mobile app QR scanner start, local pinpad unlock, Autocharge (Plug & Charge ISO 15118)" }
+                  { label: "User Authentication", val: "RFID card authorization, Mobile app QR scanner start, local pinpad unlock, Autocharge (Plug & Charge ISO 15118)" }
                 ].map((spec, idx) => (
                   <div key={idx} className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 py-5 first:pt-0 last:pb-0">
                     <span className="font-extrabold uppercase tracking-wide text-xs text-black/50 dark:text-white/40 sm:w-1/3 shrink-0">{spec.label}</span>

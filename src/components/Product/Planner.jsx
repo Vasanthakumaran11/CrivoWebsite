@@ -180,7 +180,7 @@ function Planner() {
               <div className="relative bg-white dark:bg-white/5 border border-black/15 dark:border-white/10 p-2.5 rounded-[2rem] shadow-2xl backdrop-blur-xl transition-all duration-700 hover:translate-y-[-8px]">
                 <img 
                   src="/designdashboard.png" 
-                  alt="Smart EV-Trip Planner Interface" 
+                  alt="Smart EV Trip Planner Interface"
                   className="rounded-[1.6rem] w-full object-cover filter contrast-[1.02] brightness-[0.98] shadow-md animate-fade-in"
                 />
               </div>

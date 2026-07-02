@@ -1,6 +1,6 @@
 function MissionVision() {
   return (
-    <section className="py-31 text-left">
+    <section className="py-32 text-left">
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-[480px_1fr] gap-x-12 gap-y-16 lg:gap-y-0 items-start">
           {/* Mission Column (Row 1, Column 1) */}

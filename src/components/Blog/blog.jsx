@@ -476,7 +476,7 @@ export default function Blog() {
             A standalone charger is a commercial liability. To make infrastructure viable, it must be monitored, monetized, and regulated in real-time. This is accomplished by a <strong>CSMS (Charging Station Management System)</strong>.
           </p>
           <p>
-            A CSMS acts as the orchestration layer: communicating via persistent WebSockets to monitor charge point telemetry, authenticate user RFID cards or mobile apps, calculate usage costs, and dynamically push maximum power limit limits to avoid overloading electrical transformers.
+            A CSMS acts as the orchestration layer: communicating via persistent WebSockets to monitor charge point telemetry, authenticate user RFID cards or mobile apps, calculate usage costs, and dynamically push maximum power limits to avoid overloading electrical transformers.
           </p>
 
           {/* OCPP Section & Widget */}

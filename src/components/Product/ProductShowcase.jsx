@@ -17,7 +17,7 @@ const productsList = [
     ]
   },
   {
-    title: "Smart EV-Trip Planner",
+    title: "Smart EV Trip Planner",
     icon: Smartphone,
     description: "An AI-powered trip planner that optimizes EV routes by predicting precise state-of-charge degradation based on speed profiles, cabin AC draws, terrain slopes, and ambient temperatures.",
     number: "02",
@@ -120,7 +120,7 @@ function ProductShowcase() {
             <div className="bg-white dark:bg-white/5 border border-black/15 dark:border-white/10 rounded-[2.5rem] p-2 shadow-xl relative overflow-hidden backdrop-blur-xl group">
               <img 
                 src="/TripPlanner.png" 
-                alt="Smart EV-Trip Planner Interface" 
+                alt="Smart EV Trip Planner Interface" 
                 className="rounded-[1.8rem] w-full object-cover filter grayscale contrast-[1.02] brightness-[0.98]"
               />
             </div>

@@ -20,7 +20,7 @@ function Product() {
             OUR <br /><span className="text-outline">PRODUCTS.</span>
           </h1>
           <p className="max-w-2xl text-xl text-black/60 dark:text-white/60 leading-relaxed font-medium">
-            Building specialized modular systems. Natively compliant charging management, range-anxiety solving predictive routing, and optimized cargo logistics grids.
+            Building specialized modular systems. Natively compliant charging management, range-anxiety-solving predictive routing, and optimized cargo logistics grids.
           </p>
         </div>
       </section>

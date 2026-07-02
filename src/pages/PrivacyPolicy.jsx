@@ -6,7 +6,7 @@ const policySections = [
     title: "Information We Collect",
     body: [
       "We collect information you provide directly when you fill out contact forms, book a meeting, or apply to join our team. This includes your name, email address, phone number, and any message or details you submit.",
-      "We may also collect basic usage data automatically such as pages visited, time spent, and device type to help us understand how our website is being used and improve the experience.",
+      "We may also collect basic usage data automatically, such as pages visited, time spent, and device type, to help us understand how our website is being used and improve the experience.",
     ],
   },
   {
@@ -19,7 +19,7 @@ const policySections = [
   {
     title: "Third-Party Services",
     body: [
-      "Our platform and infrastructure use trusted third-party services including Amazon Web Services (AWS), Firebase, Vercel, and Razorpay. These providers have their own privacy policies and security standards. We only share data with them to the extent necessary to operate our services.",
+      "Our platform and infrastructure use trusted third-party services, including Amazon Web Services (AWS), Firebase, Vercel, and Razorpay. These providers have their own privacy policies and security standards. We only share data with them to the extent necessary to operate our services.",
       "Our website may use analytics tools. These tools may set cookies or collect browsing data in accordance with their own terms.",
     ],
   },

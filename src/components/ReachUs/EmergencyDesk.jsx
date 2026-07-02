@@ -201,7 +201,7 @@ function EmergencyDesk() {
                       <Check className="w-5 h-5 text-white" />
                     </div>
                     <div>
-                      <p className="text-xs font-mono tracking-widest text-white font-bold uppercase">ALERT BROADCASTED</p>
+                      <p className="text-xs font-mono tracking-widest text-white font-bold uppercase">ALERT BROADCAST</p>
                       <p className="text-[10px] font-mono text-white/40 mt-1">Ref ID: #HLP-{(Math.floor(Math.random() * 9000) + 1000)}</p>
                     </div>
                     <button 

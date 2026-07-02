@@ -1,7 +1,7 @@
 const whyUs = [
   { title: "Innovation-Driven Solutions", desc: "We focus on creating forward-thinking digital experiences that adapt to the latest technologies by embracing cutting-edge tools and strategies." },
-  { title: "Holistic Approach", desc: "Seamlessly integrates every aspect of your digital presence — from web development and mobile apps to marketing strategies — under one roof." },
-  { title: "Data-Backed Results", desc: "Every strategy implemented is driven by precise insights and analytics to optimise performance and maximise ROI for your business." },
+  { title: "Holistic Approach", desc: "We seamlessly integrate every aspect of your digital presence — from web development and mobile apps to marketing strategies — under one roof." },
+  { title: "Data-Backed Results", desc: "Every strategy implemented is driven by precise insights and analytics to optimize performance and maximize ROI for your business." },
 ];
 
 const process = [

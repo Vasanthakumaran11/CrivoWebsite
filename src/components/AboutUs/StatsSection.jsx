@@ -2,9 +2,9 @@ import { Link } from 'react-router-dom';
 
 const statsList = [
   { value: "50+", label: "Supported Platforms" },
-  { value: "10+",   label: "Customers" },
-  { value: "20+",  label: "Employees" },
-  { value: "10K+", label :"Daily Active users" }
+  { value: "10+", label: "Customers" },
+  { value: "20+", label: "Employees" },
+  { value: "10K+", label: "Daily Active Users" }
 ];
 
 function StatsSection() {
@@ -14,7 +14,7 @@ function StatsSection() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
           <div>
             <span className="text-sm font-bold uppercase tracking-[0.3em] text-black/40 dark:text-white/50 block mb-6">Who We Are</span>
-            <h2 className="text-5xl md:text-6xl font-black tracking-tighter leading-tight mb-8">Rise your Brand with CRIVO</h2>
+            <h2 className="text-5xl md:text-6xl font-black tracking-tighter leading-tight mb-8">Elevate your Brand with CRIVO</h2>
             <p className="text-black/60 dark:text-white/60 text-lg leading-relaxed mb-6">
               Crivo Tech is a modern product tech company built for the digital era. We build robust, scalable platforms for businesses of all sizes — from ambitious startups to established enterprises — to power and grow their digital presence.
             </p>
