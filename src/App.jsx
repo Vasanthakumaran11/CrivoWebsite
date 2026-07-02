@@ -12,15 +12,18 @@ import ReachUs from './components/ReachUs/ReachUs'
 import AboutUs from './components/AboutUs/AboutUs'
 import Blog from './components/Blog/blog'
 import ApplyToJoin from './pages/ApplyToJoin'
+import Preloader from './components/Preloader'
 const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'))
 const TermsConditions = lazy(() => import('./pages/TermsConditions'))
 const AccessibilityStatement = lazy(() => import('./pages/AccessibilityStatement'))
+const AdminDashboard = lazy(() => import('./components/Admin/AdminDashboard'))
 
 function App() {
   const location = useLocation()
   const navigate = useNavigate()
   const isHome = location.pathname === '/'
   const [showContent, setShowContent] = useState(false)
+  const [preloaderActive, setPreloaderActive] = useState(true)
   const loopStartRef = useRef(null) // null = first play, number = loop start time (seconds)
 
   // Redirect to landing page and scroll to top on page refresh
@@ -41,9 +44,9 @@ function App() {
     }
   }, [])
 
-  // Fallback: show hero content after 2.5s even if video doesn't autoplay
+  // Fallback: show hero content after 5s even if video doesn't autoplay
   useEffect(() => {
-    const timer = setTimeout(() => setShowContent(true), 2500)
+    const timer = setTimeout(() => setShowContent(true), 5000)
     return () => clearTimeout(timer)
   }, [])
 
@@ -119,6 +122,14 @@ function App() {
 
   return (
     <>
+      {preloaderActive && (
+        <Preloader
+          onComplete={() => {
+            setPreloaderActive(false)
+            setShowContent(true)
+          }}
+        />
+      )}
       <ScrollToTop />
       <Navbar />
 
@@ -153,6 +164,7 @@ function App() {
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/terms" element={<TermsConditions />} />
           <Route path="/accessibility" element={<AccessibilityStatement />} />
+          <Route path="/admin" element={<AdminDashboard />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
         </Suspense>
