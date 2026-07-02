@@ -22,3 +22,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# TLS secrets (certbot)
+certbot/conf/live/
+certbot/conf/archive/
+certbot/conf/accounts/

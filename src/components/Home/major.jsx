@@ -24,7 +24,7 @@ function Major({ showContent = false }) {
 
                     <h1 className="font-black leading-[0.95] tracking-[-0.03em] mb-8 max-w-4xl mx-auto">
                         <span className="block text-5xl md:text-7xl lg:text-[88px] text-white drop-shadow-[0_2px_40px_rgba(255,255,255,0.12)]">
-                            Technology Built
+                            Technology Build
                         </span>
                         <span className="block text-5xl md:text-7xl lg:text-[88px] text-white/70">
                             For What's Next.

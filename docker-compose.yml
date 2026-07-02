@@ -1,0 +1,17 @@
+services:
+  crivo:
+    build: .
+    ports:
+      - "127.0.0.1:3000:3000"
+    restart: unless-stopped
+
+  umami:
+    image: ghcr.io/umami-software/umami:postgresql-latest
+    ports:
+      - "127.0.0.1:3006:3000"
+    environment:
+      DATABASE_URL: postgresql://Crivo:root@host.docker.internal:5432/umami
+      APP_SECRET: crivo_umami_secret_2024
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: unless-stopped
