@@ -27,3 +27,7 @@ dist-ssr
 certbot/conf/live/
 certbot/conf/archive/
 certbot/conf/accounts/
+
+# Environment variables
+.env
+

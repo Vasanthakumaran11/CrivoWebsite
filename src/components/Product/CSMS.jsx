@@ -58,7 +58,7 @@ function CSMS() {
     { id: 2, timestamp: new Date(Date.now() - 55000).toLocaleTimeString(), direction: 'OUTGOING', payload: '[3, "10001", {"status": "Accepted", "currentTime": "' + new Date().toISOString() + '", "interval": 14400}]' },
     { id: 3, timestamp: new Date(Date.now() - 40000).toLocaleTimeString(), direction: 'INCOMING', payload: '[2, "10002", "StatusNotification", {"connectorId": 1, "errorCode": "NoError", "status": "Charging"}]' }
   ]);
-  const [activeTab, setActiveTab] = useState('sim'); // sim, features, specs
+  
   const logsContainerRef = useRef(null);
 
   // Sync ref to avoid stale state in interval
