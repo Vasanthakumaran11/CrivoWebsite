@@ -17,11 +17,13 @@ const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'))
 const TermsConditions = lazy(() => import('./pages/TermsConditions'))
 const AccessibilityStatement = lazy(() => import('./pages/AccessibilityStatement'))
 const AdminDashboard = lazy(() => import('./components/Admin/AdminDashboard'))
+const StudioPage = lazy(() => import('./pages/StudioPage'))
 
 function App() {
   const location = useLocation()
   const navigate = useNavigate()
   const isHome = location.pathname === '/'
+  const isAdminPath = location.pathname.toLowerCase().startsWith('/admindashboard') || location.pathname.toLowerCase().startsWith('/admin')
   const [showContent, setShowContent] = useState(false)
   const [preloaderActive, setPreloaderActive] = useState(true)
   const loopStartRef = useRef(null) // null = first play, number = loop start time (seconds)
@@ -42,6 +44,7 @@ function App() {
         navigate('/', { replace: true })
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   // Fallback: show hero content after 5s even if video doesn't autoplay
@@ -122,7 +125,7 @@ function App() {
 
   return (
     <>
-      {preloaderActive && (
+      {!isAdminPath && preloaderActive && (
         <Preloader
           onComplete={() => {
             setPreloaderActive(false)
@@ -131,7 +134,7 @@ function App() {
         />
       )}
       <ScrollToTop />
-      <Navbar />
+      {!isAdminPath && <Navbar />}
 
       {/* Global Background Video (Globe) */}
       <div className={`fixed inset-0 z-0 bg-black transition-opacity duration-1000 ${isHome ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
@@ -164,6 +167,9 @@ function App() {
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/terms" element={<TermsConditions />} />
           <Route path="/accessibility" element={<AccessibilityStatement />} />
+          <Route path="/admindashboard" element={<AdminDashboard />} />
+          <Route path="/AdminDashboard" element={<Navigate to="/admindashboard" replace />} />
+          <Route path="/admin/studio/*" element={<StudioPage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
         </Suspense>

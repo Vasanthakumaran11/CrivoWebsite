@@ -11,6 +11,7 @@ function EmergencyDesk() {
   const [helpForm, setHelpForm] = useState({ contact: '', topic: 'Trip Issue', description: '' });
   const [helpSubmitStatus, setHelpSubmitStatus] = useState('idle');
   const [helpLogStep, setHelpLogStep] = useState(0);
+  const [refId, setRefId] = useState('');
 
   const copyToClipboard = (text) => {
     navigator.clipboard.writeText(text);
@@ -45,6 +46,8 @@ function EmergencyDesk() {
       const data = await res.json();
       setTimeout(() => {
         if (data.success) {
+          const randomId = Math.floor(Math.random() * 9000) + 1000;
+          setRefId(`#HLP-${randomId}`);
           setHelpSubmitStatus('success');
           setHelpForm({ contact: '', topic: 'Trip Issue', description: '' });
           recordSubmit(FORM_KEY);
@@ -202,10 +205,10 @@ function EmergencyDesk() {
                     </div>
                     <div>
                       <p className="text-xs font-mono tracking-widest text-white font-bold uppercase">ALERT BROADCAST</p>
-                      <p className="text-[10px] font-mono text-white/40 mt-1">Ref ID: #HLP-{(Math.floor(Math.random() * 9000) + 1000)}</p>
+                      <p className="text-[10px] font-mono text-white/40 mt-1">Ref ID: {refId}</p>
                     </div>
                     <button 
-                      onClick={() => { setActiveForm(null); setHelpSubmitStatus('idle'); }}
+                      onClick={() => { setActiveForm(null); setHelpSubmitStatus('idle'); setRefId(''); }}
                       className="px-4 py-1.5 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 rounded-lg text-[10px] uppercase font-bold tracking-wider transition-colors"
                     >
                       Close Console

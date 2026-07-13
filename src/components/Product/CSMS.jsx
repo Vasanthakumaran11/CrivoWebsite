@@ -49,15 +49,18 @@ const initialStations = [
   }
 ];
 
+const BASE_TIME = Date.now();
+const initialOcppLogs = [
+  { id: 1, timestamp: new Date(BASE_TIME - 60000).toLocaleTimeString(), direction: 'INCOMING', payload: '[2, "10001", "BootNotification", {"chargePointVendor": "CrivoHardware", "chargePointModel": "C-Fast120"}]' },
+  { id: 2, timestamp: new Date(BASE_TIME - 55000).toLocaleTimeString(), direction: 'OUTGOING', payload: '[3, "10001", {"status": "Accepted", "currentTime": "' + new Date(BASE_TIME).toISOString() + '", "interval": 14400}]' },
+  { id: 3, timestamp: new Date(BASE_TIME - 40000).toLocaleTimeString(), direction: 'INCOMING', payload: '[2, "10002", "StatusNotification", {"connectorId": 1, "errorCode": "NoError", "status": "Charging"}]' }
+];
+
 function CSMS() {
   const [stations, setStations] = useState(initialStations);
   const [selectedStationId, setSelectedStationId] = useState(2);
   const [imgFailed, setImgFailed] = useState(false);
-  const [ocppLogs, setOcppLogs] = useState([
-    { id: 1, timestamp: new Date(Date.now() - 60000).toLocaleTimeString(), direction: 'INCOMING', payload: '[2, "10001", "BootNotification", {"chargePointVendor": "CrivoHardware", "chargePointModel": "C-Fast120"}]' },
-    { id: 2, timestamp: new Date(Date.now() - 55000).toLocaleTimeString(), direction: 'OUTGOING', payload: '[3, "10001", {"status": "Accepted", "currentTime": "' + new Date().toISOString() + '", "interval": 14400}]' },
-    { id: 3, timestamp: new Date(Date.now() - 40000).toLocaleTimeString(), direction: 'INCOMING', payload: '[2, "10002", "StatusNotification", {"connectorId": 1, "errorCode": "NoError", "status": "Charging"}]' }
-  ]);
+  const [ocppLogs, setOcppLogs] = useState(initialOcppLogs);
   
   const logsContainerRef = useRef(null);
 

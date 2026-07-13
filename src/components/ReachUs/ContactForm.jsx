@@ -66,7 +66,7 @@ export default function ContactForm() {
 
   if (status === 'success') {
     return (
-      <div className="bg-white dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-[2rem] p-8 md:p-12 text-left flex flex-col items-center justify-center min-h-[480px] text-center">
+      <div className="bg-white dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-[2rem] p-8 md:p-12 flex flex-col items-center justify-center min-h-[480px] text-center">
         <div className="w-16 h-16 rounded-full bg-black/5 dark:bg-white/10 flex items-center justify-center mb-6">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-[#111110] dark:text-white">
             <path d="M20 6 9 17l-5-5" />

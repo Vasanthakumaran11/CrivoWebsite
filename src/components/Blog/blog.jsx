@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { 
   ArrowLeft, 
@@ -47,8 +47,8 @@ function DashboardHero() {
   useEffect(() => {
     const interval = setInterval(() => {
       // Simulate real-time voltage and frequency fluctuations
-      setVoltage(v => Math.round((230 + (Math.random() - 0.5) * 1.6) * 10) / 10);
-      setFreq(f => Math.round((50 + (Math.random() - 0.5) * 0.04) * 100) / 100);
+      setVoltage(Math.round((230 + (Math.random() - 0.5) * 1.6) * 10) / 10);
+      setFreq(Math.round((50 + (Math.random() - 0.5) * 0.04) * 100) / 100);
       
       // Animate active load values depending on chosen CSMS mode
       setLoadHistory(prev => {
@@ -215,14 +215,11 @@ export default function Blog() {
     leaf: false,
   });
 
-  const [allocatedPower, setAllocatedPower] = useState({ tesla: 0, taycan: 0, leaf: 0 });
-
-  // Calculate dynamic load balancing allocations
-  useEffect(() => {
+  // Calculate dynamic load balancing allocations (derived state)
+  const allocatedPower = useMemo(() => {
     let activeCars = Object.keys(pluggedCars).filter(key => pluggedCars[key]);
     if (activeCars.length === 0) {
-      setAllocatedPower ({ tesla: 0, taycan: 0, leaf: 0 });
-      return;
+      return { tesla: 0, taycan: 0, leaf: 0 };
     }
 
     let totalDemand = activeCars.reduce((sum, key) => sum + carSpecs[key].maxPower, 0);
@@ -239,7 +236,7 @@ export default function Blog() {
       });
     }
 
-    setAllocatedPower(newAllocations);
+    return newAllocations;
   }, [gridLimit, pluggedCars]);
 
   // OCPP Log Helper
