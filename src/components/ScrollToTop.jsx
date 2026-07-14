@@ -13,7 +13,7 @@ function ScrollToTop() {
           left: 0,
           behavior: 'instant',
         });
-      } catch (error) {
+      } catch {
         window.scrollTo(0, 0);
       }
     } else {

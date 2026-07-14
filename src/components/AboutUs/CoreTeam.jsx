@@ -80,7 +80,7 @@ function TeamMemberImage({ src, alt, initial, position = "center" }) {
       src={src}
       alt={alt}
       onError={() => setError(true)}
-      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+      className="w-full h-full object-cover grayscale transition-transform duration-500 group-hover:scale-105"
       style={{ objectPosition: position }}
     />
   );

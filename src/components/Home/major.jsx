@@ -18,7 +18,7 @@ function Major({ showContent = false }) {
                 >
                     {/* Badge eyebrow */}
                     <div className="inline-flex items-center gap-2.5 border border-white/15 rounded-full px-5 py-2 mb-10 bg-white/[0.04] backdrop-blur-md">
-                        <span className="w-1.5 h-1.5 rounded-full bg-sky-400 shadow-[0_0_8px_rgba(56,189,248,0.9)]"></span>
+                        <span className="w-1.5 h-1.5 rounded-full bg-white shadow-[0_0_8px_rgba(255,255,255,0.95)] animate-pulse"></span>
                         <span className="text-white/60 text-[11px] font-semibold uppercase tracking-[0.4em]">Built With Purpose</span>
                     </div>
 

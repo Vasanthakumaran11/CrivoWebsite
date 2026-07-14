@@ -69,7 +69,7 @@ export default function AdminDashboard() {
   const [admins, setAdmins] = useState(INITIAL_ADMINS);
   const [submissions, setSubmissions] = useState(INITIAL_SUBMISSIONS);
   const [faqs, setFaqs] = useState(INITIAL_FAQS);
-  const [products, setProducts] = useState(INITIAL_PRODUCTS);
+  const [products] = useState(INITIAL_PRODUCTS);
   const [siteSettings, setSiteSettings] = useState({
     supportEmail: 'support@crivo.in',
     salesEmail: 'sales@crivo.in',
@@ -97,34 +97,43 @@ export default function AdminDashboard() {
 
   // Security Logger State
   const [logFilter, setLogFilter] = useState('all');
-  const [logs, setLogs] = useState([]);
-  const logsEndRef = useRef(null);
-
-  // Generate background particles
-  const particles = useMemo(() => {
-    return Array.from({ length: 40 }).map((_, i) => ({
-      id: i,
-      left: `${Math.random() * 100}%`,
-      top: `${Math.random() * 100}%`,
-      size: `${Math.random() * 2 + 1}px`,
-      duration: `${Math.random() * 8 + 7}s`,
-      delay: `${Math.random() * -10}s`,
-    }));
-  }, []);
-
-  // Check localstorage for any actual submissions submitted during local testing
-  useEffect(() => {
-    if (isAuthenticated) {
-      // Mock logs loading
+  const [logs, setLogs] = useState(() => {
+    const isAuthenticatedOnLoad = typeof sessionStorage !== 'undefined' && sessionStorage.getItem('crivo_admin_auth') === 'true';
+    if (isAuthenticatedOnLoad) {
       const baseTime = Date.now();
-      const initialLogs = [
+      return [
         { id: 1, type: 'info', timestamp: new Date(baseTime - 12000).toLocaleTimeString(), text: 'System diagnostics operational. Connection pool stable.' },
         { id: 2, type: 'info', timestamp: new Date(baseTime - 9000).toLocaleTimeString(), text: 'CORS check successful. Whitelisted domains loaded.' },
         { id: 3, type: 'warning', timestamp: new Date(baseTime - 6000).toLocaleTimeString(), text: 'Rate limit threshold checked: IP 103.112.5.4 bypassed admin rule.' },
         { id: 4, type: 'success', timestamp: new Date(baseTime - 3000).toLocaleTimeString(), text: 'Superadmin session established from browser context.' }
       ];
-      setLogs(initialLogs);
+    }
+    return [];
+  });
+  const logsEndRef = useRef(null);
 
+  // Generate background particles deterministically to avoid impure functions during render
+  const particles = useMemo(() => {
+    return Array.from({ length: 40 }).map((_, i) => {
+      const left = ((i * 17) % 100);
+      const top = ((i * 23) % 100);
+      const size = (((i * 7) % 20) / 10) + 1; // 1px to 3px
+      const duration = ((i * 3) % 8) + 7; // 7s to 15s
+      const delay = -((i * 13) % 10); // -10s to 0s
+      return {
+        id: i,
+        left: `${left}%`,
+        top: `${top}%`,
+        size: `${size}px`,
+        duration: `${duration}s`,
+        delay: `${delay}s`,
+      };
+    });
+  }, []);
+
+  // Check localstorage for any actual submissions submitted during local testing
+  useEffect(() => {
+    if (isAuthenticated) {
       // Periodically append new mock system logs to look live
       const timer = setInterval(() => {
         const timestamp = new Date().toLocaleTimeString();
@@ -161,12 +170,22 @@ export default function AdminDashboard() {
     setIsAuthenticated(true);
     sessionStorage.setItem('crivo_admin_auth', 'true');
     setLoginError('');
+
+    // Initialize logs on login
+    const baseTime = Date.now();
+    setLogs([
+      { id: 1, type: 'info', timestamp: new Date(baseTime - 12000).toLocaleTimeString(), text: 'System diagnostics operational. Connection pool stable.' },
+      { id: 2, type: 'info', timestamp: new Date(baseTime - 9000).toLocaleTimeString(), text: 'CORS check successful. Whitelisted domains loaded.' },
+      { id: 3, type: 'warning', timestamp: new Date(baseTime - 6000).toLocaleTimeString(), text: 'Rate limit threshold checked: IP 103.112.5.4 bypassed admin rule.' },
+      { id: 4, type: 'success', timestamp: new Date(baseTime - 3000).toLocaleTimeString(), text: 'Superadmin session established from browser context.' }
+    ]);
   };
 
   // Handle logout
   const handleLogoutClick = () => {
     setIsAuthenticated(false);
     sessionStorage.removeItem('crivo_admin_auth');
+    setLogs([]);
   };
 
   // Add mock admin
@@ -272,7 +291,7 @@ export default function AdminDashboard() {
 
           <form onSubmit={handleLoginSubmit} className="space-y-6">
             {loginError && (
-              <div className="flex items-center gap-2 p-3.5 bg-red-950/30 border border-red-500/20 text-red-400 text-xs rounded-xl">
+              <div className="flex items-center gap-2 p-3.5 bg-white/5 border border-white/20 text-white text-xs rounded-xl">
                 <AlertTriangle className="w-4 h-4 shrink-0" />
                 <span>{loginError}</span>
               </div>
@@ -436,8 +455,8 @@ export default function AdminDashboard() {
             </div>
             
             <div className="flex items-center gap-4">
-              <span className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-green-500/10 border border-green-500/20 text-[9px] font-bold tracking-widest uppercase text-green-400">
-                <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse"></span>
+              <span className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 border border-white/20 text-[9px] font-bold tracking-widest uppercase text-white">
+                <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>
                 Node Connected
               </span>
             </div>
@@ -566,7 +585,7 @@ export default function AdminDashboard() {
                                   </button>
                                   <button
                                     onClick={() => setFaqs(prev => prev.filter(f => f.id !== item.id))}
-                                    className="p-1.5 text-red-400/40 hover:text-red-400 hover:bg-red-950/20 border border-transparent hover:border-red-500/10 rounded-lg transition-all"
+                                    className="p-1.5 text-white/30 hover:text-white hover:bg-white/10 border border-transparent hover:border-white/20 rounded-lg transition-all"
                                     title="Delete"
                                   >
                                     <Trash2 className="w-3.5 h-3.5" />
@@ -677,7 +696,7 @@ export default function AdminDashboard() {
                       <div className="absolute top-0 right-0 w-24 h-24 bg-white/5 rounded-full blur-2xl pointer-events-none transition-all group-hover:scale-150"></div>
                       
                       <div className="flex items-center gap-3">
-                        <span className="w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse shrink-0"></span>
+                        <span className="w-2.5 h-2.5 rounded-full bg-white animate-pulse shrink-0"></span>
                         <p className="text-xs text-white/70 font-semibold leading-relaxed">
                           Sanity Studio is being built — this embed is a placeholder for the current build phase.
                         </p>
@@ -754,7 +773,7 @@ export default function AdminDashboard() {
                         <div key={idx} className="p-6 bg-white/[0.02] border border-white/10 rounded-2xl">
                           <div className="text-[9px] uppercase tracking-wider text-white/40 font-bold mb-2">{metric.label}</div>
                           <div className="text-3xl font-black font-mono tracking-tight mb-2">{metric.val}</div>
-                          <div className={`text-[10px] font-bold ${metric.plus ? 'text-green-400' : 'text-amber-400'}`}>
+                          <div className={`text-[10px] font-bold ${metric.plus ? 'text-white' : 'text-white/50'}`}>
                             {metric.change} vs last week
                           </div>
                         </div>
@@ -927,9 +946,9 @@ export default function AdminDashboard() {
                                 <div className="flex items-center gap-2">
                                   <h3 className="text-lg font-bold">{sub.name}</h3>
                                   <span className={`text-[8px] px-2 py-0.5 rounded font-mono font-bold uppercase ${
-                                    sub.type === 'Emergency' ? 'bg-red-500/10 text-red-400 border border-red-500/20 animate-pulse' :
-                                    sub.type === 'Career' ? 'bg-blue-500/10 text-blue-400 border border-blue-500/20' :
-                                    'bg-white/10 text-white border border-white/10'
+                                    sub.type === 'Emergency' ? 'bg-white text-black border border-white animate-pulse font-extrabold' :
+                                    sub.type === 'Career' ? 'bg-white/10 text-white border border-white/25' :
+                                    'bg-transparent text-white/50 border border-white/10'
                                   }`}>{sub.type}</span>
                                 </div>
                                 <div className="text-xs text-white/40 font-mono">{sub.contact} | {sub.date}</div>
@@ -938,16 +957,16 @@ export default function AdminDashboard() {
                                 <button
                                   onClick={() => handleToggleSubStatus(sub.id)}
                                   className={`text-[9px] px-2.5 py-1.5 border font-bold uppercase tracking-wider rounded-xl transition-all ${
-                                    sub.status === 'Pending' ? 'bg-amber-500/10 text-amber-400 border-amber-500/20' :
-                                    sub.status === 'Reviewed' ? 'bg-blue-500/10 text-blue-450 border-blue-500/20' :
-                                    'bg-green-500/10 text-green-400 border-green-500/20'
+                                    sub.status === 'Pending' ? 'bg-transparent text-white/50 border-white/10 hover:border-white/30' :
+                                    sub.status === 'Reviewed' ? 'bg-white/10 text-white border-white/20 hover:bg-white/15' :
+                                    'bg-white text-black border-transparent font-extrabold hover:bg-white/90'
                                   }`}
                                 >
                                   {sub.status}
                                 </button>
                                 <button
                                   onClick={() => handleDeleteSubmission(sub.id)}
-                                  className="p-2 text-white/30 hover:text-red-400 hover:bg-red-950/20 border border-transparent hover:border-red-500/10 rounded-xl transition-all"
+                                  className="p-2 text-white/30 hover:text-white hover:bg-white/10 border border-transparent hover:border-white/20 rounded-xl transition-all"
                                   title="Remove Log"
                                 >
                                   <Trash2 className="w-4 h-4" />
@@ -1011,12 +1030,12 @@ export default function AdminDashboard() {
                         {filteredLogs.map(log => (
                           <div key={log.id} className="flex items-start gap-3">
                             <span className="text-white/30 shrink-0 select-none">[{log.timestamp}]</span>
-                            <span className={`font-bold shrink-0 select-none ${
-                              log.type === 'error' ? 'text-red-400' :
-                              log.type === 'warning' ? 'text-amber-400' :
-                              log.type === 'success' ? 'text-green-400' :
-                              'text-blue-400'
-                            }`}>{log.type.toUpperCase()}:</span>
+                            <span className={`font-mono shrink-0 select-none ${
+                               log.type === 'error' ? 'text-white underline decoration-white/30' :
+                               log.type === 'warning' ? 'text-white/70' :
+                               log.type === 'success' ? 'text-white font-bold' :
+                               'text-white/50'
+                             }`}>{log.type.toUpperCase()}:</span>
                             <span className="text-white/80 text-left">{log.text}</span>
                           </div>
                         ))}
@@ -1075,10 +1094,10 @@ export default function AdminDashboard() {
                                 </td>
                                 <td className="p-4">
                                   <span className={`inline-flex items-center gap-1.5 font-semibold ${
-                                    adm.status.includes('Active') ? 'text-green-400' : 'text-white/40'
+                                    adm.status.includes('Active') ? 'text-white' : 'text-white/40'
                                   }`}>
                                     <span className={`w-1.5 h-1.5 rounded-full ${
-                                      adm.status.includes('Active') ? 'bg-green-400' : 'bg-white/15'
+                                      adm.status.includes('Active') ? 'bg-white animate-pulse' : 'bg-white/15'
                                     }`}></span>
                                     {adm.status}
                                   </span>

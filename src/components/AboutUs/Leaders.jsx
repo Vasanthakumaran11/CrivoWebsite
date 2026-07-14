@@ -43,7 +43,7 @@ function Leaders() {
               <img
                 src={t.image}
                 alt={t.name}
-                className="w-full h-full object-cover grayscale group-hover:grayscale-0 scale-100 group-hover:scale-105 transition-all duration-700 ease-out"
+                className="w-full h-full object-cover grayscale scale-100 group-hover:scale-105 transition-all duration-700 ease-out"
                 style={{ objectPosition: 'top center' }}
               />
               {/* Gradient Overlay */}

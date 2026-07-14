@@ -1,18 +1,25 @@
-import { defineConfig } from 'sanity'
+// src/sanity/sanity.config.js
+import { defineConfig }  from 'sanity'
 import { structureTool } from 'sanity/structure'
-import { visionTool } from '@sanity/vision'
-import { schemaTypes } from './schemas'
-
-const projectId = import.meta.env.VITE_SANITY_PROJECT_ID || 'mu7huxyd'
-const dataset = import.meta.env.VITE_SANITY_DATASET || 'production'
+import { visionTool }    from '@sanity/vision'
+import { schemaTypes }   from './schemas'
 
 export default defineConfig({
-  name: 'default',
-  title: 'Crivo Admin Studio',
-  projectId,
-  dataset,
-  basePath: '/admin/studio',
-  plugins: [structureTool(), visionTool()],
+  name:       'crivo-studio',
+  title:      'Crivo CMS',
+
+  projectId:  import.meta.env.VITE_SANITY_PROJECT_ID,
+  dataset:    import.meta.env.VITE_SANITY_DATASET,
+
+  apiVersion: '2024-01-01',
+
+  basePath:   '/admin/studio',
+
+  plugins: [
+    structureTool(),
+    visionTool(),
+  ],
+
   schema: {
     types: schemaTypes,
   },
