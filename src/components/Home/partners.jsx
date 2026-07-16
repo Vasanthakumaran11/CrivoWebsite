@@ -1,4 +1,6 @@
-const partners = [
+import { useHomePage } from '../../hooks/useHomePage';
+
+const partnersDefault = [
   { name: "Shopify" },
   { name: "Razorpay" },
   { name: "AWS" },
@@ -12,6 +14,11 @@ const partners = [
 ];
 
 function Partners() {
+  const { data } = useHomePage();
+  const partners = data?.trustedTechnologies?.length
+    ? data.trustedTechnologies.map((name) => ({ name }))
+    : partnersDefault;
+
   return (
     <section className="py-20 overflow-hidden bg-[#F8F7F2] dark:bg-transparent">
       <div className="max-w-7xl mx-auto px-6">

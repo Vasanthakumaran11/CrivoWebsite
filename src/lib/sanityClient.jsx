@@ -1,10 +1,11 @@
+// src/lib/sanityClient.js
 import { createClient } from '@sanity/client'
-import imageUrlBuilder from '@sanity/image-url'
+import imageUrlBuilder  from '@sanity/image-url'
 
 export const client = createClient({
   projectId: import.meta.env.VITE_SANITY_PROJECT_ID,
-  dataset: import.meta.env.VITE_SANITY_DATASET,
-  useCdn: true,
+  dataset:   import.meta.env.VITE_SANITY_DATASET,
+  useCdn:    false,      // changed from true to false
   apiVersion: '2024-01-01',
 })
 

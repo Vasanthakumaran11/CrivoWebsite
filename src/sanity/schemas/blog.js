@@ -43,10 +43,66 @@ export default {
       type: 'datetime'
     },
     {
-      name: 'content',
-      title: 'Content',
+      name: 'sections',
+      title: 'Blog Content Sections',
       type: 'array',
-      of: [{ type: 'block' }]
+      description: 'Divide the blog content into structured, modular sections',
+      of: [
+        {
+          name: 'textSection',
+          title: 'Text Content Section',
+          type: 'object',
+          fields: [
+            { name: 'heading', title: 'Section Heading', type: 'string' },
+            { name: 'body', title: 'Section Body Text', type: 'text' }
+          ]
+        },
+        {
+          name: 'dualCardSection',
+          title: 'Dual Card Feature Section',
+          type: 'object',
+          fields: [
+            { name: 'heading', title: 'Section Heading', type: 'string' },
+            {
+              name: 'cards',
+              title: 'Feature Cards',
+              type: 'array',
+              of: [
+                {
+                  type: 'object',
+                  fields: [
+                    { name: 'title', title: 'Card Title', type: 'string' },
+                    { name: 'desc', title: 'Card Description', type: 'text' }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          name: 'codePlayground',
+          title: 'Interactive Code Playground',
+          type: 'object',
+          fields: [
+            { name: 'heading', title: 'Heading', type: 'string' },
+            { name: 'description', title: 'Description', type: 'text' },
+            { name: 'codeSnippet', title: 'Code Snippet', type: 'text' }
+          ]
+        },
+        {
+          name: 'widgetPlaceholder',
+          title: 'Interactive Widget Placeholder',
+          type: 'object',
+          fields: [
+            {
+              name: 'widgetName',
+              title: 'Widget Name',
+              type: 'string',
+              description: 'Identifier for the widget (e.g. Telemetry, Simulator, Playground)'
+            }
+          ]
+        }
+      ]
     }
   ]
 }

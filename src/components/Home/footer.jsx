@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { useFooter } from '../../hooks/useFooter';
 
 const navLinks = [
   { label: 'Product', to: '/product' },
@@ -12,9 +13,10 @@ const solutions = [
   'Smart EV Trip Planner'
 ];
 
-const socials = [
+const socialsBase = [
   {
     name: 'Instagram',
+    key: 'instagramLink',
     href: 'https://www.instagram.com/crivo_tech_?igsh=bnB6ZTVua3RuZ2dk',
     icon: (
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
@@ -26,6 +28,7 @@ const socials = [
   },
   {
     name: 'YouTube',
+    key: 'youtubeLink',
     href: '#',
     icon: (
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
@@ -36,6 +39,7 @@ const socials = [
   },
   {
     name: 'LinkedIn',
+    key: 'linkedinLink',
     href: 'https://www.linkedin.com/company/crivo-tech/',
     icon: (
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
@@ -47,6 +51,7 @@ const socials = [
   },
   {
     name: 'X',
+    key: 'xLink',
     href: 'https://x.com/Crivo_Tech',
     icon: (
       <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
@@ -57,6 +62,14 @@ const socials = [
 ];
 
 export default function Footer() {
+  const { data } = useFooter();
+
+  const bannerTitle = data?.bannerTitle;
+  const email = data?.email || 'info@crivo.in';
+  const phone = data?.phone || '+91 96007 60063';
+  const phoneHref = phone.replace(/[^\d+]/g, '');
+  const socials = socialsBase.map((s) => ({ ...s, href: data?.[s.key] || s.href }));
+
   return (
     <footer className="relative z-10 bg-[#0d0d0d] text-white px-6 md:px-12 py-16 overflow-hidden">
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-white/3 blur-[120px] rounded-full -mr-64 -mt-64 pointer-events-none"></div>
@@ -75,18 +88,18 @@ export default function Footer() {
             </div>
 
             <h2 className="text-5xl md:text-7xl font-semibold mb-12 leading-[1.1] tracking-tight max-w-2xl">
-              Get Ready to <br /> Grow Your Business
+              {bannerTitle || <>Get Ready to <br /> Grow Your Business</>}
             </h2>
 
             <div className="flex flex-wrap gap-4 mb-10">
-              <a href="mailto:info@crivo.in" className="flex items-center gap-3 px-8 py-4 rounded-full border border-white/20 bg-white/5 hover:bg-white/10 transition-all group">
-                <span className="text-lg">info@crivo.in</span>
+              <a href={`mailto:${email}`} className="flex items-center gap-3 px-8 py-4 rounded-full border border-white/20 bg-white/5 hover:bg-white/10 transition-all group">
+                <span className="text-lg">{email}</span>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform">
                   <line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/>
                 </svg>
               </a>
-              <a href="tel:+919600760063" className="flex items-center gap-3 px-8 py-4 rounded-full border border-white/20 bg-white/5 hover:bg-white/10 transition-all group">
-                <span className="text-lg">+91 96007 60063</span>
+              <a href={`tel:${phoneHref}`} className="flex items-center gap-3 px-8 py-4 rounded-full border border-white/20 bg-white/5 hover:bg-white/10 transition-all group">
+                <span className="text-lg">{phone}</span>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform">
                   <line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/>
                 </svg>

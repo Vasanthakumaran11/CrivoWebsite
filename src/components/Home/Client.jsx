@@ -1,4 +1,4 @@
-const testimonials = [
+const testimonialsDefault = [
   {
     quote: "Crivo transformed our outdated platform into a blazing-fast web app. The team delivered beyond our expectations — on time and with zero compromises on quality.",
     name: "Kumaravel",
@@ -32,8 +32,12 @@ const testimonials = [
 ];
 
 import { useRef, useEffect } from 'react';
+import { useHomePage } from '../../hooks/useHomePage';
 
 function Client() {
+  const { data } = useHomePage();
+  const testimonials = data?.ourClients?.length ? data.ourClients : testimonialsDefault;
+
   const scrollRef = useRef(null);
   const animRef = useRef(null);
   const isDragging = useRef(false);

@@ -1,10 +1,12 @@
-const whyUs = [
+import { useHomePage } from '../../hooks/useHomePage';
+
+const whyUsDefault = [
   { title: "Innovation-Driven Solutions", desc: "We focus on creating forward-thinking digital experiences that adapt to the latest technologies by embracing cutting-edge tools and strategies." },
   { title: "Holistic Approach", desc: "We seamlessly integrate every aspect of your digital presence — from web development and mobile apps to marketing strategies — under one roof." },
   { title: "Data-Backed Results", desc: "Every strategy implemented is driven by precise insights and analytics to optimize performance and maximize ROI for your business." },
 ];
 
-const process = [
+const processDefault = [
   { step: "01", title: "Discovery", desc: "We deep-dive into your business, goals, and competition to build a solid foundation." },
   { step: "02", title: "Strategy", desc: "A tailored roadmap covering tech stack, timeline, milestones, and success metrics." },
   { step: "03", title: "Build", desc: "Design and development sprints with weekly demos so you always see progress." },
@@ -13,6 +15,24 @@ const process = [
 ];
 
 function WhatWeDo() {
+  const { data } = useHomePage();
+
+  const whyUs = ['box1', 'box2', 'box3'].every((k) => data?.whyChooseUs?.[k]?.title)
+    ? ['box1', 'box2', 'box3'].map((k) => ({
+        title: data.whyChooseUs[k].title,
+        desc: data.whyChooseUs[k].description,
+      }))
+    : whyUsDefault;
+
+  const processKeys = ['box1', 'box2', 'box3', 'box4', 'box5'];
+  const process = processKeys.every((k) => data?.process?.[k]?.title)
+    ? processKeys.map((k) => ({
+        step: data.process[k].stepNumber,
+        title: data.process[k].title,
+        desc: data.process[k].description,
+      }))
+    : processDefault;
+
   return (
     <section id="services" className="py-32 bg-[#F8F7F2] dark:bg-transparent text-[#111110] dark:text-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-6">
