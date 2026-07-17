@@ -1,22 +1,44 @@
 import { Link } from 'react-router-dom';
 import { ArrowUpRight } from 'lucide-react';
 import TagBadge from './TagBadge';
+import { useBlogPosts } from '../../hooks/useBlogPosts';
 
-const featured = {
+const LIVE_SLUG = 'ev-charging-control-systems';
+
+const featuredDefault = {
   tag: "IoT & Infrastructure",
   title: "Smart Charging Infrastructure: Demystifying EV Chargers & Their Control Systems",
   excerpt: "Behind every EV charger is a complex network of microcontrollers and cloud software. Discover how modern CSMS platforms orchestrate charging loads and communicate via OCPP — and why getting this right is the foundation of India's EV future.",
   author: "Crivo Power Lab",
   date: "June 13, 2026",
   readTime: "8 min read",
-  to: "/blogs/ev-charging-control-systems"
+  to: `/blogs/${LIVE_SLUG}`
 };
 
 function FeaturedPost() {
+  const { data } = useBlogPosts();
+  const latest = data?.[0];
+  const featured = latest
+    ? {
+        tag: latest.category || 'Crivo',
+        title: latest.title,
+        excerpt: latest.excerpt,
+        author: latest.author || 'Crivo Team',
+        date: latest.publishedAt
+          ? new Date(latest.publishedAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
+          : '',
+        readTime: latest.readTime,
+        to: latest.slug === LIVE_SLUG ? `/blogs/${latest.slug}` : null,
+      }
+    : featuredDefault;
+
+  const Wrapper = featured.to ? Link : 'div';
+  const wrapperProps = featured.to ? { to: featured.to } : {};
+
   return (
     <section className="border-none text-left">
       <div className="max-w-7xl mx-auto px-6 py-20">
-        <Link to={featured.to} className="group block relative p-10 md:p-16 bg-white dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-[2.5rem] hover:bg-[#111110] dark:hover:bg-white hover:border-[#111110] dark:hover:border-white transition-all duration-700 overflow-hidden cursor-pointer">
+        <Wrapper {...wrapperProps} className="group block relative p-10 md:p-16 bg-white dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-[2.5rem] hover:bg-[#111110] dark:hover:bg-white hover:border-[#111110] dark:hover:border-white transition-all duration-700 overflow-hidden cursor-pointer">
           <div className="absolute top-8 right-10 text-[8rem] font-black text-black/5 dark:text-white/5 leading-none select-none pointer-events-none group-hover:text-white/5 dark:group-hover:text-black/5">
             FEATURED
           </div>
@@ -39,7 +61,7 @@ function FeaturedPost() {
               </div>
             </div>
           </div>
-        </Link>
+        </Wrapper>
       </div>
     </section>
   );

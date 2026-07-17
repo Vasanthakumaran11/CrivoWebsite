@@ -40,6 +40,8 @@ export default {
       type: 'object',
       fields: [
         { name: 'eyebrow', title: 'Eyebrow Text', type: 'string', placeholder: 'Route Intelligence Simulator' },
+        { name: 'titleLine1', title: 'Title Line 1', type: 'string', placeholder: 'EXPERIENCE THE AI' },
+        { name: 'titleLine2', title: 'Title Line 2', type: 'string', placeholder: 'ROUTE ADVISER' },
         { name: 'routeName', title: 'Route Name Title', type: 'string', placeholder: 'Mumbai ➔ Pune ➔ Kolhapur' },
         { name: 'description', title: 'Description', type: 'text' }
       ]

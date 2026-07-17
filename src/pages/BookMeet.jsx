@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { canSubmit, recordSubmit, secondsUntilNextSubmit } from '../utils/formSecurity';
+import { useBookMeetPage } from '../hooks/useBookMeetPage';
 
 const W3F_KEY = import.meta.env.VITE_WEB3FORMS_KEY;
 const FORM_KEY = 'bookmeet';
@@ -30,6 +31,9 @@ function validate(form) {
 }
 
 export default function BookMeet() {
+  const { data } = useBookMeetPage();
+  const left = data?.leftSideContent;
+
   const [form, setForm] = useState(EMPTY);
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState('idle');
@@ -100,14 +104,14 @@ export default function BookMeet() {
         {/* Left */}
         <div className="flex-1 space-y-10 pt-10">
           <div className="inline-block px-4 py-1.5 border-2 border-black dark:border-white/30 text-black dark:text-white rounded-full text-xs font-bold uppercase tracking-wider">
-            Book a Meet
+            {left?.eyebrow || 'Book a Meet'}
           </div>
           <div className="space-y-4">
-            <h1 className="text-7xl md:text-8xl font-black text-black dark:text-white leading-[0.9] tracking-tighter">GET STARTED</h1>
-            <h2 className="text-7xl md:text-8xl font-black text-gray-300 dark:text-gray-600 leading-[0.9] tracking-tighter">TODAY</h2>
+            <h1 className="text-7xl md:text-8xl font-black text-black dark:text-white leading-[0.9] tracking-tighter">{left?.titleLine1 || 'GET STARTED'}</h1>
+            <h2 className="text-7xl md:text-8xl font-black text-gray-300 dark:text-gray-600 leading-[0.9] tracking-tighter">{left?.titleLine2 || 'TODAY'}</h2>
           </div>
           <p className="text-black/70 dark:text-white/60 text-xl max-w-md leading-relaxed font-medium">
-            Elevate your vision with our expert guidance. Let's discuss how we can transform your ideas into reality.
+            {left?.description || "Elevate your vision with our expert guidance. Let's discuss how we can transform your ideas into reality."}
           </p>
           <div className="h-1 w-20 bg-black dark:bg-white"></div>
         </div>

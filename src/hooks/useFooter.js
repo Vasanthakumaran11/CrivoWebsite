@@ -1,7 +1,7 @@
 import { useSanityQuery } from './useSanityQuery'
 
 const QUERY = `*[_type == "siteFooter"][0]{
-  bannerTitle, email, phone, instagramLink, youtubeLink, xLink, linkedinLink
+  bannerTitle, email, phone, instagramLink, youtubeLink, xLink, linkedinLink, copyrightText, madeByText
 }`
 
 export function useFooter() {

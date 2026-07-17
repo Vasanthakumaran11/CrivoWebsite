@@ -1,6 +1,8 @@
 import { Linkedin, Mail } from 'lucide-react';
+import { useAboutPage } from '../../hooks/useAboutPage';
+import { urlFor } from '../../lib/sanityClient';
 
-const leadersList = [
+const leadersListDefault = [
   { 
     name: "Bharanidharan R N", 
     role: "Co-Founder & CEO", 
@@ -25,11 +27,19 @@ const leadersList = [
 ];
 
 function Leaders() {
+  const { data } = useAboutPage();
+  const leadersList = data?.leadersSection?.leaders?.length
+    ? data.leadersSection.leaders.map((l) => ({
+        ...l,
+        image: l.image ? urlFor(l.image).width(600).url() : null,
+      }))
+    : leadersListDefault;
+
   return (
     <div className="text-left">
       <div className="mb-10">
         <h6 className="text-4xl md:text-5xl font-black tracking-tighter leading-none mb-6">
-          LEADERS
+          {data?.leadersSection?.title || 'LEADERS'}
         </h6>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-6">

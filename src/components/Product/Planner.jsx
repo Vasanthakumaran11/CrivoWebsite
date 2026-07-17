@@ -7,6 +7,7 @@ import {
 } from 'lucide-react';
 import Footer from '../Home/footer';
 import StarsBackground from '../background/StarsBackground';
+import { useProductPlanner } from '../../hooks/useProductPlanner';
 
 // Milestones on the Mumbai -> Pune -> Kolhapur route
 const milestones = [
@@ -17,7 +18,59 @@ const milestones = [
   { name: "Kolhapur", dist: 385, batteryEnd: 52, progressVal: 100, type: "end" }
 ];
 
+const modulesDefault = [
+  {
+    title: "AI Range Prediction",
+    desc: "Real-world range estimation using battery %, speed, terrain, weather, AC load, passenger count, and driving environment.",
+  },
+  {
+    title: "Intelligent Route Planning",
+    desc: "Multi-stop trip optimization with automatic charging point insertion and minimal travel time routing.",
+  },
+  {
+    title: "Smart Charging Stops",
+    desc: "Ranks stations by charger compatibility, speed, availability, cost, deviation, wait time, ratings, and nearby amenities.",
+  },
+  {
+    title: "Unified EV Wallet",
+    desc: "Single wallet integrating Zeon, ChargeZone, Statiq, ChargeMOD, Jio-bp pulse and more — pay once, charge anywhere.",
+  },
+  {
+    title: "Emergency Low-Battery Mode",
+    desc: "Detects critical battery levels and instantly routes to the nearest compatible chargers with real-time availability.",
+  },
+  {
+    title: "Flutter Mobile App",
+    desc: "Seamless cross-platform app for EV users paired with a web-based admin dashboard for operators and managers.",
+  },
+];
+const moduleIcons = [Activity, Compass, Zap, Wallet, AlertTriangle, Smartphone];
+
+const specsListDefault = [
+  { label: "Supported Vehicles", val: "All major Indian EVs (Tata Nexon EV, Tiago EV, Punch EV, MG ZS EV, BYD Atto 3, Hyundai Ioniq 5, Mahindra XUV400, etc.)" },
+  { label: "Predictive Variables", val: "AC settings, speed profile, weather drag, ambient temperature, elevation ratio, vehicle cargo load" },
+  { label: "Consolidated CPOs", val: "Zeon, ChargeZone, Statiq, Jio-bp pulse, ChargeMOD, EVRE, and other OCPP-connected networks" },
+  { label: "Application Handshakes", val: "Flutter-based Android/iOS mobile clients, React Admin Dashboard, secure REST APIs" },
+  { label: "Smart Routing Core", val: "Automatic charging station recommendation, amenities filtering, waiting time predictions" }
+];
+
 function Planner() {
+  const { data: plannerData } = useProductPlanner();
+  const hero = plannerData?.hero;
+  const intro = plannerData?.intro;
+  const simulator = plannerData?.simulator;
+  const wallet = plannerData?.wallet;
+  const capabilities = plannerData?.capabilities;
+  const aiEngine = plannerData?.aiEngine;
+  const specifications = plannerData?.specifications;
+  const cta = plannerData?.cta;
+
+  const modules = capabilities?.modulesList?.length
+    ? capabilities.modulesList.map((m, i) => ({ ...m, icon: moduleIcons[i % moduleIcons.length] }))
+    : modulesDefault.map((m, i) => ({ ...m, icon: moduleIcons[i] }));
+
+  const specsList = specifications?.specsList?.length ? specifications.specsList : specsListDefault;
+
   const [isPlaying, setIsPlaying] = useState(true);
   const [progress, setProgress] = useState(0); // 0 to 100
   const [acOn, setAcOn] = useState(true);
@@ -157,16 +210,16 @@ function Planner() {
           {/* Left Column: Headline */}
           <div className="md:col-span-7 space-y-8 text-left">
             <h1 className="text-5xl md:text-[5.5rem] font-black tracking-tighter leading-[1.05] text-[#111110] dark:text-white uppercase">
-              AI SMART TRIP <br />
-              <span className="text-outline">PLANNER SYSTEM</span>
+              {hero?.titleLine1 || 'AI SMART TRIP'} <br />
+              <span className="text-outline">{hero?.titleLine2 || 'PLANNER SYSTEM'}</span>
             </h1>
 
             <p className="text-xl md:text-2xl font-medium tracking-tight text-black/60 dark:text-white/60 leading-relaxed max-w-2xl">
-              PREDICT RANGE, OPTIMIZE ROUTE STOPS, AND TRANSACT VIA UNIFIED WALLET BALANCES SEAMLESSLY.
+              {hero?.subtitle || 'PREDICT RANGE, OPTIMIZE ROUTE STOPS, AND TRANSACT VIA UNIFIED WALLET BALANCES SEAMLESSLY.'}
             </p>
 
             <p className="text-base text-black/50 dark:text-white/45 leading-relaxed max-w-xl">
-              An intelligent route intelligence platform designed for the Indian EV ecosystem. Crivo Smart EV Trip Planner predicts realistic ranges based on AC loads, terrain variations, weather drag, and speed profiles, routing drivers to charging stops while linking all CPO wallets natively.
+              {hero?.description || 'An intelligent route intelligence platform designed for the Indian EV ecosystem. Crivo Smart EV Trip Planner predicts realistic ranges based on AC loads, terrain variations, weather drag, and speed profiles, routing drivers to charging stops while linking all CPO wallets natively.'}
             </p>
           </div>
 
@@ -195,11 +248,11 @@ function Planner() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center text-left">
             <div className="lg:col-span-7 space-y-6">
               <h2 className="text-3xl md:text-5xl font-black tracking-tight uppercase leading-tight">
-                Predictive Trip Intelligence <br />
-                <span className="text-outline">Designed for the Indian Terrain</span>
+                {intro?.titleLine1 || 'Predictive Trip Intelligence'} <br />
+                <span className="text-outline">{intro?.titleLine2 || 'Designed for the Indian Terrain'}</span>
               </h2>
               <p className="text-base md:text-lg text-black/60 dark:text-white/60 leading-relaxed font-normal">
-                Crivo's predictive Trip Planner leverages advanced machine learning to eliminate range anxiety. Our platform dynamically calculates battery health and range degradation using real-world factors like weather wind drag, elevation gradients, passenger loads, and AC cabin draw.
+                {intro?.description || "Crivo's predictive Trip Planner leverages advanced machine learning to eliminate range anxiety. Our platform dynamically calculates battery health and range degradation using real-world factors like weather wind drag, elevation gradients, passenger loads, and AC cabin draw."}
               </p>
             </div>
             <div className="lg:col-span-5">
@@ -219,13 +272,13 @@ function Planner() {
       <section className="py-28 bg-black/[0.01] dark:bg-white/[0.01] relative">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16 space-y-4">
-            <span className="text-xs font-bold uppercase tracking-[0.3em] text-black/60 dark:text-white/60 block">Route Intelligence Simulator</span>
+            <span className="text-xs font-bold uppercase tracking-[0.3em] text-black/60 dark:text-white/60 block">{simulator?.eyebrow || 'Route Intelligence Simulator'}</span>
             <h2 className="text-5xl md:text-6xl font-black tracking-tighter leading-none uppercase">
-              EXPERIENCE THE AI <br />
-              <span className="text-outline">ROUTE ADVISER</span>
+              {simulator?.titleLine1 || 'EXPERIENCE THE AI'} <br />
+              <span className="text-outline">{simulator?.titleLine2 || 'ROUTE ADVISER'}</span>
             </h2>
             <p className="text-base text-black/50 dark:text-white/50 max-w-2xl mx-auto">
-              Simulate route telemetry on the Mumbai ➔ Pune ➔ Kolhapur corridor. Adjust trip variables and see dynamic charger suggestions update instantly.
+              {simulator?.description || 'Simulate route telemetry on the Mumbai ➔ Pune ➔ Kolhapur corridor. Adjust trip variables and see dynamic charger suggestions update instantly.'}
             </p>
           </div>
 
@@ -241,7 +294,7 @@ function Planner() {
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-black/5 dark:border-white/5 pb-4">
                     <div>
                       <span className="text-[10px] font-bold uppercase tracking-widest text-black/45 dark:text-white/40">Sample Route Intelligence</span>
-                      <h3 className="text-2xl font-black tracking-tight uppercase mt-1">Mumbai ➔ Pune ➔ Kolhapur</h3>
+                      <h3 className="text-2xl font-black tracking-tight uppercase mt-1">{simulator?.routeName || 'Mumbai ➔ Pune ➔ Kolhapur'}</h3>
                     </div>
                     
                     {/* Control Buttons */}
@@ -562,13 +615,13 @@ function Planner() {
             
             {/* Left side description */}
             <div className="lg:col-span-5 text-left space-y-6">
-              <span className="text-xs font-bold uppercase tracking-[0.3em] text-black/60 dark:text-white/60 block">Unified EV Wallet</span>
+              <span className="text-xs font-bold uppercase tracking-[0.3em] text-black/60 dark:text-white/60 block">{wallet?.eyebrow || 'Unified EV Wallet'}</span>
               <h2 className="text-5xl md:text-6xl font-black uppercase tracking-tight leading-none">
-                ONE WALLET. <br />
-                <span className="text-outline">EVERY CHARGER.</span>
+                {wallet?.titleLine1 || 'ONE WALLET.'} <br />
+                <span className="text-outline">{wallet?.titleLine2 || 'EVERY CHARGER.'}</span>
               </h2>
               <p className="text-base text-black/50 dark:text-white/50 leading-relaxed">
-                No more switching apps. No more separate logins. Connect all your CPO wallets into a single unified balance and charge seamlessly across India's entire EV network. Crivo consolidates accounts from Zeon, ChargeZone, Statiq, Jio-bp, and more.
+                {wallet?.description || "No more switching apps. No more separate logins. Connect all your CPO wallets into a single unified balance and charge seamlessly across India's entire EV network. Crivo consolidates accounts from Zeon, ChargeZone, Statiq, Jio-bp, and more."}
               </p>
 
               {/* Transaction Simulator Trigger */}
@@ -655,50 +708,19 @@ function Planner() {
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8">
             <div className="text-left space-y-4">
-              <span className="text-xs font-bold uppercase tracking-[0.3em] text-black/60 dark:text-white/60 block">Core Capabilities</span>
+              <span className="text-xs font-bold uppercase tracking-[0.3em] text-black/60 dark:text-white/60 block">{capabilities?.eyebrow || 'Core Capabilities'}</span>
               <h2 className="text-5xl md:text-7xl font-black tracking-tighter leading-tight uppercase">
-                EVERYTHING YOUR <br />
-                <span className="text-outline">EV JOURNEY NEEDS.</span>
+                {capabilities?.titleLine1 || 'EVERYTHING YOUR'} <br />
+                <span className="text-outline">{capabilities?.titleLine2 || 'EV JOURNEY NEEDS.'}</span>
               </h2>
             </div>
             <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#111110]/50 dark:text-white/50 shrink-0">
-              06 MODULES COMPLETE
+              {capabilities?.countText || '06 MODULES COMPLETE'}
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[
-              {
-                title: "AI Range Prediction",
-                desc: "Real-world range estimation using battery %, speed, terrain, weather, AC load, passenger count, and driving environment.",
-                icon: Activity
-              },
-              {
-                title: "Intelligent Route Planning",
-                desc: "Multi-stop trip optimization with automatic charging point insertion and minimal travel time routing.",
-                icon: Compass
-              },
-              {
-                title: "Smart Charging Stops",
-                desc: "Ranks stations by charger compatibility, speed, availability, cost, deviation, wait time, ratings, and nearby amenities.",
-                icon: Zap
-              },
-              {
-                title: "Unified EV Wallet",
-                desc: "Single wallet integrating Zeon, ChargeZone, Statiq, ChargeMOD, Jio-bp pulse and more — pay once, charge anywhere.",
-                icon: Wallet
-              },
-              {
-                title: "Emergency Low-Battery Mode",
-                desc: "Detects critical battery levels and instantly routes to the nearest compatible chargers with real-time availability.",
-                icon: AlertTriangle
-              },
-              {
-                title: "Flutter Mobile App",
-                desc: "Seamless cross-platform app for EV users paired with a web-based admin dashboard for operators and managers.",
-                icon: Smartphone
-              }
-            ].map((mod, idx) => {
+            {modules.map((mod, idx) => {
               const Icon = mod.icon;
               return (
                 <div 
@@ -733,13 +755,13 @@ function Planner() {
             
             {/* Left Column */}
             <div className="md:col-span-5 text-left space-y-6">
-              <span className="text-xs font-bold uppercase tracking-[0.3em] text-black/60 dark:text-white/60 block">AI Engine Architecture</span>
+              <span className="text-xs font-bold uppercase tracking-[0.3em] text-black/60 dark:text-white/60 block">{aiEngine?.eyebrow || 'AI Engine Architecture'}</span>
               <h2 className="text-4xl md:text-5xl font-black uppercase tracking-tight leading-tight">
-                PREDICTIVE ENGINE <br />
-                <span className="text-outline">SPECIFICATIONS</span>
+                {aiEngine?.titleLine1 || 'PREDICTIVE ENGINE'} <br />
+                <span className="text-outline">{aiEngine?.titleLine2 || 'SPECIFICATIONS'}</span>
               </h2>
               <p className="text-base text-black/50 dark:text-white/50 leading-relaxed">
-                We integrate elevation curves, weather profiles, real-time charger statuses, and battery telemetry into a high-performance optimization grid.
+                {aiEngine?.description || 'We integrate elevation curves, weather profiles, real-time charger statuses, and battery telemetry into a high-performance optimization grid.'}
               </p>
               
               <div className="border border-black/15 dark:border-white/10 rounded-[2rem] p-2 bg-white dark:bg-white/5 shadow-md overflow-hidden hover:translate-y-[-4px] transition-transform duration-500">
@@ -753,16 +775,10 @@ function Planner() {
 
             {/* Right Column Specifications Table */}
             <div className="md:col-span-7 bg-white dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-[2.5rem] p-8 md:p-12 shadow-sm text-left">
-              <h3 className="text-xl font-bold uppercase mb-8 border-b border-black/5 dark:border-white/5 pb-4">Core Planner Specifications</h3>
-              
+              <h3 className="text-xl font-bold uppercase mb-8 border-b border-black/5 dark:border-white/5 pb-4">{specifications?.title || 'Core Planner Specifications'}</h3>
+
               <div className="divide-y divide-black/5 dark:divide-white/5 text-sm">
-                {[
-                  { label: "Supported Vehicles", val: "All major Indian EVs (Tata Nexon EV, Tiago EV, Punch EV, MG ZS EV, BYD Atto 3, Hyundai Ioniq 5, Mahindra XUV400, etc.)" },
-                  { label: "Predictive Variables", val: "AC settings, speed profile, weather drag, ambient temperature, elevation ratio, vehicle cargo load" },
-                  { label: "Consolidated CPOs", val: "Zeon, ChargeZone, Statiq, Jio-bp pulse, ChargeMOD, EVRE, and other OCPP-connected networks" },
-                  { label: "Application Handshakes", val: "Flutter-based Android/iOS mobile clients, React Admin Dashboard, secure REST APIs" },
-                  { label: "Smart Routing Core", val: "Automatic charging station recommendation, amenities filtering, waiting time predictions" }
-                ].map((spec, idx) => (
+                {specsList.map((spec, idx) => (
                   <div key={idx} className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 py-5 first:pt-0 last:pb-0">
                     <span className="font-extrabold uppercase tracking-wide text-xs text-black/50 dark:text-white/40 sm:w-1/3 shrink-0">{spec.label}</span>
                     <span className="font-medium text-black/80 dark:text-white/80 sm:w-2/3 text-left">{spec.val}</span>
@@ -782,15 +798,15 @@ function Planner() {
         </div>
 
         <div className="max-w-7xl mx-auto px-6 text-center relative z-10 space-y-10">
-          <span className="text-sm font-bold uppercase tracking-[0.3em] text-[#111110]/50 dark:text-white/50 block">Experience Smart Mobility</span>
-          
+          <span className="text-sm font-bold uppercase tracking-[0.3em] text-[#111110]/50 dark:text-white/50 block">{cta?.eyebrow || 'Experience Smart Mobility'}</span>
+
           <h2 className="text-6xl md:text-8xl font-black tracking-tighter leading-tight">
-            PLAN YOUR TRIP <br />
-            <span className="text-outline">WITHOUT RANGE ANXIETY.</span>
+            {cta?.titleLine1 || 'PLAN YOUR TRIP'} <br />
+            <span className="text-outline">{cta?.titleLine2 || 'WITHOUT RANGE ANXIETY.'}</span>
           </h2>
-          
+
           <p className="text-lg text-black/60 dark:text-white/60 max-w-xl mx-auto leading-relaxed">
-            Consolidate your charging payments and optimize your long-distance routes. Schedule a demo session with our EV engineering team today.
+            {cta?.description || 'Consolidate your charging payments and optimize your long-distance routes. Schedule a demo session with our EV engineering team today.'}
           </p>
 
           <div className="mt-8">

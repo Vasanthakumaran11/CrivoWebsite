@@ -26,6 +26,13 @@ export default {
       placeholder: 'e.g. 8 min read'
     },
     {
+      name: 'author',
+      title: 'Author',
+      type: 'string',
+      initialValue: 'Crivo Team',
+      placeholder: 'e.g. Crivo Power Lab'
+    },
+    {
       name: 'category',
       title: 'Category',
       type: 'string',

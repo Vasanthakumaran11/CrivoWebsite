@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { ArrowRight } from 'lucide-react';
+import { useFaqs } from '../../hooks/useFaqs';
 
-const faqsList = [
+const faqsListDefault = [
   { q: "What is CRIVO CSMS and how does it connect with hardware?", a: "CRIVO CSMS is an intelligent, cloud-based platform built to manage EV charging networks. It communicates with chargers using standard OCPP 1.6J and 2.0.1 protocols over WebSockets, allowing network operators to monitor statuses, run remote diagnostics, and control grid load distributions." },
   { q: "How does the Smart EV Trip Planner predict vehicle range?", a: "Our AI Trip Planner uses multi-factor machine learning models that process real-world telemetry parameters: battery state of charge (SOC), cabin air conditioning loads, weather wind drag, elevation gradients (slopes), speed profiles, and traffic densities to estimate range precisely." },
   { q: "What is the Unified EV Wallet and how does it benefit users?", a: "The Unified EV Wallet aggregates balances across multiple Charge Point Operators (CPOs) such as Zeon, Statiq, and ChargeZone into a single active balance. EV drivers can initiate charging sessions and settle payments automatically across any network using their unified pool." },
@@ -9,6 +10,11 @@ const faqsList = [
 ];
 
 function Faqs() {
+  const { data } = useFaqs();
+  const faqsList = data?.length
+    ? data.map((f) => ({ q: f.question, a: f.answer }))
+    : faqsListDefault;
+
   const [showFaqs, setShowFaqs] = useState(false);
   const [openFaq, setOpenFaq] = useState(null);
 

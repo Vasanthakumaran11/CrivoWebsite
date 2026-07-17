@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Monitor, Smartphone, Cpu, Check, ArrowRight, Activity } from 'lucide-react';
+import { useProductsPage } from '../../hooks/useProductsPage';
 
-const productsList = [
+const productsListDefault = [
   {
     title: "CRIVO CSMS",
     icon: Monitor,
@@ -44,6 +45,21 @@ const productsList = [
 ];
 
 function ProductShowcase() {
+  const { data } = useProductsPage();
+  const cmsList = data?.productsList;
+  const productsList = productsListDefault.map((def, i) => {
+    const cms = cmsList?.[i];
+    return {
+      ...def,
+      title: cms?.title || def.title,
+      description: cms?.description || def.description,
+      number: cms?.number || def.number,
+      status: cms?.status || def.status,
+      route: cms?.route || def.route,
+      features: cms?.features?.length ? cms.features : def.features,
+    };
+  });
+
   const [logisticsQueue, setLogisticsQueue] = useState(1248);
 
   useEffect(() => {

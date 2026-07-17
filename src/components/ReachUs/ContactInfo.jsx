@@ -1,12 +1,19 @@
 import { Mail, Phone, MapPin, ArrowUpRight } from 'lucide-react';
-
-const contactInfoList = [
-  { icon: Mail, label: "Email Us", value: "info@crivo.in", href: "mailto:info@crivo.in" },
-  { icon: Phone, label: "Call Us", value: "+91 96007 60063", href: "tel:+919600760063" },
-  { icon: MapPin, label: "Find Us", value: "221 R.K Building, Uthukuli, Tiruppur - 638751", href: "https://www.google.com/maps/search/?api=1&query=221+R.K+Building+Uthukuli+Tiruppur+638751" },
-];
+import { useReachPage } from '../../hooks/useReachPage';
 
 function ContactInfo() {
+  const { data } = useReachPage();
+  const details = data?.contactDetails;
+  const email = details?.email || 'info@crivo.in';
+  const phone = details?.phone || '+91 96007 60063';
+  const address = details?.address || '221 R.K Building, Uthukuli, Tiruppur - 638751';
+
+  const contactInfoList = [
+    { icon: Mail, label: "Email Us", value: email, href: `mailto:${email}` },
+    { icon: Phone, label: "Call Us", value: phone, href: `tel:${phone.replace(/[^\d+]/g, '')}` },
+    { icon: MapPin, label: "Find Us", value: address, href: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}` },
+  ];
+
   return (
     <div className="space-y-8">
       {contactInfoList.map((c, i) => {

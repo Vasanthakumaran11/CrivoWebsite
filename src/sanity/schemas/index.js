@@ -10,6 +10,12 @@ import reachPage from './reachPage'
 import bookMeetPage from './bookMeetPage'
 import productCsms from './productCsms'
 import productPlanner from './productPlanner'
+import productsPage from './productsPage'
+import applyPage from './applyPage'
+import legalSection from './legalSection'
+import privacyPolicy from './privacyPolicy'
+import termsConditions from './termsConditions'
+import accessibilityStatement from './accessibilityStatement'
 
 export const schemaTypes = [
   product,
@@ -23,5 +29,11 @@ export const schemaTypes = [
   reachPage,
   bookMeetPage,
   productCsms,
-  productPlanner
+  productPlanner,
+  productsPage,
+  applyPage,
+  legalSection,
+  privacyPolicy,
+  termsConditions,
+  accessibilityStatement
 ]

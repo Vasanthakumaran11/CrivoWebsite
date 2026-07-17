@@ -1,7 +1,18 @@
 import { useState } from 'react';
 import { Linkedin, Github } from 'lucide-react';
+import { useAboutPage } from '../../hooks/useAboutPage';
+import { urlFor } from '../../lib/sanityClient';
 
-const coreTeamList = [
+const layoutPositions = [
+  { left: "15%", top: "20%" },
+  { left: "50%", top: "20%" },
+  { left: "85%", top: "20%" },
+  { left: "15%", top: "80%" },
+  { left: "50%", top: "80%" },
+  { left: "85%", top: "80%" },
+];
+
+const coreTeamListDefault = [
   { 
     name: "Vasantha Kumar A", 
     role: "Data Engineer & Frontend Developer", 
@@ -87,11 +98,20 @@ function TeamMemberImage({ src, alt, initial, position = "center" }) {
 }
 
 function CoreTeam() {
+  const { data } = useAboutPage();
+  const coreTeamList = data?.coreTeamSection?.members?.length
+    ? data.coreTeamSection.members.map((m, i) => ({
+        ...m,
+        image: m.image ? urlFor(m.image).width(600).url() : null,
+        pos: layoutPositions[i % layoutPositions.length],
+      }))
+    : coreTeamListDefault;
+
   return (
     <div className="text-left mt-12">
       <div>
         <h6 className="text-4xl md:text-5xl font-black tracking-tighter leading-none mb-8">
-          CORE TEAM
+          {data?.coreTeamSection?.title || 'CORE TEAM'}
         </h6>
       </div>
 

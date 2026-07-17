@@ -1,4 +1,10 @@
+import { useAboutPage } from '../../hooks/useAboutPage';
+
 function MissionVision() {
+  const { data } = useAboutPage();
+  const mission = data?.missionVision?.mission;
+  const vision = data?.missionVision?.vision;
+
   return (
     <section className="py-32 text-left">
       <div className="max-w-7xl mx-auto px-6">
@@ -13,11 +19,11 @@ function MissionVision() {
             </div>
             <div className="group relative p-8 md:p-18 bg-white dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-[2rem] hover:bg-[#111110] dark:hover:bg-white hover:border-[#111110] dark:hover:border-white transition-all duration-700 shadow-xl hover:-translate-y-2 hover:shadow-2xl w-full animate-fade-in">
               <p className="text-black/60 dark:text-white/60 text-lg leading-relaxed group-hover:text-white/80 dark:group-hover:text-black/70 transition-colors duration-500">
-                To democratize technology by offering accessible and affordable solutions while nurturing the next generation of innovators through practical education. We strive to bridge the gap between complex digital challenges and intuitive, human-centric solutions.
+                {mission?.description || 'To democratize technology by offering accessible and affordable solutions while nurturing the next generation of innovators through practical education. We strive to bridge the gap between complex digital challenges and intuitive, human-centric solutions.'}
               </p>
             </div>
           </div>
-          
+
           {/* Vision Column (Row 2, Column 2) */}
           <div className="flex flex-col gap-8 lg:col-start-2 lg:row-start-2 lg:pl-[calc(10rem+1.5cm)] lg:mt-[-2.5cm]">
             <div>
@@ -28,7 +34,7 @@ function MissionVision() {
             </div>
             <div className="group relative p-8 md:p-17 bg-white dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-[2rem] hover:bg-[#111110] dark:hover:bg-white hover:border-[#111110] dark:hover:border-white transition-all duration-700 shadow-xl hover:-translate-y-2 hover:shadow-2xl w-full lg:max-w-[560px] animate-fade-in">
               <p className="text-black/60 dark:text-white/60 text-lg leading-relaxed group-hover:text-white/80 dark:group-hover:text-black/70 transition-colors duration-500">
-                To create a world where technology is affordable, accessible, and backed by a workforce skilled through real-world experience. We envision a future where high-quality engineering and enterprise-grade tools are accessible to every builder and organization.
+                {vision?.description || 'To create a world where technology is affordable, accessible, and backed by a workforce skilled through real-world experience. We envision a future where high-quality engineering and enterprise-grade tools are accessible to every builder and organization.'}
               </p>
             </div>
           </div>

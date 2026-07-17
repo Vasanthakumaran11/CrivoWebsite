@@ -1,7 +1,7 @@
 import { useSanityQuery } from './useSanityQuery'
 
 const QUERY = `*[_type == "blog"] | order(publishedAt desc){
-  title, "slug": slug.current, readTime, category, excerpt, publishedAt
+  title, "slug": slug.current, readTime, category, excerpt, publishedAt, author
 }`
 
 export function useBlogPosts() {

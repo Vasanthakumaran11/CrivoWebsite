@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 import Footer from '../Home/footer';
 import StarsBackground from '../background/StarsBackground';
+import { useProductCsms } from '../../hooks/useProductCsms';
 
 // Initial stations state
 const initialStations = [
@@ -57,6 +58,33 @@ const initialOcppLogs = [
 ];
 
 function CSMS() {
+  const { data: csmsData } = useProductCsms();
+  const hero = csmsData?.hero;
+  const intro = csmsData?.intro;
+  const demo = csmsData?.demo;
+  const architecture = csmsData?.architecture;
+  const bentoFeatures = csmsData?.bentoFeatures;
+  const standards = csmsData?.standards;
+  const specifications = csmsData?.specifications;
+  const cta = csmsData?.cta;
+  const uptime = csmsData?.indicators?.uptime || '99.98%';
+
+  const standardsList = standards?.standardsList?.length ? standards.standardsList : [
+    "Natively supports OCPP 1.6J (JSON over WebSockets)",
+    "Compatible with OCPP 2.0.1 core features & security profiles",
+    "Industry-standard security (TLS 1.3, basic auth profiles)",
+    "Custom REST APIs for third-party billing & CRM integrations",
+    "Support for OpenADR 2.0b for smart grid dynamic demand response"
+  ];
+
+  const specsList = specifications?.specsList?.length ? specifications.specsList : [
+    { label: "Deployment Modes", val: "Cloud hosting (AWS Serverless) / On-premise local server options" },
+    { label: "Charger Interoperability", val: "Any OCPP compliant hardware (Tritium, ABB, Delta, Alpitronic, EVBox, etc.)" },
+    { label: "Real-time Notifications", val: "WebSocket message relays, Webhook alerts, email triggers, Slack/Telegram bot alerts" },
+    { label: "Smart Power Distribution", val: "Dynamic load limits updates, daisy-chained charging prioritizations, local grid peak-shaving overrides" },
+    { label: "User Authentication", val: "RFID card authorization, Mobile app QR scanner start, local pinpad unlock, Autocharge (Plug & Charge ISO 15118)" }
+  ];
+
   const [stations, setStations] = useState(initialStations);
   const [selectedStationId, setSelectedStationId] = useState(2);
   const [imgFailed, setImgFailed] = useState(false);
@@ -317,16 +345,16 @@ function CSMS() {
 
             <h1 className="text-5xl md:text-[5.5rem] font-black tracking-tighter leading-[1.05] text-[#111110] dark:text-white uppercase">
                <br />
-              <span className="text-outline">CONNECT THROUGH CRIVO
+              <span className="text-outline">{hero?.title || 'CONNECT THROUGH CRIVO'}
               </span>
             </h1>
 
             <p className="text-xl md:text-2xl font-medium tracking-tight text-black/60 dark:text-white/60 leading-relaxed max-w-2xl">
-              CONNECT, MONITOR, CONTROL, AND SCALE YOUR EV CHARGING INFRASTRUCTURE WITH PRECISION.
+              {hero?.subtitle || 'CONNECT, MONITOR, CONTROL, AND SCALE YOUR EV CHARGING INFRASTRUCTURE WITH PRECISION.'}
             </p>
 
             <p className="text-base text-black/50 dark:text-white/45 leading-relaxed max-w-xl">
-              Crivo CSMS (Charging Station Management System) is an intelligent, cloud-based platform built to power the future of electric vehicle charging networks. Enable seamless monitoring, diagnostics, and control of your chargers from a single centralized hub.
+              {hero?.description || 'Crivo CSMS (Charging Station Management System) is an intelligent, cloud-based platform built to power the future of electric vehicle charging networks. Enable seamless monitoring, diagnostics, and control of your chargers from a single centralized hub.'}
             </p>
 
             
@@ -392,7 +420,7 @@ function CSMS() {
                   </div>
                   <div>
                     <p className="text-[9px] uppercase tracking-widest text-black/40 dark:text-white/40 font-bold">Uptime Rate</p>
-                    <p className="font-extrabold text-sm text-[#111110] dark:text-white">99.98%</p>
+                    <p className="font-extrabold text-sm text-[#111110] dark:text-white">{uptime}</p>
                   </div>
                 </div>
               </div>
@@ -406,11 +434,11 @@ function CSMS() {
         <div className="max-w-7xl mx-auto px-6 text-center">
           <div className="max-w-3xl mx-auto space-y-6">
             <h2 className="text-3xl md:text-5xl font-black tracking-tight uppercase leading-tight">
-              A Cloud-Native Operating System <br />
-              <span className="text-outline">For EV Charging Infrastructure</span>
+              {intro?.titleLine1 || 'A Cloud-Native Operating System'} <br />
+              <span className="text-outline">{intro?.titleLine2 || 'For EV Charging Infrastructure'}</span>
             </h2>
             <p className="text-lg text-black/60 dark:text-white/60 leading-relaxed font-normal">
-              Crivo CSMS is built to connect, monitor, control, and optimize EV charging operations at scale. From charger connectivity and remote diagnostic runs to session analytics, billing management, and intelligent power distribution — manage your entire charging ecosystem from one centralized platform.
+              {intro?.description || 'Crivo CSMS is built to connect, monitor, control, and optimize EV charging operations at scale. From charger connectivity and remote diagnostic runs to session analytics, billing management, and intelligent power distribution — manage your entire charging ecosystem from one centralized platform.'}
             </p>
           </div>
         </div>
@@ -420,13 +448,13 @@ function CSMS() {
       <section id="demo" className="py-28 bg-black/[0.01] dark:bg-white/[0.01] relative">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16 space-y-4">
-            <span className="text-xs font-bold uppercase tracking-[0.3em] text-black/60 dark:text-white/60 block">Interactive Live Demo</span>
+            <span className="text-xs font-bold uppercase tracking-[0.3em] text-black/60 dark:text-white/60 block">{demo?.eyebrow || 'Interactive Live Demo'}</span>
             <h2 className="text-5xl md:text-6xl font-black tracking-tighter leading-none uppercase">
-              EXPERIENCE THE <br />
-              <span className="text-outline">LIVE OPERATOR HUB</span>
+              {demo?.titleLine1 || 'EXPERIENCE THE'} <br />
+              <span className="text-outline">{demo?.titleLine2 || 'LIVE OPERATOR HUB'}</span>
             </h2>
             <p className="text-base text-black/50 dark:text-white/50 max-w-2xl mx-auto">
-              Simulate actual charging station workflows, trigger OCPP requests, control connectors remotely, and see protocol transactions update in real-time.
+              {demo?.description || 'Simulate actual charging station workflows, trigger OCPP requests, control connectors remotely, and see protocol transactions update in real-time.'}
             </p>
           </div>
 
@@ -608,12 +636,15 @@ function CSMS() {
         <div className="max-w-7xl mx-auto px-6 text-center space-y-12">
           
           <div className="space-y-4 max-w-3xl mx-auto">
-            <span className="text-xs font-bold uppercase tracking-[0.3em] text-black/60 dark:text-white/60 block">System Architecture</span>
+            <span className="text-xs font-bold uppercase tracking-[0.3em] text-black/60 dark:text-white/60 block">{architecture?.eyebrow || 'System Architecture'}</span>
             <h2 className="text-5xl md:text-6xl font-black tracking-tighter leading-none uppercase">
-              CONNECTING EV CHARGERS TO <br />
-              <span className="text-outline " style={{ fontSize: '4.5rem' }}>A SMART CENTRAL SYSTEM</span>        </h2>
+              {architecture?.title ? architecture.title : (
+                <>CONNECTING EV CHARGERS TO <br />
+                <span className="text-outline" style={{ fontSize: '4.5rem' }}>A SMART CENTRAL SYSTEM</span></>
+              )}
+            </h2>
             <p className="text-base text-black/50 dark:text-white/50">
-              Every charger connects securely to the Crivo CSMS platform through OCPP. Real-time charger data, session activity, health monitoring, alerts, and remote operations are managed from a centralized cloud dashboard.
+              {architecture?.description || 'Every charger connects securely to the Crivo CSMS platform through OCPP. Real-time charger data, session activity, health monitoring, alerts, and remote operations are managed from a centralized cloud dashboard.'}
             </p>
           </div>
 
@@ -633,14 +664,14 @@ function CSMS() {
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex flex-col md:flex-row md:items-center justify-between mb-16 gap-8">
             <div className="text-left space-y-4">
-              <span className="text-xs font-bold uppercase tracking-[0.3em] text-black/60 dark:text-white/60 block">Core Infrastructure Capabilities</span>
+              <span className="text-xs font-bold uppercase tracking-[0.3em] text-black/60 dark:text-white/60 block">{bentoFeatures?.eyebrow || 'Core Infrastructure Capabilities'}</span>
               <h2 className="text-5xl md:text-7xl font-black tracking-tighter leading-tight uppercase">
-                COMPLETE CONTROL. <br />
-                <span className="text-outline">ANY NETWORK SIZE.</span>
+                {bentoFeatures?.titleLine1 || 'COMPLETE CONTROL.'} <br />
+                <span className="text-outline">{bentoFeatures?.titleLine2 || 'ANY NETWORK SIZE.'}</span>
               </h2>
             </div>
             <p className="text-lg text-black/60 dark:text-white/60 text-left max-w-md leading-relaxed">
-              We translate raw charger telemetry into automated optimization algorithms, helping operators cut maintenance overheads by up to 40%.
+              {bentoFeatures?.description || 'We translate raw charger telemetry into automated optimization algorithms, helping operators cut maintenance overheads by up to 40%.'}
             </p>
           </div>
 
@@ -662,23 +693,17 @@ function CSMS() {
             
             {/* Left specifications list */}
             <div className="md:col-span-5 text-left space-y-6">
-              <span className="text-xs font-bold uppercase tracking-[0.3em] text-black/60 dark:text-white/60 block">Technical Standards</span>
+              <span className="text-xs font-bold uppercase tracking-[0.3em] text-black/60 dark:text-white/60 block">{standards?.eyebrow || 'Technical Standards'}</span>
               <h2 className="text-4xl md:text-5xl font-black uppercase tracking-tight leading-tight">
-                BUILT ON INDUSTRY <br />
-                <span className="text-outline">OPEN STANDARD PROTOCOLS</span>
+                {standards?.titleLine1 || 'BUILT ON INDUSTRY'} <br />
+                <span className="text-outline">{standards?.titleLine2 || 'OPEN STANDARD PROTOCOLS'}</span>
               </h2>
               <p className="text-base text-black/50 dark:text-white/50 leading-relaxed">
-                We design our systems for maximum interoperability. By building natively on Open Charge Alliance protocols, Crivo ensures you are never locked into a single hardware vendor.
+                {standards?.description || 'We design our systems for maximum interoperability. By building natively on Open Charge Alliance protocols, Crivo ensures you are never locked into a single hardware vendor.'}
               </p>
-              
+
               <div className="space-y-3 pt-4">
-                {[
-                  "Natively supports OCPP 1.6J (JSON over WebSockets)",
-                  "Compatible with OCPP 2.0.1 core features & security profiles",
-                  "Industry-standard security (TLS 1.3, basic auth profiles)",
-                  "Custom REST APIs for third-party billing & CRM integrations",
-                  "Support for OpenADR 2.0b for smart grid dynamic demand response"
-                ].map((std, idx) => (
+                {standardsList.map((std, idx) => (
                   <div key={idx} className="flex items-center gap-3 text-sm font-semibold">
                     <div className="w-5 h-5 rounded-full bg-black/5 dark:bg-white/10 text-black dark:text-white flex items-center justify-center shrink-0">
                       <Check className="w-3.5 h-3.5" />
@@ -691,16 +716,10 @@ function CSMS() {
 
             {/* Right tech specs list */}
             <div className="md:col-span-7 bg-white dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-[2.5rem] p-8 md:p-12 shadow-sm text-left">
-              <h3 className="text-xl font-bold uppercase mb-8 border-b border-black/5 dark:border-white/5 pb-4">CSMS Core Architecture Specifications</h3>
-              
+              <h3 className="text-xl font-bold uppercase mb-8 border-b border-black/5 dark:border-white/5 pb-4">{specifications?.title || 'CSMS Core Architecture Specifications'}</h3>
+
               <div className="divide-y divide-black/5 dark:divide-white/5 text-sm">
-                {[
-                  { label: "Deployment Modes", val: "Cloud hosting (AWS Serverless) / On-premise local server options" },
-                  { label: "Charger Interoperability", val: "Any OCPP compliant hardware (Tritium, ABB, Delta, Alpitronic, EVBox, etc.)" },
-                  { label: "Real-time Notifications", val: "WebSocket message relays, Webhook alerts, email triggers, Slack/Telegram bot alerts" },
-                  { label: "Smart Power Distribution", val: "Dynamic load limits updates, daisy-chained charging prioritizations, local grid peak-shaving overrides" },
-                  { label: "User Authentication", val: "RFID card authorization, Mobile app QR scanner start, local pinpad unlock, Autocharge (Plug & Charge ISO 15118)" }
-                ].map((spec, idx) => (
+                {specsList.map((spec, idx) => (
                   <div key={idx} className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 py-5 first:pt-0 last:pb-0">
                     <span className="font-extrabold uppercase tracking-wide text-xs text-black/50 dark:text-white/40 sm:w-1/3 shrink-0">{spec.label}</span>
                     <span className="font-medium text-black/80 dark:text-white/80 sm:w-2/3 text-left">{spec.val}</span>
@@ -720,20 +739,20 @@ function CSMS() {
         </div>
 
         <div className="max-w-7xl mx-auto px-6 text-center relative z-10 space-y-10">
-          <span className="text-sm font-bold uppercase tracking-[0.3em] text-[#111110]/50 dark:text-white/50 block">Scale Smarter, Operate Faster</span>
-          
+          <span className="text-sm font-bold uppercase tracking-[0.3em] text-[#111110]/50 dark:text-white/50 block">{cta?.eyebrow || 'Scale Smarter, Operate Faster'}</span>
+
           <h2 className="text-6xl md:text-8xl font-black tracking-tighter leading-tight">
-            READY TO RUN <br />
-            <span className="text-outline">YOUR CHARGING NETWORK?</span>
+            {cta?.titleLine1 || 'READY TO RUN'} <br />
+            <span className="text-outline">{cta?.titleLine2 || 'YOUR CHARGING NETWORK?'}</span>
           </h2>
-          
+
           <p className="text-lg text-black/60 dark:text-white/60 max-w-xl mx-auto leading-relaxed">
-            Configure, manage, and scale your EV charging assets seamlessly with Crivo CSMS. Schedule a demo session with our operations team today.
+            {cta?.description || 'Configure, manage, and scale your EV charging assets seamlessly with Crivo CSMS. Schedule a demo session with our operations team today.'}
           </p>
 
           <Link to="/book-meet">
             <button className="px-12 py-5 bg-[#111110] dark:bg-white text-white dark:text-black font-bold rounded-full hover:scale-105 transition-transform text-base tracking-wide shadow-xl">
-              BOOK A MEET
+              {cta?.buttonText || 'BOOK A MEET'}
             </button>
           </Link>
         </div>

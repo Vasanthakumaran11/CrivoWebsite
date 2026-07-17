@@ -1,9 +1,17 @@
-import { 
-  Phone, Clock, Share2, MapPin, HelpCircle, Briefcase, 
-  ArrowRight, ArrowUpRight, Linkedin, Twitter, Instagram, Youtube 
+import {
+  Phone, Clock, Share2, MapPin, HelpCircle, Briefcase,
+  ArrowRight, ArrowUpRight, Linkedin, Twitter, Instagram, Youtube
 } from 'lucide-react';
+import { useReachPage } from '../../hooks/useReachPage';
 
-const directoryCardsList = [
+function buildDirectoryCardsList(cardsByTitle) {
+  const contact = cardsByTitle['Contact'];
+  const hours = cardsByTitle['Office Hours'];
+  const location = cardsByTitle['Location'];
+  const support = cardsByTitle['Support Option'];
+  const apply = cardsByTitle['Apply to join'];
+
+  return [
   {
     icon: Phone,
     title: "Contact",
@@ -17,15 +25,15 @@ const directoryCardsList = [
             <h4 className="font-bold text-lg">Contact Us</h4>
           </div>
           <p className="text-black/60 dark:text-white/60 leading-relaxed mb-4 text-xl">
-            221 R.K Building, Uthukuli,<br />Tiruppur - 638751
+            {contact?.address || <>221 R.K Building, Uthukuli,<br />Tiruppur - 638751</>}
           </p>
         </div>
         <div className="space-y-2 pt-4 border-t border-black/5 dark:border-white/5">
-          <a href="tel:+919600760063" className="block font-bold text-black dark:text-white hover:underline text-xl">
-            +91 96007 60063
+          <a href={`tel:${(contact?.phone || '+919600760063').replace(/[^\d+]/g, '')}`} className="block font-bold text-black dark:text-white hover:underline text-xl">
+            {contact?.phone || '+91 96007 60063'}
           </a>
-          <a href="mailto:info@crivo.in" className="block text-black/50 dark:text-white/40 hover:underline text-xl">
-            info@crivo.in
+          <a href={`mailto:${contact?.email || 'info@crivo.in'}`} className="block text-black/50 dark:text-white/40 hover:underline text-xl">
+            {contact?.email || 'info@crivo.in'}
           </a>
         </div>
       </div>
@@ -46,11 +54,11 @@ const directoryCardsList = [
           <div className="space-y-4">
             <div>
               <p className="text-[10px] uppercase tracking-widest text-black/40 dark:text-white/40 font-bold mb-1">Mon - Sat</p>
-              <p className="font-semibold text-xl">[9:00 am - 5:00 pm]</p>
+              <p className="font-semibold text-xl">{hours?.hoursMonSat || '[9:00 am - 5:00 pm]'}</p>
             </div>
             <div>
               <p className="text-[10px] uppercase tracking-widest text-black/40 dark:text-white/40 font-bold mb-1">Sunday</p>
-              <p className="font-semibold text-xl">[9:00 am - 5:00 pm] <span className="text-xs font-normal opacity-70">(calls only)</span></p>
+              <p className="font-semibold text-xl">{hours?.hoursSun || '[9:00 am - 5:00 pm]'} <span className="text-xs font-normal opacity-70">(calls only)</span></p>
             </div>
           </div>
         </div>
@@ -179,10 +187,10 @@ const directoryCardsList = [
             <h4 className="font-bold text-lg">Location</h4>
           </div>
           <p className="text-black/50 dark:text-white/50 text-xl leading-relaxed mb-4">
-            Easily find us on map services to schedule an in-person meeting or office tour.
+            {location?.description || 'Easily find us on map services to schedule an in-person meeting or office tour.'}
           </p>
         </div>
-        <a href="https://www.google.com/maps/search/?api=1&query=221+R.K+Building+Uthukuli+Tiruppur+638751" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 font-bold text-black dark:text-white hover:underline text-xs">
+        <a href={location?.mapLink || 'https://www.google.com/maps/search/?api=1&query=221+R.K+Building+Uthukuli+Tiruppur+638751'} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 font-bold text-black dark:text-white hover:underline text-xs">
           Way to Crivo <ArrowRight className="w-3.5 h-3.5" />
         </a>
       </div>
@@ -201,11 +209,11 @@ const directoryCardsList = [
             <h4 className="font-bold text-lg">Support Option</h4>
           </div>
           <p className="text-black/50 dark:text-white/50 text-xl leading-relaxed mb-4">
-            Get dedicated support for all our web, app, and system platforms directly from our core engineering team.
+            {support?.description || 'Get dedicated support for all our web, app, and system platforms directly from our core engineering team.'}
           </p>
         </div>
-        <a href="mailto:support@crivo.in" className="font-bold text-black dark:text-white hover:underline text-xl">
-          support@crivo.in
+        <a href={`mailto:${support?.email || 'support@crivo.in'}`} className="font-bold text-black dark:text-white hover:underline text-xl">
+          {support?.email || 'support@crivo.in'}
         </a>
       </div>
     )
@@ -223,21 +231,29 @@ const directoryCardsList = [
             <h4 className="font-bold text-lg">Apply to join</h4>
           </div>
           <p className="text-black/50 dark:text-white/50 text-xl leading-relaxed mb-4">
-            We are always looking for passionate builders, designers, and innovators to shape the future of tech.
+            {apply?.description || 'We are always looking for passionate builders, designers, and innovators to shape the future of tech.'}
           </p>
         </div>
         <div className="space-y-1">
           <p className="text-[10px] font-bold uppercase tracking-wider text-black/40 dark:text-white/40">Mail your resume →</p>
-          <a href="mailto:hr@crivo.in" className="font-bold text-black dark:text-white hover:underline text-xl">
-            hr@crivo.in
+          <a href={`mailto:${apply?.email || 'hr@crivo.in'}`} className="font-bold text-black dark:text-white hover:underline text-xl">
+            {apply?.email || 'hr@crivo.in'}
           </a>
         </div>
       </div>
     )
   }
-];
+  ];
+}
 
 function DirectoryCards() {
+  const { data } = useReachPage();
+  const cardsByTitle = (data?.directory?.cards || []).reduce((acc, c) => {
+    acc[c.title] = c;
+    return acc;
+  }, {});
+  const directoryCardsList = buildDirectoryCardsList(cardsByTitle);
+
   return (
     <>
       {/* Desktop view (lg and above) */}

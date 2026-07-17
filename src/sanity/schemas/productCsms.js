@@ -31,6 +31,29 @@ export default {
         { name: 'uptime', title: 'Uptime Rate (e.g. 99.98%)', type: 'string' }
       ]
     },
+    // Intro Description
+    {
+      name: 'intro',
+      title: 'Intro Description Section',
+      type: 'object',
+      fields: [
+        { name: 'titleLine1', title: 'Title Line 1', type: 'string', placeholder: 'A Cloud-Native Operating System' },
+        { name: 'titleLine2', title: 'Title Line 2', type: 'string', placeholder: 'For EV Charging Infrastructure' },
+        { name: 'description', title: 'Description', type: 'text' }
+      ]
+    },
+    // Interactive Live Demo header
+    {
+      name: 'demo',
+      title: 'Interactive Live Demo Section',
+      type: 'object',
+      fields: [
+        { name: 'eyebrow', title: 'Eyebrow Text', type: 'string', placeholder: 'Interactive Live Demo' },
+        { name: 'titleLine1', title: 'Title Line 1', type: 'string', placeholder: 'EXPERIENCE THE' },
+        { name: 'titleLine2', title: 'Title Line 2', type: 'string', placeholder: 'LIVE OPERATOR HUB' },
+        { name: 'description', title: 'Description', type: 'text' }
+      ]
+    },
     // System Architecture / How it Works
     {
       name: 'architecture',

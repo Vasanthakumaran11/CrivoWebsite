@@ -139,13 +139,13 @@ export default function Footer() {
         </div>
 
         <div className="pt-10 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-gray-500 text-sm">© 2026 Crivo. All Rights Reserved.</p>
+          <p className="text-gray-500 text-sm">{data?.copyrightText || '© 2026 Crivo. All Rights Reserved.'}</p>
           <div className="flex gap-6 text-xs text-gray-500">
             <Link to="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</Link>
             <Link to="/terms" className="hover:text-white transition-colors">Terms &amp; Conditions</Link>
             <Link to="/accessibility" className="hover:text-white transition-colors">Accessibility Statement</Link>
           </div>
-          <p className="text-gray-500 text-sm">Made by Crivo</p>
+          <p className="text-gray-500 text-sm">{data?.madeByText || 'Made by Crivo'}</p>
         </div>
       </div>
     </footer>

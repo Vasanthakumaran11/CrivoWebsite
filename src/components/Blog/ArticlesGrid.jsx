@@ -1,8 +1,13 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ArrowUpRight } from 'lucide-react';
 import TagBadge from './TagBadge';
+import { useBlogPosts } from '../../hooks/useBlogPosts';
 
-const posts = [
+// Only this slug has a dedicated detail page today; other CMS posts show an "in production" toast until theirs ships.
+const LIVE_SLUG = 'ev-charging-control-systems';
+
+const postsDefault = [
   {
     tag: "Company",
     title: "From Freelance Studio to Product Company: Crivo's Journey into EV Tech",
@@ -48,6 +53,21 @@ const posts = [
 ];
 
 function ArticlesGrid() {
+  const navigate = useNavigate();
+  const { data } = useBlogPosts();
+  const posts = data?.length
+    ? data.map((p) => ({
+        tag: p.category || 'Crivo',
+        title: p.title,
+        excerpt: p.excerpt,
+        date: p.publishedAt
+          ? new Date(p.publishedAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
+          : '',
+        readTime: p.readTime,
+        to: p.slug === LIVE_SLUG ? `/blogs/${p.slug}` : undefined,
+      }))
+    : postsDefault;
+
   const [toastMessage, setToastMessage] = useState(null);
 
   useEffect(() => {
@@ -58,7 +78,9 @@ function ArticlesGrid() {
   }, [toastMessage]);
 
   const handlePostClick = (post) => {
-    if (!post.to) {
+    if (post.to) {
+      navigate(post.to);
+    } else {
       setToastMessage(`"${post.title}" is in production. Check back soon!`);
     }
   };

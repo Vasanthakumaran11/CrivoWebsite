@@ -50,19 +50,19 @@ function AboutUs() {
       {/* CTA */}
       <section className="py-32 text-left">
         <div className="max-w-7xl mx-auto px-6 text-center">
-          <span className="text-sm font-bold uppercase tracking-[0.3em] text-black/40 dark:text-white/50 block mb-6">Work With Us</span>
+          <span className="text-sm font-bold uppercase tracking-[0.3em] text-black/40 dark:text-white/50 block mb-6">{cta?.eyebrow || 'Work With Us'}</span>
           <h2 className="text-6xl md:text-8xl font-black tracking-tighter leading-none mb-10">
-            GET STARTED WITH <br /><span className="text-outline">CRIVO TODAY.</span>
+            {cta?.titleLine1 || 'GET STARTED WITH'} <br /><span className="text-outline">{cta?.titleLine2 || 'CRIVO TODAY.'}</span>
           </h2>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link to="/book-meet">
               <button className="px-12 py-5 bg-[#111110] dark:bg-white text-white dark:text-black font-bold rounded-full hover:scale-105 transition-transform text-base tracking-wide">
-                BOOK A MEET
+                {cta?.ctaBookText || 'BOOK A MEET'}
               </button>
             </Link>
             <a href="mailto:info@crivo.in">
               <button className="px-12 py-5 border border-black/20 dark:border-white/20 font-bold rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors text-base">
-                EMAIL US
+                {cta?.ctaEmailText || 'EMAIL US'}
               </button>
             </a>
           </div>

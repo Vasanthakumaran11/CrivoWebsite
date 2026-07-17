@@ -5,8 +5,15 @@ import ContactInfo from './ContactInfo';
 import ContactForm from './ContactForm';
 import DirectoryCards from './DirectoryCards';
 import EmergencyDesk from './EmergencyDesk';
+import { useReachPage } from '../../hooks/useReachPage';
 
 function ReachUs() {
+  const { data } = useReachPage();
+  const hero = data?.hero;
+  const partner = data?.partnerSection;
+  const cpo = partner?.cpoColumn;
+  const amenity = partner?.amenityColumn;
+
   return (
     <div className="relative isolate bg-[#F8F7F2] dark:bg-[#050505] text-[#111110] dark:text-white transition-colors duration-300">
       <StarsBackground />
@@ -17,12 +24,12 @@ function ReachUs() {
           <div className="absolute bottom-0 left-0 w-[500px] h-[400px] bg-black/3 dark:bg-white/3 rounded-full blur-[150px] -translate-x-1/4 translate-y-1/4"></div>
         </div>
         <div className="max-w-7xl mx-auto px-6 relative z-10 text-left">
-          <span className="text-sm font-bold uppercase tracking-[0.3em] text-black/40 dark:text-white/50 block mb-6">Get In Touch</span>
+          <span className="text-sm font-bold uppercase tracking-[0.3em] text-black/40 dark:text-white/50 block mb-6">{hero?.eyebrow || 'Get In Touch'}</span>
           <h1 className="text-7xl md:text-[9rem] font-black tracking-tighter leading-none mb-8">
-            REACH <br /><span className="text-outline">US.</span>
+            {hero?.titleLine1 || 'REACH'} <br /><span className="text-outline">{hero?.titleLine2 || 'US.'}</span>
           </h1>
           <p className="max-w-xl text-xl text-black/60 dark:text-white/60 leading-relaxed">
-            Have a project in mind, a question, or just want to say hello? We'd love to hear from you.
+            {hero?.description || "Have a project in mind, a question, or just want to say hello? We'd love to hear from you."}
           </p>
         </div>
       </section>
@@ -58,9 +65,9 @@ function ReachUs() {
       <section className="py-32 bg-transparent text-left">
         <div className="max-w-7xl mx-auto px-6">
           <div className="mb-16 text-left">
-            <span className="text-sm font-bold uppercase tracking-[0.3em] text-black/45 dark:text-white/40 block mb-4">Partner With Us</span>
+            <span className="text-sm font-bold uppercase tracking-[0.3em] text-black/45 dark:text-white/40 block mb-4">{partner?.eyebrow || "Partner With Us"}</span>
             <h2 className="text-5xl md:text-7xl font-black tracking-tighter leading-none uppercase">
-              LET'S WORK <br /><span className="text">TOGETHER.</span>
+              {partner?.titleLine1 || "LET'S WORK"} <br /><span className="text">{partner?.titleLine2 || 'TOGETHER.'}</span>
             </h2>
           </div>
 
@@ -69,19 +76,19 @@ function ReachUs() {
             <div className="flex flex-col justify-between space-y-8 h-full">
               <div className="space-y-4">
                 <span className="inline-flex px-3 py-1 bg-black/5 rounded-full text-[9px] font-bold uppercase tracking-wider text-black/60">
-                  NETWORK CPO INTEGRATION // NODE 01
+                  {cpo?.tag || 'NETWORK CPO INTEGRATION // NODE 01'}
                 </span>
                 <h3 className="text-3xl font-black uppercase tracking-tight">
-                  Network Interoperability Integration
+                  {cpo?.title || 'Network Interoperability Integration'}
                 </h3>
                 <p className="text-black/60 text-base font-medium leading-relaxed">
-                  Are you an Indian CPO looking to eliminate payment friction? Connect your charging hardware and wallet API layer to our unified infrastructure to immediately access thousands of multi-network EV drivers.
+                  {cpo?.description || 'Are you an Indian CPO looking to eliminate payment friction? Connect your charging hardware and wallet API layer to our unified infrastructure to immediately access thousands of multi-network EV drivers.'}
                 </p>
               </div>
               <div className="pt-4">
                 <Link to="/book-meet">
                   <button className="w-full sm:w-auto px-8 py-4 bg-black text-white hover:bg-black/90 font-bold rounded-full text-xs tracking-widest uppercase transition-transform hover:scale-[1.02] shadow-sm">
-                    Request API Documentation Handshake
+                    {cpo?.buttonText || 'Request API Documentation Handshake'}
                   </button>
                 </Link>
               </div>
@@ -91,19 +98,19 @@ function ReachUs() {
             <div className="flex flex-col justify-between space-y-8 h-full md:border-l md:border-black/10 md:pl-16 pt-8 md:pt-0">
               <div className="space-y-4">
                 <span className="inline-flex px-3 py-1 bg-black/5 rounded-full text-[9px] font-bold uppercase tracking-wider text-black/60">
-                  AMENITY DISCOVERY // NODE 02
+                  {amenity?.tag || 'AMENITY DISCOVERY // NODE 02'}
                 </span>
                 <h3 className="text-3xl font-black uppercase tracking-tight">
-                  Strategic Amenity Mapping
+                  {amenity?.title || 'Strategic Amenity Mapping'}
                 </h3>
                 <p className="text-black/60 text-base font-medium leading-relaxed">
-                  Do you own a hotel, restaurant, or highway rest plaza with EV charging facilities? List your location on our AI recommendation engine to attract long-distance travelers looking for comfort-first charging stops.
+                  {amenity?.description || 'Do you own a hotel, restaurant, or highway rest plaza with EV charging facilities? List your location on our AI recommendation engine to attract long-distance travelers looking for comfort-first charging stops.'}
                 </p>
               </div>
               <div className="pt-4">
                 <Link to="/book-meet">
                   <button className="w-full sm:w-auto px-8 py-4 bg-white text-black border border-black hover:bg-black/5 font-bold rounded-full text-xs tracking-widest uppercase transition-transform hover:scale-[1.02]">
-                    Register Your Commercial Space
+                    {amenity?.buttonText || 'Register Your Commercial Space'}
                   </button>
                 </Link>
               </div>
@@ -119,9 +126,9 @@ function ReachUs() {
       <section className="py-32 text-left">
         <div className="max-w-7xl mx-auto px-6">
           <div className="mb-20">
-            <span className="text-sm font-bold uppercase tracking-[0.3em] text-black/40 dark:text-white/50 block mb-4">Quick Access</span>
+            <span className="text-sm font-bold uppercase tracking-[0.3em] text-black/40 dark:text-white/50 block mb-4">{data?.directory?.eyebrow || 'Quick Access'}</span>
             <h2 className="text-6xl md:text-8xl font-black tracking-tighter leading-none">
-              OFFICE <br /><span className="text-outline">DIRECTORY.</span>
+              {data?.directory?.titleLine1 || 'OFFICE'} <br /><span className="text-outline">{data?.directory?.titleLine2 || 'DIRECTORY.'}</span>
             </h2>
           </div>
 

@@ -1,7 +1,8 @@
 import Footer from '../components/Home/footer';
 import StarsBackground from '../components/background/StarsBackground';
+import { useLegalPage } from '../hooks/useLegalPage';
 
-const termsSections = [
+const termsSectionsDefault = [
   {
     title: "Acceptance of Terms",
     body: [
@@ -58,6 +59,11 @@ const termsSections = [
 ];
 
 export default function TermsConditions() {
+  const { data } = useLegalPage('termsConditions');
+  const hero = data?.hero;
+  const intro = data?.intro;
+  const termsSections = data?.sections?.length ? data.sections : termsSectionsDefault;
+
   return (
     <div className="relative isolate bg-[#F8F7F2] dark:bg-[#050505] text-[#111110] dark:text-white transition-colors duration-300">
       <StarsBackground />
@@ -68,11 +74,11 @@ export default function TermsConditions() {
           <div className="absolute top-0 right-0 w-[500px] h-[400px] bg-black/3 dark:bg-white/3 rounded-full blur-[150px] translate-x-1/4 -translate-y-1/4"></div>
         </div>
         <div className="max-w-3xl mx-auto px-6 relative z-10">
-          <span className="text-sm font-bold uppercase tracking-[0.3em] text-black/40 dark:text-white/50 block mb-6">Legal</span>
+          <span className="text-sm font-bold uppercase tracking-[0.3em] text-black/40 dark:text-white/50 block mb-6">{hero?.eyebrow || 'Legal'}</span>
           <h1 className="text-7xl md:text-9xl font-black tracking-tighter leading-none mb-6">
-            TERMS &amp; <br /><span className="text-outline">CONDITIONS.</span>
+            {hero?.titleLine1 || 'TERMS &'} <br /><span className="text-outline">{hero?.titleLine2 || 'CONDITIONS.'}</span>
           </h1>
-          <p className="text-black/40 dark:text-white/40 text-base">Last updated: June 2026</p>
+          <p className="text-black/40 dark:text-white/40 text-base">{hero?.lastUpdated || 'Last updated: June 2026'}</p>
         </div>
       </section>
 
@@ -80,7 +86,7 @@ export default function TermsConditions() {
       <section className="pb-32">
         <div className="max-w-3xl mx-auto px-6 relative z-10">
           <p className="text-black/60 dark:text-white/60 text-lg leading-relaxed mb-12 pb-12 border-b border-black/10 dark:border-white/10">
-            These Terms & Conditions govern your use of the Crivo website and any services or products described on it. Please read them carefully before using our site.
+            {intro || 'These Terms & Conditions govern your use of the Crivo website and any services or products described on it. Please read them carefully before using our site.'}
           </p>
 
           <div className="space-y-12">

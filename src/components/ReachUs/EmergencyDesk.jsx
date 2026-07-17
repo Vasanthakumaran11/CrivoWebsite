@@ -3,9 +3,19 @@ import { Check, Copy, Terminal, ArrowLeft, Send, Loader2, Phone, ChevronRight } 
 
 const W3F_KEY = import.meta.env.VITE_WEB3FORMS_KEY;
 import { canSubmit, recordSubmit } from '../../utils/formSecurity';
+import { useReachPage } from '../../hooks/useReachPage';
 const FORM_KEY = 'emergency';
 
 function EmergencyDesk() {
+  const { data } = useReachPage();
+  const assistance = data?.customerAssistance;
+  const supportEmailBox = assistance?.supportEmailBox;
+  const urgentSupportBox = assistance?.urgentSupportBox;
+  const getHelpConsole = assistance?.getHelpConsole;
+  const supportEmail = supportEmailBox?.email || 'support@crivo.in';
+  const urgentPhone = urgentSupportBox?.phone || '+91 96007 60063';
+  const urgentPhoneHref = urgentPhone.replace(/[^\d+]/g, '');
+
   const [supportCopied, setSupportCopied] = useState(false);
   const [activeForm, setActiveForm] = useState(null);
   const [helpForm, setHelpForm] = useState({ contact: '', topic: 'Trip Issue', description: '' });
@@ -67,7 +77,7 @@ function EmergencyDesk() {
         <div className="mb-20 text-left" style={{ fontFamily: "'Times New Roman', Times, serif" }}>
           <span className="text-sm font-bold tracking-[0.25em] text-white/40 block mb-4">THE EMERGENCY DESK</span>
           <h2 className="text-5xl md:text-7xl font-bold tracking-tight uppercase leading-none">
-            CUSTOMER ASSISTANCE.
+            {assistance?.bannerTitle || 'CUSTOMER ASSISTANCE.'}
           </h2>
         </div>
 
@@ -83,9 +93,9 @@ function EmergencyDesk() {
               <div className="flex items-center justify-between">
                 <span className="relative flex h-2 w-2"></span>
               </div>
-              <h3 className="text-2xl font-bold uppercase tracking-tight" style={{ fontFamily: "'Times New Roman', Times, serif" }}>Direct Support Email</h3>
+              <h3 className="text-2xl font-bold uppercase tracking-tight" style={{ fontFamily: "'Times New Roman', Times, serif" }}>{supportEmailBox?.title || 'Direct Support Email'}</h3>
               <p className="text-xs text-white/60 leading-relaxed font-semibold">
-                Have general queries, partnership proposals, or detailed logs to send? Connect directly with our core email support gateway.
+                {supportEmailBox?.description || 'Have general queries, partnership proposals, or detailed logs to send? Connect directly with our core email support gateway.'}
               </p>
             </div>
 
@@ -93,12 +103,12 @@ function EmergencyDesk() {
               {/* Email Copy Card */}
               <div className="flex items-center justify-between p-3.5 bg-white/[0.02] border border-white/5 rounded-2xl group/email relative hover:bg-white/[0.04] transition-all duration-300">
                 <div className="flex flex-col truncate">
-                  <a href="mailto:support@crivo.in" className="text-sm font-bold font-mono tracking-tight hover:text-white/80 transition-colors block truncate text-white">
-                    support@crivo.in
+                  <a href={`mailto:${supportEmail}`} className="text-sm font-bold font-mono tracking-tight hover:text-white/80 transition-colors block truncate text-white">
+                    {supportEmail}
                   </a>
                 </div>
-                <button 
-                  onClick={() => copyToClipboard('support@crivo.in')}
+                <button
+                  onClick={() => copyToClipboard(supportEmail)}
                   className="p-2 bg-white/5 hover:bg-white/10 rounded-xl text-white/60 hover:text-white transition-all shadow-inner"
                   title="Copy email to clipboard"
                 >
@@ -219,9 +229,9 @@ function EmergencyDesk() {
             ) : (
               <div className="flex flex-col justify-between h-full space-y-6">
                 <div className="space-y-4">
-                  <h3 className="text-2xl font-bold uppercase tracking-tight" style={{ fontFamily: "'Times New Roman', Times, serif" }}>Get Help Console</h3>
+                  <h3 className="text-2xl font-bold uppercase tracking-tight" style={{ fontFamily: "'Times New Roman', Times, serif" }}>{getHelpConsole?.title || 'Get Help Console'}</h3>
                   <p className="text-xs text-white/60 leading-relaxed font-semibold">
-                    Experiencing trip planner anomalies or charging wallet issues? Send an instant alert directly to our active engineering queue.
+                    {getHelpConsole?.description || 'Experiencing trip planner anomalies or charging wallet issues? Send an instant alert directly to our active engineering queue.'}
                   </p>
                 </div>
 
@@ -239,19 +249,19 @@ function EmergencyDesk() {
           {/* Box 3: Hotline Support */}
           <div className="border border-white/15 rounded-3xl bg-white/[0.03] p-8 flex flex-col justify-between min-h-[300px] hover:border-white/30 hover:shadow-[0_0_30px_rgba(255,255,255,0.05)] transition-all duration-300 relative overflow-hidden group text-left">
             <div className="space-y-4">
-              <h3 className="text-2xl font-bold uppercase tracking-tight" style={{ fontFamily: "'Times New Roman', Times, serif" }}>Urgent Support Line</h3>
+              <h3 className="text-2xl font-bold uppercase tracking-tight" style={{ fontFamily: "'Times New Roman', Times, serif" }}>{urgentSupportBox?.title || 'Urgent Support Line'}</h3>
               <p className="text-xs text-white/60 leading-relaxed font-semibold">
-                Currently stranded on a live trip or facing critical charger wallet lockouts? Contact our 24/7 hotline for priority emergency support.
+                {urgentSupportBox?.description || 'Currently stranded on a live trip or facing critical charger wallet lockouts? Contact our 24/7 hotline for priority emergency support.'}
               </p>
             </div>
 
             <div className="space-y-4 mt-6">
-              <a 
-                href="tel:+919600760063"
+              <a
+                href={`tel:${urgentPhoneHref}`}
                 className="w-full flex items-center justify-center gap-1.5 py-3.5 bg-white/10 hover:bg-white text-white hover:text-black border border-white/20 hover:border-transparent font-bold rounded-2xl text-xs uppercase tracking-wider transition-all duration-300 hover:scale-[1.02]"
               >
                 <Phone className="w-4 h-4" />
-                <span>+91 96007 60063</span>
+                <span>{urgentPhone}</span>
               </a>
             </div>
           </div>

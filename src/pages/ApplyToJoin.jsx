@@ -3,12 +3,18 @@ import { Link } from 'react-router-dom';
 import { ArrowUpRight, Zap } from 'lucide-react';
 import Footer from '../components/Home/footer';
 import StarsBackground from '../components/background/StarsBackground';
+import { useApplyPage } from '../hooks/useApplyPage';
 
 const W3F_KEY = import.meta.env.VITE_WEB3FORMS_KEY;
 import { canSubmit, recordSubmit, secondsUntilNextSubmit } from '../utils/formSecurity';
 const FORM_KEY = 'apply';
 
 function ApplyToJoin() {
+  const { data } = useApplyPage();
+  const hero = data?.hero;
+  const formIntro = data?.formIntro;
+  const ctaStrip = data?.ctaStrip;
+
   const [formData, setFormData] = useState({ name: '', email: '', role: '', portfolio: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -52,12 +58,12 @@ function ApplyToJoin() {
           <div className="absolute top-0 right-0 w-[600px] h-[400px] bg-black/3 dark:bg-white/3 rounded-full blur-[150px] translate-x-1/4 -translate-y-1/4"></div>
         </div>
         <div className="max-w-7xl mx-auto px-6 relative z-10">
-          <span className="text-sm font-bold uppercase tracking-[0.3em] text-black/40 dark:text-white/50 block mb-6">Careers at Crivo</span>
+          <span className="text-sm font-bold uppercase tracking-[0.3em] text-black/40 dark:text-white/50 block mb-6">{hero?.eyebrow || 'Careers at Crivo'}</span>
           <h1 className="text-7xl md:text-[9rem] font-black tracking-tighter leading-none mb-8">
-            JOIN <br /><span className="text-outline">CRIVO.</span>
+            {hero?.titleLine1 || 'JOIN'} <br /><span className="text-outline">{hero?.titleLine2 || 'CRIVO.'}</span>
           </h1>
           <p className="max-w-xl text-xl text-black/60 dark:text-white/60 leading-relaxed">
-            We're building EV infrastructure for India. If you want to work on products that matter, drop your details below — we'll take it from there.
+            {hero?.description || "We're building EV infrastructure for India. If you want to work on products that matter, drop your details below — we'll take it from there."}
           </p>
         </div>
       </section>
@@ -66,12 +72,12 @@ function ApplyToJoin() {
       <section className="py-24">
         <div className="max-w-3xl mx-auto px-6">
           <div className="mb-14">
-            <span className="text-sm font-bold uppercase tracking-[0.3em] text-black/40 dark:text-white/50 block mb-4">Apply Now</span>
+            <span className="text-sm font-bold uppercase tracking-[0.3em] text-black/40 dark:text-white/50 block mb-4">{formIntro?.eyebrow || 'Apply Now'}</span>
             <h2 className="text-5xl md:text-6xl font-black tracking-tighter leading-none text-[#111110] dark:text-white">
-              DROP YOUR <br /><span className="text-outline">APPLICATION.</span>
+              {formIntro?.titleLine1 || 'DROP YOUR'} <br /><span className="text-outline">{formIntro?.titleLine2 || 'APPLICATION.'}</span>
             </h2>
             <p className="mt-6 text-black/50 dark:text-white/50 text-lg leading-relaxed max-w-lg">
-              No lengthy HR process. Tell us who you are and what you've built.
+              {formIntro?.description || "No lengthy HR process. Tell us who you are and what you've built."}
             </p>
           </div>
 
@@ -179,12 +185,12 @@ function ApplyToJoin() {
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-8">
           <div>
-            <h3 className="text-3xl font-black tracking-tight mb-2">Have questions before applying?</h3>
-            <p className="text-black/50 dark:text-white/50">Reach out directly — we're happy to talk.</p>
+            <h3 className="text-3xl font-black tracking-tight mb-2">{ctaStrip?.title || 'Have questions before applying?'}</h3>
+            <p className="text-black/50 dark:text-white/50">{ctaStrip?.description || "Reach out directly — we're happy to talk."}</p>
           </div>
           <Link to="/reach-us">
             <button className="flex items-center gap-3 px-10 py-4 border border-black/20 dark:border-white/20 rounded-full font-bold text-sm tracking-wide hover:bg-black/5 dark:hover:bg-white/5 transition-colors whitespace-nowrap">
-              Contact Us <ArrowUpRight className="w-4 h-4" />
+              {ctaStrip?.buttonText || 'Contact Us'} <ArrowUpRight className="w-4 h-4" />
             </button>
           </Link>
         </div>

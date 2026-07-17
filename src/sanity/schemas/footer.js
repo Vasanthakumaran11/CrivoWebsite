@@ -47,6 +47,18 @@ export default {
       name: 'linkedinLink',
       title: 'LinkedIn Company Link',
       type: 'url'
+    },
+    {
+      name: 'copyrightText',
+      title: 'Copyright Text',
+      type: 'string',
+      placeholder: 'e.g. © 2026 Crivo. All Rights Reserved.'
+    },
+    {
+      name: 'madeByText',
+      title: 'Signature Text',
+      type: 'string',
+      placeholder: 'e.g. Made by Crivo'
     }
   ]
 }
