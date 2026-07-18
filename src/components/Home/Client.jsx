@@ -33,10 +33,15 @@ const testimonialsDefault = [
 
 import { useRef, useEffect } from 'react';
 import { useHomePage } from '../../hooks/useHomePage';
+import { useClientLogos } from '../../hooks/useClientLogos';
+import { urlFor } from '../../lib/sanityClient';
 
 function Client() {
   const { data } = useHomePage();
   const testimonials = data?.ourClients?.length ? data.ourClients : testimonialsDefault;
+
+  const { data: clientLogos } = useClientLogos();
+  const hasCmsLogos = clientLogos?.length > 0;
 
   const scrollRef = useRef(null);
   const animRef = useRef(null);
@@ -101,48 +106,74 @@ function Client() {
 
         {/* Client Logos Grid */}
         <div className="py-16 px-8 bg-black/[0.03] dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-[2.5rem] mb-24 backdrop-xl">
-          <div className="flex flex-wrap items-center justify-around gap-12 lg:gap-20">
-            {/* Young Indians Logo */}
-            <div className="flex flex-col items-center justify-center shrink-0">
-              <div className="bg-[#181818] border border-white/5 px-6 py-5 rounded-lg flex flex-col items-center justify-center w-[140px] h-[110px] text-white shadow-xl hover:scale-105 transition-transform duration-300">
-                <div className="flex items-baseline leading-none font-bold text-4xl mb-1 select-none">
-                  <span>Y</span>
-                  <span className="text-white/60 text-2xl ml-0.5">i</span>
+          {hasCmsLogos ? (
+            <div className="flex flex-wrap items-center justify-around gap-12 lg:gap-20">
+              {clientLogos.map((c, i) => {
+                const logoImg = (
+                  <img
+                    src={urlFor(c.logo).height(160).fit('max').url()}
+                    alt={c.name}
+                    title={c.name}
+                    className="h-16 md:h-20 w-auto object-contain dark:invert opacity-90 hover:opacity-100 transition-opacity duration-300"
+                  />
+                );
+                return (
+                  <div key={i} className="flex flex-col items-center justify-center shrink-0 hover:scale-105 transition-transform duration-300">
+                    {c.website ? (
+                      <a href={c.website} target="_blank" rel="noopener noreferrer">
+                        {logoImg}
+                      </a>
+                    ) : (
+                      logoImg
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          ) : (
+            <div className="flex flex-wrap items-center justify-around gap-12 lg:gap-20">
+              {/* Young Indians Logo */}
+              <div className="flex flex-col items-center justify-center shrink-0">
+                <div className="bg-[#181818] border border-white/5 px-6 py-5 rounded-lg flex flex-col items-center justify-center w-[140px] h-[110px] text-white shadow-xl hover:scale-105 transition-transform duration-300">
+                  <div className="flex items-baseline leading-none font-bold text-4xl mb-1 select-none">
+                    <span>Y</span>
+                    <span className="text-white/60 text-2xl ml-0.5">i</span>
+                  </div>
+                  <span className="text-[10px] font-black tracking-wider uppercase text-white/95 text-center leading-none">Young Indians</span>
+                  <div className="mt-2 px-1.5 py-0.5 border border-white/20 rounded text-[6px] tracking-widest uppercase text-white/80 font-bold whitespace-nowrap">
+                    WE CAN | WE WILL
+                  </div>
                 </div>
-                <span className="text-[10px] font-black tracking-wider uppercase text-white/95 text-center leading-none">Young Indians</span>
-                <div className="mt-2 px-1.5 py-0.5 border border-white/20 rounded text-[6px] tracking-widest uppercase text-white/80 font-bold whitespace-nowrap">
-                  WE CAN | WE WILL
+              </div>
+
+              {/* Ayon Logo */}
+              <div className="flex flex-col items-center justify-center shrink-0 hover:scale-105 transition-transform duration-300">
+                <div className="flex flex-col items-center">
+                  <div className="flex items-center gap-1.5">
+                    <svg viewBox="0 0 24 24" className="w-8 h-8 text-black dark:text-white fill-current" xmlns="http://www.w3.org/2000/svg">
+                      {/* Stylized leaf/mountain A */}
+                      <path d="M12 2L2 22h4l3-6h6l3 6h4L12 2zm-1 10l3-6 3 6h-6z" />
+                    </svg>
+                    <span className="text-4xl font-semibold tracking-tight text-black dark:text-white font-serif">Ayon</span>
+                  </div>
+                  <span className="text-[9px] font-bold tracking-[0.2em] uppercase text-black/45 dark:text-white/45 mt-1">Clothing Brand</span>
+                </div>
+              </div>
+
+              {/* VTS Logo */}
+              <div className="flex flex-col items-center justify-center shrink-0 hover:scale-105 transition-transform duration-300">
+                <span className="text-5xl font-black tracking-[0.15em] text-black dark:text-white font-sans select-none">VTS</span>
+              </div>
+
+              {/* Twincord Logo */}
+              <div className="flex flex-col items-center justify-center shrink-0 hover:scale-105 transition-transform duration-300">
+                <div className="flex flex-col items-center text-center">
+                  <span className="text-3xl font-extrabold tracking-tight text-black dark:text-white font-sans">Twincord</span>
+                  <span className="text-[9px] font-black tracking-widest uppercase text-black/45 dark:text-white/45 mt-1">Tech made simple</span>
                 </div>
               </div>
             </div>
-
-            {/* Ayon Logo */}
-            <div className="flex flex-col items-center justify-center shrink-0 hover:scale-105 transition-transform duration-300">
-              <div className="flex flex-col items-center">
-                <div className="flex items-center gap-1.5">
-                  <svg viewBox="0 0 24 24" className="w-8 h-8 text-black dark:text-white fill-current" xmlns="http://www.w3.org/2000/svg">
-                    {/* Stylized leaf/mountain A */}
-                    <path d="M12 2L2 22h4l3-6h6l3 6h4L12 2zm-1 10l3-6 3 6h-6z" />
-                  </svg>
-                  <span className="text-4xl font-semibold tracking-tight text-black dark:text-white font-serif">Ayon</span>
-                </div>
-                <span className="text-[9px] font-bold tracking-[0.2em] uppercase text-black/45 dark:text-white/45 mt-1">Clothing Brand</span>
-              </div>
-            </div>
-
-            {/* VTS Logo */}
-            <div className="flex flex-col items-center justify-center shrink-0 hover:scale-105 transition-transform duration-300">
-              <span className="text-5xl font-black tracking-[0.15em] text-black dark:text-white font-sans select-none">VTS</span>
-            </div>
-
-            {/* Twincord Logo */}
-            <div className="flex flex-col items-center justify-center shrink-0 hover:scale-105 transition-transform duration-300">
-              <div className="flex flex-col items-center text-center">
-                <span className="text-3xl font-extrabold tracking-tight text-black dark:text-white font-sans">Twincord</span>
-                <span className="text-[9px] font-black tracking-widest uppercase text-black/45 dark:text-white/45 mt-1">Tech made simple</span>
-              </div>
-            </div>
-          </div>
+          )}
         </div>
 
         {/* Testimonials Title */}

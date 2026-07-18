@@ -1,6 +1,6 @@
 import { useSanityQuery } from './useSanityQuery'
 
-const QUERY = `*[_type == "productPlanner"][0]{
+const QUERY = `*[_id == "product-ev-planner"][0]{
   hero,
   intro,
   simulator,

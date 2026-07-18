@@ -1,6 +1,6 @@
 import { useSanityQuery } from './useSanityQuery'
 
-const QUERY = `*[_type == "applyPage"][0]{
+const QUERY = `*[_id == "apply-page"][0]{
   hero,
   formIntro,
   ctaStrip

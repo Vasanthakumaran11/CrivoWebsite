@@ -1,6 +1,6 @@
 import { useSanityQuery } from './useSanityQuery'
 
-const QUERY = `*[_type == "aboutPage"][0]{
+const QUERY = `*[_id == "about-page"][0]{
   hero,
   statsSection,
   missionVision,

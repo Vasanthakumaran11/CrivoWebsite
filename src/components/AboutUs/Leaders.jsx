@@ -3,20 +3,20 @@ import { useAboutPage } from '../../hooks/useAboutPage';
 import { urlFor } from '../../lib/sanityClient';
 
 const leadersListDefault = [
-  { 
-    name: "Bharanidharan R N", 
-    role: "Co-Founder & CEO", 
-    image: "/Bharanidharan.jpeg",
-    linkedin: "https://www.linkedin.com/in/bharanidharanrn/",
-    email: "founder@crivo.in"
-  },
-  { 
-    name: "Gokulnath Sundaramurthi", 
-    role: "Co-Founder & CTO", 
-    image: "/Gokulnath.jpeg",
-    linkedin: "https://www.linkedin.com/in/gokulnath-bs/",
-    email: "cto@crivo.in"
-  },
+  // { 
+  //   name: "Bharanidharan R N", 
+  //   role: "Co-Founder & CEO", 
+  //   image: "/Bharanidharan.jpeg",
+  //   linkedin: "https://www.linkedin.com/in/bharanidharanrn/",
+  //   email: "founder@crivo.in"
+  // },
+  // { 
+  //   name: "Gokulnath Sundaramurthi", 
+  //   role: "Co-Founder & CTO", 
+  //   image: "/Gokulnath.jpeg",
+  //   linkedin: "https://www.linkedin.com/in/gokulnath-bs/",
+  //   email: "cto@crivo.in"
+  // },
   { 
     name: "Hareeni S", 
     role: "Co-Founder & COO", 

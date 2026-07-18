@@ -1,6 +1,6 @@
 import { useSanityQuery } from './useSanityQuery'
 
-const QUERY = `*[_type == "bookMeetPage"][0]{
+const QUERY = `*[_id == "book-meet-page"][0]{
   leftSideContent
 }`
 

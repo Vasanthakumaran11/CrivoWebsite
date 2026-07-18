@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Monitor, Smartphone, Cpu, Check, ArrowRight, Activity } from 'lucide-react';
 import { useProductsPage } from '../../hooks/useProductsPage';
+import { urlFor } from '../../lib/sanityClient';
 
 const productsListDefault = [
   {
@@ -11,6 +12,7 @@ const productsListDefault = [
     number: "01",
     status: "Active",
     route: "/product/csms",
+    image: "/EV Charger.jpeg",
     features: [
       "Natively OCPP 1.6J and 2.0.1 compliant protocols",
       "Real-time charger status monitoring and alerts telemetry",
@@ -24,6 +26,7 @@ const productsListDefault = [
     number: "02",
     status: "Active",
     route: "/product/planner",
+    image: "/TripPlanner.png",
     features: [
       "Multi-factor predictive range calculation algorithm",
       "Single consolidated CPO wallet balance payment gateway",
@@ -57,6 +60,7 @@ function ProductShowcase() {
       status: cms?.status || def.status,
       route: cms?.route || def.route,
       features: cms?.features?.length ? cms.features : def.features,
+      image: cms?.image ? urlFor(cms.image).width(1200).url() : def.image,
     };
   });
 
@@ -120,9 +124,9 @@ function ProductShowcase() {
           {/* Image Showcase Column (Right) */}
           <div className="lg:col-span-7">
             <div className="bg-white dark:bg-white/5 border border-black/15 dark:border-white/10 rounded-[2.5rem] p-2 shadow-xl relative overflow-hidden backdrop-blur-xl group">
-              <img 
-                src="/EV Charger.jpeg" 
-                alt="CRIVO CSMS EV Charging Hub Interface" 
+              <img
+                src={productsList[0].image}
+                alt="CRIVO CSMS EV Charging Hub Interface"
                 className="rounded-[1.8rem] w-full object-cover filter grayscale contrast-[1.02] brightness-[0.98]"
               />
             </div>
@@ -134,9 +138,9 @@ function ProductShowcase() {
           {/* Image Showcase Column (Left) */}
           <div className="lg:col-span-7 order-last lg:order-first">
             <div className="bg-white dark:bg-white/5 border border-black/15 dark:border-white/10 rounded-[2.5rem] p-2 shadow-xl relative overflow-hidden backdrop-blur-xl group">
-              <img 
-                src="/TripPlanner.png" 
-                alt="Smart EV Trip Planner Interface" 
+              <img
+                src={productsList[1].image}
+                alt="Smart EV Trip Planner Interface"
                 className="rounded-[1.8rem] w-full object-cover filter grayscale contrast-[1.02] brightness-[0.98]"
               />
             </div>

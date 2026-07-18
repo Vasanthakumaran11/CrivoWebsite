@@ -1,8 +1,11 @@
 import { useSanityQuery } from './useSanityQuery'
 
-const QUERY = `*[_type == "productsPage"][0]{
+const QUERY = `*[_id == "products-page"][0]{
   hero,
-  productsList,
+  productsList[]{
+    ...,
+    image
+  },
   cta
 }`
 

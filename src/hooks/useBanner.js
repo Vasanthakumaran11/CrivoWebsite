@@ -8,7 +8,7 @@ export function useBanner() {
   const fetchBanner = useCallback(() => {
     client
       .fetch(
-        `*[_type == "banner"][0] {
+        `*[_id == "banner-main"][0] {
           title,
           subtitle,
           ctaText,

@@ -1,6 +1,6 @@
 import { useSanityQuery } from './useSanityQuery'
 
-const QUERY = `*[_type == "reachPage"][0]{
+const QUERY = `*[_id == "reach-page"][0]{
   hero,
   contactDetails,
   partnerSection,

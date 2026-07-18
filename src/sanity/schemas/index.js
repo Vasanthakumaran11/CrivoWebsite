@@ -16,6 +16,7 @@ import legalSection from './legalSection'
 import privacyPolicy from './privacyPolicy'
 import termsConditions from './termsConditions'
 import accessibilityStatement from './accessibilityStatement'
+import clientLogo from './clientLogo'
 
 export const schemaTypes = [
   product,
@@ -23,6 +24,7 @@ export const schemaTypes = [
   faq,
   banner,
   team,
+  clientLogo,
   homePage,
   siteFooter,
   aboutPage,

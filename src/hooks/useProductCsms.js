@@ -1,6 +1,6 @@
 import { useSanityQuery } from './useSanityQuery'
 
-const QUERY = `*[_type == "productCsms"][0]{
+const QUERY = `*[_id == "product-csms"][0]{
   hero,
   indicators,
   architecture,
