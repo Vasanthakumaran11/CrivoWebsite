@@ -14,10 +14,10 @@ import { createClient } from '@sanity/client'
 
 const projectId = process.env.VITE_SANITY_PROJECT_ID
 const dataset = process.env.VITE_SANITY_DATASET
-const token = process.env.VITE_SANITY_TOKEN
+const token = process.env.SANITY_API_TOKEN
 
 if (!projectId || !token || !dataset) {
-  console.error('Missing VITE_SANITY_PROJECT_ID, VITE_SANITY_DATASET, or VITE_SANITY_TOKEN in .env')
+  console.error('Missing VITE_SANITY_PROJECT_ID, VITE_SANITY_DATASET, or SANITY_API_TOKEN in .env')
   process.exit(1)
 }
 

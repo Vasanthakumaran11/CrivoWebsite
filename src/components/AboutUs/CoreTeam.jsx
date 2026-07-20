@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Linkedin, Github } from 'lucide-react';
-import { useAboutPage } from '../../hooks/useAboutPage';
+import { useCoreTeam } from '../../hooks/useCoreTeam';
 import { urlFor } from '../../lib/sanityClient';
 
 const layoutPositions = [
@@ -98,21 +98,26 @@ function TeamMemberImage({ src, alt, initial, position = "center" }) {
 }
 
 function CoreTeam() {
-  const { data } = useAboutPage();
-  const coreTeamList = data?.coreTeamSection?.members?.length
-    ? data.coreTeamSection.members.map((m, i) => ({
+  const { data: members, isLoading } = useCoreTeam();
+  // Same rule as Leaders: an empty (but successfully loaded) result means
+  // every member is hidden and must render nothing. Only fall back to the
+  // demo data while still loading or after a fetch error.
+  const coreTeamList = members
+    ? members.map((m, i) => ({
         ...m,
         image: m.image ? urlFor(m.image).width(600).url() : null,
         pos: layoutPositions[i % layoutPositions.length],
       }))
-    : coreTeamListDefault;
+    : isLoading
+      ? coreTeamListDefault
+      : [];
 
   return (
-    <div className="text-left mt-12">
+    <div className="text-left mt-24">
       <div>
-        <h6 className="text-4xl md:text-5xl font-black tracking-tighter leading-none mb-8">
-          {data?.coreTeamSection?.title || 'CORE TEAM'}
-        </h6>
+        <h2 className="text-6xl md:text-8xl font-black tracking-tighter leading-none mb-8">
+                OUR <br /><span className="text-outline">CORE TEAM</span>
+              </h2>
       </div>
 
       {/* Desktop Layout (Futuristic Network Flow - Transparent Backdrop) */}

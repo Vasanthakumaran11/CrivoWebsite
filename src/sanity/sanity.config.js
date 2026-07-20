@@ -40,7 +40,7 @@ const structure = (S) =>
           .child(S.document().schemaType(type).documentId(id))
       ),
       S.divider(),
-      // Everything else (blog, faq, team, product, clientLogo — real
+      // Everything else (blog, faq, clientLogo — real
       // collections) keeps the normal list view with create/delete.
       ...S.documentTypeListItems().filter((item) => !singletonTypeNames.has(item.getId())),
     ])

@@ -14,18 +14,12 @@ import 'dotenv/config'
 import { createClient } from '@sanity/client'
 
 // --- Environment -----------------------------------------------------------
-// Per the task spec we only read VITE_SANITY_PROJECT_ID and VITE_SANITY_TOKEN.
-// VITE_SANITY_DATASET is also read because @sanity/client cannot address a
-// dataset without it (src/lib/sanityClient.jsx already depends on the same
-// variable) — it is a non-secret config value (e.g. "production"), not a
-// credential, so including it does not violate the "don't touch other secrets"
-// intent. No other env vars are read anywhere in this file.
 const projectId = process.env.VITE_SANITY_PROJECT_ID
 const dataset = process.env.VITE_SANITY_DATASET
-const token = process.env.VITE_SANITY_TOKEN
+const token = process.env.SANITY_API_TOKEN
 
 if (!projectId || !token) {
-  console.error('Missing VITE_SANITY_PROJECT_ID or VITE_SANITY_TOKEN in .env')
+  console.error('Missing VITE_SANITY_PROJECT_ID or SANITY_API_TOKEN in .env')
   process.exit(1)
 }
 if (!dataset) {

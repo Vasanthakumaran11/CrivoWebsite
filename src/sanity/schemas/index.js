@@ -1,8 +1,8 @@
-import product from './product'
 import blog from './blog'
 import faq from './faq'
 import banner from './banner'
-import team from './team'
+import leader from './leader'
+import coreTeamMember from './coreTeamMember'
 import homePage from './homePage'
 import siteFooter from './footer'
 import aboutPage from './aboutPage'
@@ -19,11 +19,11 @@ import accessibilityStatement from './accessibilityStatement'
 import clientLogo from './clientLogo'
 
 export const schemaTypes = [
-  product,
   blog,
   faq,
   banner,
-  team,
+  leader,
+  coreTeamMember,
   clientLogo,
   homePage,
   siteFooter,

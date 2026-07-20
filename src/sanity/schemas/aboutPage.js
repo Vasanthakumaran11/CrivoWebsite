@@ -75,60 +75,11 @@ export default {
         }
       ]
     },
-    // Leadership Team
-    {
-      name: 'leadersSection',
-      title: 'Leadership Section',
-      type: 'object',
-      fields: [
-        { name: 'title', title: 'Section Title', type: 'string', placeholder: 'LEADERS' },
-        {
-          name: 'leaders',
-          title: 'Leaders List',
-          type: 'array',
-          of: [
-            {
-              type: 'object',
-              fields: [
-                { name: 'name', title: 'Name', type: 'string', validation: Rule => Rule.required() },
-                { name: 'role', title: 'Title / Designation', type: 'string' },
-                { name: 'email', title: 'Email ID', type: 'string' },
-                { name: 'linkedin', title: 'LinkedIn Profile URL', type: 'url' },
-                { name: 'image', title: 'Leader Photo', type: 'image', options: { hotspot: true } }
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    // Core Team
-    {
-      name: 'coreTeamSection',
-      title: 'Core Team Section',
-      type: 'object',
-      fields: [
-        { name: 'title', title: 'Section Title', type: 'string', placeholder: 'CORE TEAM' },
-        {
-          name: 'members',
-          title: 'Core Team Members List',
-          type: 'array',
-          of: [
-            {
-              type: 'object',
-              fields: [
-                { name: 'name', title: 'Name', type: 'string', validation: Rule => Rule.required() },
-                { name: 'role', title: 'Title / Designation', type: 'string' },
-                { name: 'email', title: 'Email ID', type: 'string' },
-                { name: 'linkedin', title: 'LinkedIn Profile URL', type: 'url' },
-                { name: 'github', title: 'GitHub Profile URL', type: 'url' },
-                { name: 'initial', title: 'Initial (e.g. V)', type: 'string' },
-                { name: 'image', title: 'Member Photo', type: 'image', options: { hotspot: true } }
-              ]
-            }
-          ]
-        }
-      ]
-    },
+    // Leaders and Core Team are no longer part of this document — they're
+    // managed as standalone 'leader' / 'coreTeamMember' documents (see
+    // leader.js / coreTeamMember.js) so each person can be individually
+    // shown/hidden via isVisible. Their section headings are hardcoded in
+    // Leaders.jsx / CoreTeam.jsx.
     // Bottom CTA
     {
       name: 'cta',

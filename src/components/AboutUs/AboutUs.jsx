@@ -39,7 +39,7 @@ function AboutUs() {
       <MissionVision />
 
       {/* Leadership Team */}
-      <section className="py-32">
+      <section className="pt-12 pb-32">
         <div className="max-w-7xl mx-auto px-6">
           <Leaders />
           

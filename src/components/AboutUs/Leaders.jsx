@@ -1,22 +1,22 @@
 import { Linkedin, Mail } from 'lucide-react';
-import { useAboutPage } from '../../hooks/useAboutPage';
+import { useLeaders } from '../../hooks/useLeaders';
 import { urlFor } from '../../lib/sanityClient';
 
 const leadersListDefault = [
-  // { 
-  //   name: "Bharanidharan R N", 
-  //   role: "Co-Founder & CEO", 
-  //   image: "/Bharanidharan.jpeg",
-  //   linkedin: "https://www.linkedin.com/in/bharanidharanrn/",
-  //   email: "founder@crivo.in"
-  // },
-  // { 
-  //   name: "Gokulnath Sundaramurthi", 
-  //   role: "Co-Founder & CTO", 
-  //   image: "/Gokulnath.jpeg",
-  //   linkedin: "https://www.linkedin.com/in/gokulnath-bs/",
-  //   email: "cto@crivo.in"
-  // },
+  { 
+    name: "Bharanidharan R N", 
+    role: "Co-Founder & CEO", 
+    image: "/Bharanidharan.jpeg",
+    linkedin: "https://www.linkedin.com/in/bharanidharanrn/",
+    email: "founder@crivo.in"
+  },
+  { 
+    name: "Gokulnath Sundaramurthi", 
+    role: "Co-Founder & CTO", 
+    image: "/Gokulnath.jpeg",
+    linkedin: "https://www.linkedin.com/in/gokulnath-bs/",
+    email: "cto@crivo.in"
+  },
   { 
     name: "Hareeni S", 
     role: "Co-Founder & COO", 
@@ -24,29 +24,42 @@ const leadersListDefault = [
     linkedin: "https://www.linkedin.com/in/hareenis?utm_source=share_via&utm_content=profile&utm_medium=member_ios",
     email: "coo@crivo.in"
   },
+  {
+    name: "Name",
+    role: "Title",
+    image : "/new.png",
+    linkedin : "#",
+    email : "#"
+  }
 ];
 
 function Leaders() {
-  const { data } = useAboutPage();
-  const leadersList = data?.leadersSection?.leaders?.length
-    ? data.leadersSection.leaders.map((l) => ({
+  const { data: leaders, isLoading } = useLeaders();
+  // `leaders` is `[]` once Sanity has loaded and every leader is hidden —
+  // that must render nothing. Only fall back to the demo data while the
+  // first fetch is still in flight (data is still null) or if it errored
+  // out (data stays null forever in that case).
+  const leadersList = leaders
+    ? leaders.map((l) => ({
         ...l,
         image: l.image ? urlFor(l.image).width(600).url() : null,
       }))
-    : leadersListDefault;
+    : isLoading
+      ? leadersListDefault
+      : [];
 
   return (
     <div className="text-left">
       <div className="mb-10">
-        <h6 className="text-4xl md:text-5xl font-black tracking-tighter leading-none mb-6">
-          {data?.leadersSection?.title || 'LEADERS'}
-        </h6>
+        <h2 className="text-6xl md:text-8xl font-black tracking-tighter leading-none mb-8">
+                OUR <br /><span className="text-outline">LEADERS</span>
+              </h2>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-6">
+      <div className="flex flex-col sm:flex-row flex-nowrap justify-center gap-8 mt-6">
         {leadersList.map((t, i) => (
           <div
             key={i}
-            className="group relative h-[480px] w-full rounded-[2.5rem] overflow-hidden border border-black/10 dark:border-white/10 bg-white dark:bg-[#070708] hover:border-black/30 dark:hover:border-white/30 transition-all duration-500 shadow-lg hover:shadow-2xl hover:-translate-y-2 flex flex-col justify-end"
+            className="group relative h-[480px] w-full sm:flex-1 sm:min-w-0 max-w-[390px] rounded-[2.5rem] overflow-hidden border border-black/10 dark:border-white/10 bg-white dark:bg-[#070708] hover:border-black/30 dark:hover:border-white/30 transition-all duration-500 shadow-lg hover:shadow-2xl hover:-translate-y-2 flex flex-col justify-end"
           >
             {/* Photo container */}
             <div className="absolute inset-0 w-full h-full z-0 overflow-hidden">
