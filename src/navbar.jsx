@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, startTransition } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Sun, Moon, X } from 'lucide-react';
+import { Sun, Moon, X, Lock } from 'lucide-react';
 import { useTheme } from './context/ThemeContext';
 
 const navLinks = [
@@ -8,6 +8,7 @@ const navLinks = [
     { label: 'ABOUT US', to: '/about' },
     { label: 'BLOGS', to: '/blogs' },
     { label: 'REACH US', to: '/reach-us' },
+    { label: 'ADMIN', to: '/admindashboard', isAdmin: true },
 ];
 
 function Navbar() {
@@ -35,7 +36,9 @@ function Navbar() {
     }, []);
 
     useEffect(() => {
-        setIsMenuOpen(false);
+        startTransition(() => {
+            setIsMenuOpen(false);
+        });
     }, [location.pathname]);
 
     useEffect(() => {
@@ -62,27 +65,28 @@ function Navbar() {
     return (
         <nav className={`fixed top-0 w-full z-50 transition-all duration-500 ${hidden ? '-translate-y-full' : 'translate-y-0'} ${navBg} ${textColor}`}>
             <div className="max-w-7xl mx-auto px-6 lg:px-8">
-                <div className="flex items-center justify-between">
+                <div className="flex items-center">
 
                     {/* Logo */}
-                    <div className="flex-shrink-0">
+                    <div className="flex-1">
                         <Link to="/" className="flex items-center group">
                             <span className="font-bold tracking-tight text-2xl leading-none">CRIVO</span>
                         </Link>
                     </div>
 
-                    {/* Desktop Nav */}
+                    {/* Desktop Nav — centered because both sides are flex-1 */}
                     <ul className="hidden md:flex items-center space-x-10">
                         {navLinks.map((item) => (
                             <li key={item.label}>
                                 <Link
                                     to={item.to}
-                                    className={`font-medium text-xs tracking-[0.2em] transition-all duration-300 relative group ${
+                                    className={`font-medium text-xs tracking-[0.2em] transition-all duration-300 relative group flex items-center gap-1.5 ${
                                         location.pathname === item.to
                                             ? isLightNav ? 'text-[#111110]' : 'text-white'
                                             : isLightNav ? 'text-black/50 hover:text-[#111110]' : 'text-white/70 hover:text-white'
                                     }`}
                                 >
+                                    {item.isAdmin && <Lock className="w-3 h-3 opacity-60" />}
                                     {item.label}
                                     <span className={`absolute -bottom-1 left-0 h-[1px] transition-all duration-300 ${
                                         isLightNav ? 'bg-[#111110]' : 'bg-white'
@@ -92,8 +96,8 @@ function Navbar() {
                         ))}
                     </ul>
 
-                    {/* Right side: theme toggle + CTA */}
-                    <div className="hidden md:flex items-center gap-3">
+                    {/* Right side: theme toggle + CTA — flex-1 + justify-end mirrors the logo side */}
+                    <div className="flex-1 hidden md:flex items-center justify-end gap-3">
                         {/* Theme Toggle */}
                         <button
                             onClick={toggle}
@@ -185,10 +189,11 @@ function Navbar() {
                                 key={item.label}
                                 to={item.to}
                                 onClick={() => setIsMenuOpen(false)}
-                                className={`text-xl font-bold tracking-tight transition-colors py-2 border-b border-black/5 dark:border-white/5 ${
+                                className={`text-xl font-bold tracking-tight transition-colors py-2 border-b border-black/5 dark:border-white/5 flex items-center gap-2 ${
                                     isDark ? 'text-white hover:text-gray-400' : 'text-[#111110] hover:text-black/50'
                                 }`}
                             >
+                                {item.isAdmin && <Lock className="w-4 h-4 opacity-50" />}
                                 {item.label}
                             </Link>
                         ))}
