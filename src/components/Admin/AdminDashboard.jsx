@@ -1,42 +1,76 @@
-import { useState, useEffect, useMemo, useRef } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { 
-  LayoutDashboard, 
-  TrendingUp, 
-  MailOpen, 
-  ShieldAlert, 
-  Users, 
-  LogOut, 
-  Lock, 
-  User, 
-  Plus, 
-  Search, 
-  Trash2, 
-  CheckCircle, 
-  ExternalLink, 
-  FileText, 
-  Settings, 
-  X, 
-  ChevronRight, 
+import {
+  LayoutDashboard,
+  TrendingUp,
+  MailOpen,
+  Users,
+  LogOut,
+  Lock,
+  User,
+  Trash2,
+  CheckCircle,
+  ExternalLink,
+  FileText,
+  Settings,
+  ChevronRight,
   AlertTriangle,
   ArrowRight,
   RefreshCw,
-  FolderOpen
+  FolderOpen,
+  BarChart2,
+  Globe,
+  Monitor,
+  Activity,
+  Clock
 } from 'lucide-react';
 
-// Pre-defined initial lists for demo state
-const INITIAL_ADMINS = [
-  { email: 'you@crivo.in', role: 'Superadmin', status: 'Active (You)', lastLogin: 'Just now' },
-  { email: 'devops@crivo.in', role: 'Developer', status: 'Active', lastLogin: '2 hours ago' },
-  { email: 'content@crivo.in', role: 'Editor', status: 'Offline', lastLogin: '2 days ago' }
+// Only these three accounts may authenticate into the console.
+// NOTE: this runs entirely client-side — anyone can read these credentials
+// out of the deployed JS bundle. This gate keeps casual visitors out of the
+// UI, it is not a substitute for real server-side authentication.
+const AUTHORIZED_ACCOUNTS = {
+  'bharani456@gmail.com': 'Bharani@crivo',
+  'bs.gokulnath18@gmail.com': 'Gokul@crivo',
+  'vasanthakumaran0011@gmail.com': 'Vasanth@crivo',
+};
+
+// Umami analytics dashboard URL. Set VITE_UMAMI_URL in .env to override for production.
+const UMAMI_URL = import.meta.env.VITE_UMAMI_URL || 'http://127.0.0.1:3006';
+
+// The only 3 accounts that can ever sign in (see AUTHORIZED_ACCOUNTS above),
+// each with a fixed role. This is a static roster, not an editable list —
+// there's no "invite" flow since login is hardcoded to exactly these three.
+const ADMIN_ROSTER = [
+  { email: 'bharani456@gmail.com', role: 'Founder' },
+  { email: 'bs.gokulnath18@gmail.com', role: 'Developer' },
+  { email: 'vasanthakumaran0011@gmail.com', role: 'Editor' },
 ];
 
-const INITIAL_SUBMISSIONS = [
-  { id: 'SUB-4821', name: 'Arjun Mehta', contact: 'arjun@mehtalogistics.com', type: 'General', topic: 'Commercial Fleet Setup', message: 'Looking to set up 15 high-power charging slots at our main freight hub in Navi Mumbai. Need custom load management.', status: 'Pending', date: '2026-07-13 14:23' },
-  { id: 'SUB-4822', name: 'Preeti Sharma', contact: 'preeti.s@techpark.in', type: 'General', topic: 'AC Charger Pricing', message: 'Requesting wholesale quote for 50 C-Smart22 AC chargers to deploy in our tech park basement.', status: 'Reviewed', date: '2026-07-13 11:05' },
-  { id: 'SUB-4823', name: 'Vikram Singh', contact: 'v.singh@crivo.in', type: 'Career', topic: 'Hardware Firmware Intern', message: 'Applying for the Firmware Engineer role. Attached CV and github projects on RTOS and OCPP.', status: 'Pending', date: '2026-07-12 18:40' },
-  { id: 'SUB-4824', name: 'Rajesh G.', contact: '9876543210', type: 'Emergency', topic: 'Trip Issue', message: 'Trip planner navigation failed to load charger occupancy status near Pune bypass. Current state of charge is low.', status: 'Resolved', date: '2026-07-12 15:10' }
-];
+// Best-effort "who's online" tracking via localStorage. This only sees tabs/
+// windows open in THIS browser on THIS device — there's no backend, so true
+// cross-device presence isn't possible without one.
+const PRESENCE_KEY = 'crivo_admin_presence';
+const LAST_LOGIN_KEY = 'crivo_admin_last_login';
+const PRESENCE_HEARTBEAT_MS = 4000;
+const PRESENCE_STALE_MS = 10000;
+
+function readJSON(key) {
+  try { return JSON.parse(localStorage.getItem(key)) || {}; } catch { return {}; }
+}
+function readPresence() { return readJSON(PRESENCE_KEY); }
+function writePresence(map) { localStorage.setItem(PRESENCE_KEY, JSON.stringify(map)); }
+function readLastLogins() { return readJSON(LAST_LOGIN_KEY); }
+function writeLastLogins(map) { localStorage.setItem(LAST_LOGIN_KEY, JSON.stringify(map)); }
+
+function formatRelativeTime(ts) {
+  if (!ts) return 'Never';
+  const diff = Date.now() - ts;
+  if (diff < 60000) return 'Just now';
+  if (diff < 3600000) return `${Math.floor(diff / 60000)}m ago`;
+  if (diff < 86400000) return `${Math.floor(diff / 3600000)}h ago`;
+  return `${Math.floor(diff / 86400000)}d ago`;
+}
 
 const INITIAL_FAQS = [
   { id: 1, question: "What is OCPP and why is it important?", answer: "OCPP (Open Charge Point Protocol) is a global open standard that allows EV chargers (posts) and cloud management software (CSMS) to communicate seamlessly. It avoids vendor lock-in and enables smart charging scheduling." },
@@ -56,7 +90,10 @@ export default function AdminDashboard() {
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
     return sessionStorage.getItem('crivo_admin_auth') === 'true';
   });
-  
+  const [adminEmail, setAdminEmail] = useState(() => {
+    return sessionStorage.getItem('crivo_admin_email') || '';
+  });
+
   // Login form inputs
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -66,8 +103,6 @@ export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState('content');
 
   // Dynamic dashboard lists (local state storage)
-  const [admins, setAdmins] = useState(INITIAL_ADMINS);
-  const [submissions, setSubmissions] = useState(INITIAL_SUBMISSIONS);
   const [faqs, setFaqs] = useState(INITIAL_FAQS);
   const [products] = useState(INITIAL_PRODUCTS);
   const [siteSettings, setSiteSettings] = useState({
@@ -80,37 +115,46 @@ export default function AdminDashboard() {
   });
 
   // Modal / Drawer visibility controls
-  const [showInviteModal, setShowInviteModal] = useState(false);
-  const [inviteEmail, setInviteEmail] = useState('');
-  const [inviteRole, setInviteRole] = useState('Editor');
-
   const [showStudio, setShowStudio] = useState(false);
   const [studioActiveSchema, setStudioActiveSchema] = useState('faqs'); // faqs, products, settings
+  const [showUmami, setShowUmami] = useState(false);
 
   const [faqEditId, setFaqEditId] = useState(null);
   const [faqQuestion, setFaqQuestion] = useState('');
   const [faqAnswer, setFaqAnswer] = useState('');
 
-  // Submissions search & filters
-  const [subFilter, setSubFilter] = useState('All');
-  const [subSearch, setSubSearch] = useState('');
+  // Ticks periodically so the presence/last-login display below re-evaluates
+  const [presenceTick, setPresenceTick] = useState(0);
 
-  // Security Logger State
-  const [logFilter, setLogFilter] = useState('all');
-  const [logs, setLogs] = useState(() => {
-    const isAuthenticatedOnLoad = typeof sessionStorage !== 'undefined' && sessionStorage.getItem('crivo_admin_auth') === 'true';
-    if (isAuthenticatedOnLoad) {
-      const baseTime = Date.now();
-      return [
-        { id: 1, type: 'info', timestamp: new Date(baseTime - 12000).toLocaleTimeString(), text: 'System diagnostics operational. Connection pool stable.' },
-        { id: 2, type: 'info', timestamp: new Date(baseTime - 9000).toLocaleTimeString(), text: 'CORS check successful. Whitelisted domains loaded.' },
-        { id: 3, type: 'warning', timestamp: new Date(baseTime - 6000).toLocaleTimeString(), text: 'Rate limit threshold checked: IP 103.112.5.4 bypassed admin rule.' },
-        { id: 4, type: 'success', timestamp: new Date(baseTime - 3000).toLocaleTimeString(), text: 'Superadmin session established from browser context.' }
-      ];
-    }
-    return [];
-  });
-  const logsEndRef = useRef(null);
+  // Heartbeat: mark this account "present" while the dashboard tab is open,
+  // and clear it on unmount (tab close/navigate away isn't always caught,
+  // hence PRESENCE_STALE_MS as a fallback so a crashed tab doesn't stay
+  // "Active" forever).
+  useEffect(() => {
+    if (!isAuthenticated || !adminEmail) return;
+
+    const beat = () => {
+      const presence = readPresence();
+      presence[adminEmail] = Date.now();
+      writePresence(presence);
+      setPresenceTick(t => t + 1);
+    };
+    beat();
+    const interval = setInterval(beat, PRESENCE_HEARTBEAT_MS);
+
+    const onStorage = (e) => {
+      if (e.key === PRESENCE_KEY || e.key === LAST_LOGIN_KEY) setPresenceTick(t => t + 1);
+    };
+    window.addEventListener('storage', onStorage);
+
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener('storage', onStorage);
+      const presence = readPresence();
+      delete presence[adminEmail];
+      writePresence(presence);
+    };
+  }, [isAuthenticated, adminEmail]);
 
   // Generate background particles deterministically to avoid impure functions during render
   const particles = useMemo(() => {
@@ -131,79 +175,37 @@ export default function AdminDashboard() {
     });
   }, []);
 
-  // Check localstorage for any actual submissions submitted during local testing
-  useEffect(() => {
-    if (isAuthenticated) {
-      // Periodically append new mock system logs to look live
-      const timer = setInterval(() => {
-        const timestamp = new Date().toLocaleTimeString();
-        const logsPool = [
-          { type: 'info', text: 'Telemetry synchronization complete. Cloud storage active.' },
-          { type: 'info', text: 'Health ping returned status: 200 OK (latency: 14ms).' },
-          { type: 'warning', text: 'Multiple read calls from subnet 192.168.1.0/24 - security rate monitoring is active.' },
-          { type: 'info', text: 'WebSocket heartbeats acknowledged by edge controllers.' },
-          { type: 'info', text: 'Sanity Studio sync queue: 0 pending changes.' }
-        ];
-        const randomLog = logsPool[Math.floor(Math.random() * logsPool.length)];
-        setLogs(prev => [...prev, { id: Date.now(), ...randomLog, timestamp }]);
-      }, 5000);
-
-      return () => clearInterval(timer);
-    }
-  }, [isAuthenticated]);
-
-  // Keep logs scrolled down
-  useEffect(() => {
-    if (logsEndRef.current) {
-      logsEndRef.current.scrollIntoView({ behavior: 'smooth' });
-    }
-  }, [logs]);
-
-  // Handle mock authentication
+  // Handle authentication — only the three authorized accounts may sign in
   const handleLoginSubmit = (e) => {
     e.preventDefault();
     if (!username.trim() || !password.trim()) {
-      setLoginError('Please enter both username and password.');
+      setLoginError('Please enter both email and password.');
       return;
     }
-    // Accept any username & password
+    const email = username.trim().toLowerCase();
+    if (AUTHORIZED_ACCOUNTS[email] !== password) {
+      setLoginError('Invalid email or password. Access is restricted to authorized personnel.');
+      return;
+    }
     setIsAuthenticated(true);
+    setAdminEmail(email);
     sessionStorage.setItem('crivo_admin_auth', 'true');
+    sessionStorage.setItem('crivo_admin_email', email);
+    setPassword('');
     setLoginError('');
 
-    // Initialize logs on login
-    const baseTime = Date.now();
-    setLogs([
-      { id: 1, type: 'info', timestamp: new Date(baseTime - 12000).toLocaleTimeString(), text: 'System diagnostics operational. Connection pool stable.' },
-      { id: 2, type: 'info', timestamp: new Date(baseTime - 9000).toLocaleTimeString(), text: 'CORS check successful. Whitelisted domains loaded.' },
-      { id: 3, type: 'warning', timestamp: new Date(baseTime - 6000).toLocaleTimeString(), text: 'Rate limit threshold checked: IP 103.112.5.4 bypassed admin rule.' },
-      { id: 4, type: 'success', timestamp: new Date(baseTime - 3000).toLocaleTimeString(), text: 'Superadmin session established from browser context.' }
-    ]);
+    const lastLogins = readLastLogins();
+    lastLogins[email] = Date.now();
+    writeLastLogins(lastLogins);
   };
 
-  // Handle logout
+  // Handle logout — the presence heartbeat effect's cleanup clears this
+  // account's "online" marker when isAuthenticated flips to false below.
   const handleLogoutClick = () => {
     setIsAuthenticated(false);
+    setAdminEmail('');
     sessionStorage.removeItem('crivo_admin_auth');
-    setLogs([]);
-  };
-
-  // Add mock admin
-  const handleInviteSubmit = (e) => {
-    e.preventDefault();
-    if (!inviteEmail || !inviteEmail.includes('@')) {
-      alert('Please enter a valid email.');
-      return;
-    }
-    const newAdmin = {
-      email: inviteEmail,
-      role: inviteRole,
-      status: 'Pending',
-      lastLogin: 'Never'
-    };
-    setAdmins(prev => [...prev, newAdmin]);
-    setInviteEmail('');
-    setShowInviteModal(false);
+    sessionStorage.removeItem('crivo_admin_email');
   };
 
   // Add/Edit mock FAQ inside Sanity Studio overlay
@@ -220,39 +222,6 @@ export default function AdminDashboard() {
     setFaqQuestion('');
     setFaqAnswer('');
   };
-
-  // Delete submission
-  const handleDeleteSubmission = (id) => {
-    setSubmissions(prev => prev.filter(s => s.id !== id));
-  };
-
-  // Toggle status of submission
-  const handleToggleSubStatus = (id) => {
-    setSubmissions(prev => prev.map(s => {
-      if (s.id === id) {
-        const nextStatus = s.status === 'Pending' ? 'Reviewed' : s.status === 'Reviewed' ? 'Resolved' : 'Pending';
-        return { ...s, status: nextStatus };
-      }
-      return s;
-    }));
-  };
-
-  // Filtered Submissions
-  const filteredSubmissions = useMemo(() => {
-    return submissions.filter(s => {
-      const matchesType = subFilter === 'All' || s.type === subFilter;
-      const matchesSearch = s.name.toLowerCase().includes(subSearch.toLowerCase()) || 
-                            s.contact.toLowerCase().includes(subSearch.toLowerCase()) ||
-                            s.topic.toLowerCase().includes(subSearch.toLowerCase());
-      return matchesType && matchesSearch;
-    });
-  }, [submissions, subFilter, subSearch]);
-
-  // Filtered Logs
-  const filteredLogs = useMemo(() => {
-    if (logFilter === 'all') return logs;
-    return logs.filter(l => l.type === logFilter);
-  }, [logs, logFilter]);
 
   // Render Login Authorization Screen
   if (!isAuthenticated) {
@@ -336,7 +305,7 @@ export default function AdminDashboard() {
 
             <div className="text-center pt-2">
               <p className="text-[10px] text-white/30 leading-relaxed max-w-xs mx-auto">
-                Any username and password are permitted for quick deployment verification.
+                Access is restricted to authorized personnel only.
               </p>
             </div>
           </form>
@@ -390,7 +359,6 @@ export default function AdminDashboard() {
                 { id: 'content', label: 'Content Management', icon: LayoutDashboard },
                 { id: 'analytics', label: 'Visitor Analytics', icon: TrendingUp },
                 { id: 'submissions', label: 'Submissions', icon: MailOpen },
-                { id: 'security', label: 'Security Logs', icon: ShieldAlert },
                 { id: 'users', label: 'Admin Users', icon: Users },
               ].map(item => {
                 const IconComp = item.icon;
@@ -401,6 +369,7 @@ export default function AdminDashboard() {
                     onClick={() => {
                       setActiveTab(item.id);
                       setShowStudio(false);
+                      setShowUmami(false);
                     }}
                     className={`w-full flex items-center gap-3.5 px-4 py-3 rounded-xl text-xs font-semibold tracking-wider transition-all duration-300 ${
                       active && !showStudio
@@ -422,11 +391,10 @@ export default function AdminDashboard() {
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="w-8 h-8 rounded-full bg-white/10 border border-white/25 flex items-center justify-center font-bold text-xs text-white">
-                  SA
+                  {adminEmail[0]}
                 </div>
                 <div>
-                  <div className="text-[11px] font-bold tracking-wide truncate max-w-[110px]">you@crivo.in</div>
-                  <div className="text-[9px] text-white/40 uppercase tracking-widest font-bold">Superadmin</div>
+                  <div className="text-[11px] font-bold tracking-wide truncate max-w-[110px]">{adminEmail}</div>
                 </div>
               </div>
               <button 
@@ -446,20 +414,13 @@ export default function AdminDashboard() {
           {/* Main header block */}
           <header className="px-8 py-5 border-b border-white/10 flex items-center justify-between bg-black/10 backdrop-blur-md">
             <div className="text-left">
-              <span className="text-[9px] font-mono tracking-[0.25em] text-white/40 uppercase font-bold block mb-1">
-                System Interface
-              </span>
+             
               <h2 className="text-xs font-bold uppercase tracking-wider text-white">
-                {showStudio ? 'Sanity Studio Preview' : `${activeTab.replace('_', ' ')} Console`}
+                {showUmami ? 'Umami Analytics Dashboard' : showStudio ? 'Sanity Studio Preview' : `${activeTab.replace('_', ' ')} Console`}
               </h2>
             </div>
             
-            <div className="flex items-center gap-4">
-              <span className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 border border-white/20 text-[9px] font-bold tracking-widest uppercase text-white">
-                <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>
-                Node Connected
-              </span>
-            </div>
+            
           </header>
 
           <div className="flex-1 p-8 md:p-12 overflow-y-auto">
@@ -679,9 +640,7 @@ export default function AdminDashboard() {
                   <div className="space-y-8 text-left">
                     {/* Header */}
                     <div className="text-left font-sans">
-                      <span className="text-[10px] font-mono tracking-[0.25em] text-white/40 uppercase font-bold block mb-2">
-                        SECTION 1
-                      </span>
+                     
                       <h1 className="text-4xl md:text-5xl font-black tracking-tight leading-none mb-4 uppercase" style={{ fontFamily: "'Outfit', sans-serif" }}>
                         Content Management
                       </h1>
@@ -750,136 +709,126 @@ export default function AdminDashboard() {
                 {/* 2. VISITOR ANALYTICS VIEW */}
                 {activeTab === 'analytics' && (
                   <div className="space-y-8 text-left">
-                    <div className="text-left font-sans">
-                      <span className="text-[10px] font-mono tracking-[0.25em] text-white/40 uppercase font-bold block mb-2">
-                        SECTION 2
-                      </span>
-                      <h1 className="text-4xl md:text-5xl font-black tracking-tight leading-none mb-4 uppercase" style={{ fontFamily: "'Outfit', sans-serif" }}>
-                        Visitor Analytics
-                      </h1>
-                      <p className="text-sm md:text-base text-white/60 leading-relaxed font-light max-w-2xl">
-                        Monitor site traffic benchmarks, load times, access distributions, and geographic sessions.
-                      </p>
-                    </div>
 
-                    {/* Metric Cards */}
-                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-                      {[
-                        { label: 'Unique Visitors', val: '12,845', change: '+14.2%', plus: true },
-                        { label: 'Avg Session Duration', val: '2m 45s', change: '+0.3s', plus: true },
-                        { label: 'Bounce Rate', val: '34.2%', change: '-2.1%', plus: false },
-                        { label: 'Conversion Rate', val: '3.8%', change: '+0.5%', plus: true }
-                      ].map((metric, idx) => (
-                        <div key={idx} className="p-6 bg-white/[0.02] border border-white/10 rounded-2xl">
-                          <div className="text-[9px] uppercase tracking-wider text-white/40 font-bold mb-2">{metric.label}</div>
-                          <div className="text-3xl font-black font-mono tracking-tight mb-2">{metric.val}</div>
-                          <div className={`text-[10px] font-bold ${metric.plus ? 'text-white' : 'text-white/50'}`}>
-                            {metric.change} vs last week
+                    {showUmami ? (
+                      /* ── Umami iframe overlay (mirrors Sanity Studio overlay) ── */
+                      <div className="space-y-8 animate-page-transition">
+                        <div className="p-6 md:p-8 bg-white/[0.02] border border-white/15 rounded-[2.5rem] relative overflow-hidden">
+                          <div className="flex justify-between items-center mb-6">
+                            <div className="text-left">
+                              <span className="text-[9px] font-mono tracking-widest text-white/40 uppercase block mb-1">DASHBOARD EMBED</span>
+                              <h2 className="text-2xl font-black uppercase tracking-tight">Umami Analytics</h2>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <a
+                                href={UMAMI_URL}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="px-4 py-1.5 bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 rounded-xl text-xs uppercase tracking-wider font-bold transition-all flex items-center gap-1.5"
+                              >
+                                Open in Tab <ExternalLink className="w-3 h-3" />
+                              </a>
+                              <button
+                                onClick={() => setShowUmami(false)}
+                                className="px-4 py-1.5 bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 rounded-xl text-xs uppercase tracking-wider font-bold transition-all"
+                              >
+                                Close
+                              </button>
+                            </div>
+                          </div>
+
+                          <div
+                            className="relative w-full rounded-2xl overflow-hidden border border-white/10"
+                            style={{ height: '70vh' }}
+                          >
+                            <iframe
+                              src={UMAMI_URL}
+                              title="Umami Analytics Dashboard"
+                              className="w-full h-full bg-[#0d0d0d]"
+                              style={{ border: 'none', minHeight: '600px' }}
+                            />
+                            <div className="absolute bottom-4 right-4 px-3 py-1.5 bg-black/70 backdrop-blur border border-white/10 rounded-lg text-[10px] text-white/50 font-mono pointer-events-none">
+                              {UMAMI_URL}
+                            </div>
                           </div>
                         </div>
-                      ))}
-                    </div>
-
-                    {/* Graphical Chart panel */}
-                    <div className="p-6 bg-white/[0.02] border border-white/10 rounded-3xl space-y-4">
-                      <div className="flex items-center justify-between">
-                        <span className="text-[10px] uppercase font-mono tracking-widest text-white/40">DAILY VISITOR SPECTRUM</span>
-                        <span className="text-[8px] bg-white/10 px-2 py-0.5 rounded font-mono font-bold">7-DAY ROTATION</span>
                       </div>
-                      <div className="h-[200px] flex items-end">
-                        <svg viewBox="0 0 700 200" className="w-full h-full overflow-visible">
-                          <defs>
-                            <linearGradient id="gradient" x1="0" y1="0" x2="0" y2="1">
-                              <stop offset="0%" stopColor="rgba(255, 255, 255, 0.15)" />
-                              <stop offset="100%" stopColor="rgba(255, 255, 255, 0)" />
-                            </linearGradient>
-                          </defs>
-                          {/* Grid Lines */}
-                          <line x1="0" y1="50" x2="700" y2="50" stroke="rgba(255, 255, 255, 0.05)" strokeDasharray="3 3" />
-                          <line x1="0" y1="100" x2="700" y2="100" stroke="rgba(255, 255, 255, 0.05)" strokeDasharray="3 3" />
-                          <line x1="0" y1="150" x2="700" y2="150" stroke="rgba(255, 255, 255, 0.05)" strokeDasharray="3 3" />
-                          
-                          {/* Chart Path Area */}
-                          <path
-                            d="M 50,150 Q 150,80 250,130 T 450,70 T 650,40 L 650,200 L 50,200 Z"
-                            fill="url(#gradient)"
-                          />
-                          {/* Chart Path Stroke */}
-                          <path
-                            d="M 50,150 Q 150,80 250,130 T 450,70 T 650,40"
-                            fill="none"
-                            stroke="rgba(255, 255, 255, 0.8)"
-                            strokeWidth="2.5"
-                          />
-                          
-                          {/* Chart Nodes */}
-                          <circle cx="50" cy="150" r="4" fill="#fff" />
-                          <circle cx="200" cy="100" r="4" fill="#fff" />
-                          <circle cx="350" cy="100" r="4" fill="#fff" />
-                          <circle cx="500" cy="70" r="4" fill="#fff" />
-                          <circle cx="650" cy="40" r="4" fill="#fff" />
-                          
-                          {/* Label markers */}
-                          <text x="50" y="190" fill="rgba(255, 255, 255, 0.3)" fontSize="10" textAnchor="middle">Mon</text>
-                          <text x="150" y="190" fill="rgba(255, 255, 255, 0.3)" fontSize="10" textAnchor="middle">Tue</text>
-                          <text x="250" y="190" fill="rgba(255, 255, 255, 0.3)" fontSize="10" textAnchor="middle">Wed</text>
-                          <text x="350" y="190" fill="rgba(255, 255, 255, 0.3)" fontSize="10" textAnchor="middle">Thu</text>
-                          <text x="450" y="190" fill="rgba(255, 255, 255, 0.3)" fontSize="10" textAnchor="middle">Fri</text>
-                          <text x="550" y="190" fill="rgba(255, 255, 255, 0.3)" fontSize="10" textAnchor="middle">Sat</text>
-                          <text x="650" y="190" fill="rgba(255, 255, 255, 0.3)" fontSize="10" textAnchor="middle">Sun</text>
-                        </svg>
-                      </div>
-                    </div>
-
-                    {/* Breakdown Distributions */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      
-                      {/* Referral Channels */}
-                      <div className="p-6 bg-white/[0.02] border border-white/10 rounded-3xl space-y-4">
-                        <span className="text-[10px] uppercase font-mono tracking-widest text-white/40 block">TRAFFIC ACQUISITION</span>
-                        <div className="space-y-3.5">
-                          {[
-                            { name: 'Organic Search Engines', percent: 48, count: '6,165' },
-                            { name: 'Direct Entries', percent: 26, count: '3,340' },
-                            { name: 'Social Media Integrations', percent: 15, count: '1,926' },
-                            { name: 'Referral Backlinks', percent: 11, count: '1,414' }
-                          ].map((src, idx) => (
-                            <div key={idx} className="space-y-1">
-                              <div className="flex justify-between text-xs font-semibold">
-                                <span className="text-white/80">{src.name}</span>
-                                <span>{src.percent}% ({src.count})</span>
-                              </div>
-                              <div className="w-full bg-white/5 h-1.5 rounded-full overflow-hidden">
-                                <div className="bg-white h-full transition-all duration-1000" style={{ width: `${src.percent}%` }}></div>
-                              </div>
-                            </div>
-                          ))}
+                    ) : (
+                      /* ── Default analytics landing ── */
+                      <>
+                        <div className="text-left font-sans">
+                          <h1 className="text-4xl md:text-5xl font-black tracking-tight leading-none mb-4 uppercase" style={{ fontFamily: "'Outfit', sans-serif" }}>
+                            Visitor Analytics
+                          </h1>
+                          <p className="text-sm md:text-base text-white/60 leading-relaxed font-light max-w-3xl">
+                            Monitor site traffic, page views, unique visitors, referrers and geographic sessions — powered by Umami, a privacy-friendly open-source analytics platform.
+                          </p>
                         </div>
-                      </div>
 
-                      {/* Device Breakdown */}
-                      <div className="p-6 bg-white/[0.02] border border-white/10 rounded-3xl space-y-4">
-                        <span className="text-[10px] uppercase font-mono tracking-widest text-white/40 block">HARDWARE PLATFORMS</span>
-                        <div className="space-y-3.5">
-                          {[
-                            { name: 'Mobile Devices', percent: 62, count: '7,963' },
-                            { name: 'Desktop/Workstation', percent: 31, count: '3,982' },
-                            { name: 'Tablet Devices', percent: 7, count: '900' }
-                          ].map((device, idx) => (
-                            <div key={idx} className="space-y-1">
-                              <div className="flex justify-between text-xs font-semibold">
-                                <span className="text-white/80">{device.name}</span>
-                                <span>{device.percent}% ({device.count})</span>
-                              </div>
-                              <div className="w-full bg-white/5 h-1.5 rounded-full overflow-hidden">
-                                <div className="bg-white/60 h-full transition-all duration-1000" style={{ width: `${device.percent}%` }}></div>
-                              </div>
-                            </div>
-                          ))}
+                        {/* Umami Status Banner */}
+                        <div className="flex flex-col md:flex-row items-start md:items-center justify-between p-6 bg-white/[0.02] border border-white/10 rounded-[2rem] gap-4 relative overflow-hidden group">
+                          <div className="absolute top-0 right-0 w-24 h-24 bg-white/5 rounded-full blur-2xl pointer-events-none transition-all group-hover:scale-150"></div>
+
+                          <div className="flex items-center gap-3">
+                            <span className="w-2.5 h-2.5 rounded-full bg-white animate-pulse shrink-0"></span>
+                            <p className="text-xs text-white/70 font-semibold leading-relaxed">
+                              Umami Analytics is live and collecting visitor data — open the dashboard to explore real-time statistics.
+                            </p>
+                          </div>
+
+                          <div className="flex items-center gap-2 shrink-0">
+                            <a
+                              href={UMAMI_URL}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="px-5 py-2.5 bg-white/5 hover:bg-white/10 active:bg-white/15 border border-white/10 hover:border-white/20 rounded-xl text-xs uppercase tracking-wider font-bold transition-all text-white flex items-center gap-2"
+                            >
+                              Open in Tab <ExternalLink className="w-3.5 h-3.5" />
+                            </a>
+                            <button
+                              onClick={() => setShowUmami(true)}
+                              className="px-5 py-2.5 bg-white/5 hover:bg-white/10 active:bg-white/15 border border-white/10 hover:border-white/20 rounded-xl text-xs uppercase tracking-wider font-bold transition-all text-white shrink-0 flex items-center gap-2"
+                            >
+                              View Statistics <ChevronRight className="w-3.5 h-3.5" />
+                            </button>
+                          </div>
                         </div>
-                      </div>
 
-                    </div>
+                        {/* Metric Category Cards */}
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                          {[
+                            { title: 'Page Views', desc: 'Total pages loaded by all visitors across the full site', icon: BarChart2 },
+                            { title: 'Unique Visitors', desc: 'Individual sessions tracked via privacy-safe hashed fingerprints', icon: Users },
+                            { title: 'Session Duration', desc: 'Average time visitors spend engaging with your content', icon: Clock },
+                            { title: 'Top Referrers', desc: 'Traffic sources — direct, organic search, social and campaigns', icon: Globe },
+                            { title: 'Geographic Data', desc: 'Countries and regions driving your inbound traffic', icon: Activity },
+                            { title: 'Device & Browser', desc: 'Breakdown of desktop, mobile, tablet, OS and browser usage', icon: Monitor },
+                          ].map((card, idx) => {
+                            const IconComp = card.icon;
+                            return (
+                              <div
+                                key={idx}
+                                onClick={() => setShowUmami(true)}
+                                className="border border-white/10 rounded-3xl bg-white/[0.02] p-8 flex flex-col justify-between min-h-[170px] hover:border-white/20 hover:bg-white/[0.04] hover:shadow-[0_0_30px_rgba(255,255,255,0.02)] transition-all duration-300 relative overflow-hidden cursor-pointer group"
+                              >
+                                <div className="space-y-3">
+                                  <IconComp className="w-5 h-5 text-white/30 group-hover:text-white/60 transition-colors" />
+                                  <h3 className="text-xl font-bold uppercase tracking-tight" style={{ fontFamily: "'Outfit', sans-serif" }}>
+                                    {card.title}
+                                  </h3>
+                                  <p className="text-xs text-white/50 leading-relaxed font-light">
+                                    {card.desc}
+                                  </p>
+                                </div>
+                                <span className="text-[10px] uppercase font-mono tracking-widest text-white/30 group-hover:text-white transition-colors flex items-center gap-1 mt-6">
+                                  View in Umami <ArrowRight className="w-3 h-3 translate-x-0 group-hover:translate-x-1.5 transition-transform" />
+                                </span>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </>
+                    )}
                   </div>
                 )}
 
@@ -887,188 +836,43 @@ export default function AdminDashboard() {
                 {activeTab === 'submissions' && (
                   <div className="space-y-8 text-left">
                     <div className="text-left font-sans">
-                      <span className="text-[10px] font-mono tracking-[0.25em] text-white/40 uppercase font-bold block mb-2">
-                        SECTION 3
-                      </span>
+                     
                       <h1 className="text-4xl md:text-5xl font-black tracking-tight leading-none mb-4 uppercase" style={{ fontFamily: "'Outfit', sans-serif" }}>
                         Inbound Submissions
                       </h1>
                       <p className="text-sm md:text-base text-white/60 leading-relaxed font-light max-w-2xl">
-                        Access, review, and filter incoming customer inquiries, emergency assistance alerts, and hiring applications.
+                        Book-a-Meet and contact form submissions are handled by Web3Forms — view and manage them there.
                       </p>
                     </div>
 
-                    {/* Submissions Control Panel */}
-                    <div className="flex flex-col md:flex-row gap-4 justify-between items-center bg-white/[0.01] border border-white/5 p-4 rounded-2xl">
+                    <div className="p-12 border border-dashed border-white/10 rounded-[2rem] text-center">
+                      <MailOpen className="w-8 h-8 text-white/20 mx-auto mb-4" />
                       
-                      {/* Search Bar */}
-                      <div className="relative w-full md:w-80 flex items-center">
-                        <Search className="absolute left-3.5 w-4 h-4 text-white/30" />
-                        <input
-                          type="text"
-                          value={subSearch}
-                          onChange={(e) => setSubSearch(e.target.value)}
-                          placeholder="Search contact, name, topic..."
-                          className="w-full bg-[#0d0d0d] border border-white/10 focus:border-white/30 rounded-xl pl-11 pr-4 py-2 text-xs text-white placeholder:text-white/20 focus:outline-none transition-colors"
-                        />
-                      </div>
-
-                      {/* Filters */}
-                      <div className="flex gap-1.5 overflow-x-auto w-full md:w-auto shrink-0 justify-end">
-                        {['All', 'General', 'Emergency', 'Career'].map(filterType => (
-                          <button
-                            key={filterType}
-                            onClick={() => setSubFilter(filterType)}
-                            className={`px-4 py-2 border rounded-xl text-[10px] uppercase tracking-wider font-bold transition-all ${
-                              subFilter === filterType
-                                ? 'bg-white text-black border-white'
-                                : 'bg-white/5 text-white/55 border-white/10 hover:bg-white/10 hover:text-white'
-                            }`}
-                          >
-                            {filterType}
-                          </button>
-                        ))}
-                      </div>
-
-                    </div>
-
-                    {/* Submissions List Card Layout */}
-                    <div className="space-y-4">
-                      {filteredSubmissions.length === 0 ? (
-                        <div className="text-center p-12 border border-dashed border-white/10 rounded-2xl text-white/40 italic text-xs">
-                          No matching submissions located for search filters.
-                        </div>
-                      ) : (
-                        filteredSubmissions.map(sub => (
-                          <div key={sub.id} className="p-6 bg-white/[0.02] border border-white/10 rounded-[2rem] hover:border-white/15 transition-all">
-                            <div className="flex flex-col md:flex-row justify-between items-start gap-4 mb-4">
-                              <div className="space-y-1 text-left">
-                                <div className="flex items-center gap-2">
-                                  <h3 className="text-lg font-bold">{sub.name}</h3>
-                                  <span className={`text-[8px] px-2 py-0.5 rounded font-mono font-bold uppercase ${
-                                    sub.type === 'Emergency' ? 'bg-white text-black border border-white animate-pulse font-extrabold' :
-                                    sub.type === 'Career' ? 'bg-white/10 text-white border border-white/25' :
-                                    'bg-transparent text-white/50 border border-white/10'
-                                  }`}>{sub.type}</span>
-                                </div>
-                                <div className="text-xs text-white/40 font-mono">{sub.contact} | {sub.date}</div>
-                              </div>
-                              <div className="flex items-center gap-2.5 shrink-0">
-                                <button
-                                  onClick={() => handleToggleSubStatus(sub.id)}
-                                  className={`text-[9px] px-2.5 py-1.5 border font-bold uppercase tracking-wider rounded-xl transition-all ${
-                                    sub.status === 'Pending' ? 'bg-transparent text-white/50 border-white/10 hover:border-white/30' :
-                                    sub.status === 'Reviewed' ? 'bg-white/10 text-white border-white/20 hover:bg-white/15' :
-                                    'bg-white text-black border-transparent font-extrabold hover:bg-white/90'
-                                  }`}
-                                >
-                                  {sub.status}
-                                </button>
-                                <button
-                                  onClick={() => handleDeleteSubmission(sub.id)}
-                                  className="p-2 text-white/30 hover:text-white hover:bg-white/10 border border-transparent hover:border-white/20 rounded-xl transition-all"
-                                  title="Remove Log"
-                                >
-                                  <Trash2 className="w-4 h-4" />
-                                </button>
-                              </div>
-                            </div>
-                            
-                            <div className="border-t border-white/5 pt-4 text-left">
-                              <div className="text-xs font-bold text-white/80 mb-2 uppercase tracking-widest font-mono">Topic: {sub.topic}</div>
-                              <p className="text-xs text-white/60 leading-relaxed font-light">{sub.message}</p>
-                            </div>
-                          </div>
-                        ))
-                      )}
+                      <a
+                        href="https://web3forms.com/dashboard"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-black font-black rounded-xl text-xs uppercase tracking-wider transition-all hover:bg-white/90 active:scale-95"
+                      >
+                        Open Web3Forms Dashboard <ExternalLink className="w-3.5 h-3.5" />
+                      </a>
                     </div>
                   </div>
                 )}
 
-                {/* 4. SECURITY LOGS VIEW */}
-                {activeTab === 'security' && (
-                  <div className="space-y-8 text-left">
-                    <div className="text-left font-sans">
-                      <span className="text-[10px] font-mono tracking-[0.25em] text-white/40 uppercase font-bold block mb-2">
-                        SECTION 4
-                      </span>
-                      <h1 className="text-4xl md:text-5xl font-black tracking-tight leading-none mb-4 uppercase" style={{ fontFamily: "'Outfit', sans-serif" }}>
-                        Security Logs
-                      </h1>
-                      <p className="text-sm md:text-base text-white/60 leading-relaxed font-light max-w-2xl">
-                        Monitor live diagnostics, request payloads, rate throttling audits, and auth transactions.
-                      </p>
-                    </div>
-
-                    {/* Console Screen */}
-                    <div className="border border-white/10 rounded-[2.5rem] bg-[#0A0A0C] overflow-hidden flex flex-col h-[400px]">
-                      {/* Logger Header */}
-                      <div className="px-6 py-3 bg-black/45 border-b border-white/5 flex items-center justify-between text-xs text-white/50">
-                        <div className="flex items-center gap-2">
-                          <span className="w-2.5 h-2.5 rounded-full bg-green-500"></span>
-                          <span className="font-mono text-[10px] tracking-wider uppercase font-bold text-white/60">Audit System Ingestion</span>
-                        </div>
-                        <div className="flex gap-2">
-                          {['all', 'info', 'warning', 'success'].map(level => (
-                            <button
-                              key={level}
-                              onClick={() => setLogFilter(level)}
-                              className={`px-2 py-0.5 rounded text-[8px] font-bold uppercase border transition-all ${
-                                logFilter === level 
-                                  ? 'bg-white text-black border-white' 
-                                  : 'bg-white/5 text-white/40 border-white/5 hover:text-white'
-                              }`}
-                            >
-                              {level}
-                            </button>
-                          ))}
-                        </div>
-                      </div>
-
-                      {/* Log Console Output Stream */}
-                      <div className="flex-1 p-6 overflow-y-auto font-mono text-[11px] leading-relaxed space-y-3.5 scrollbar-thin scrollbar-thumb-white/10">
-                        {filteredLogs.map(log => (
-                          <div key={log.id} className="flex items-start gap-3">
-                            <span className="text-white/30 shrink-0 select-none">[{log.timestamp}]</span>
-                            <span className={`font-mono shrink-0 select-none ${
-                               log.type === 'error' ? 'text-white underline decoration-white/30' :
-                               log.type === 'warning' ? 'text-white/70' :
-                               log.type === 'success' ? 'text-white font-bold' :
-                               'text-white/50'
-                             }`}>{log.type.toUpperCase()}:</span>
-                            <span className="text-white/80 text-left">{log.text}</span>
-                          </div>
-                        ))}
-                        <div ref={logsEndRef}></div>
-                      </div>
-                    </div>
-                  </div>
-                )}
-
-                {/* 5. ADMIN USERS VIEW */}
+                {/* 4. ADMIN USERS VIEW */}
                 {activeTab === 'users' && (
                   <div className="space-y-8 text-left">
                     <div className="text-left font-sans">
-                      <span className="text-[10px] font-mono tracking-[0.25em] text-white/40 uppercase font-bold block mb-2">
-                        SECTION 5
-                      </span>
+                      
                       <h1 className="text-4xl md:text-5xl font-black tracking-tight leading-none mb-4 uppercase" style={{ fontFamily: "'Outfit', sans-serif" }}>
                         Admin Users
                       </h1>
-                      <p className="text-sm md:text-base text-white/60 leading-relaxed font-light max-w-2xl">
-                        Manage personnel permissions, edit access levels (Superadmin, Editor, Developer), and invite new console users.
-                      </p>
+                      
                     </div>
 
-                    {/* Invite User Trigger block */}
                     <div className="flex justify-between items-center border-b border-white/5 pb-4">
-                      <span className="text-xs text-white/40 uppercase font-mono tracking-wider font-bold">Admin Directory ({admins.length})</span>
-                      <button
-                        onClick={() => setShowInviteModal(true)}
-                        className="px-5 py-2.5 bg-white text-black font-black rounded-xl text-xs uppercase tracking-wider transition-all flex items-center gap-1.5 hover:bg-white/90 active:scale-95"
-                      >
-                        <Plus className="w-3.5 h-3.5" /> Invite User
-                      </button>
+                      <span className="text-xs text-white/40 uppercase font-mono tracking-wider font-bold">Admin Directory ({ADMIN_ROSTER.length})</span>
                     </div>
 
                     {/* Users list Table */}
@@ -1084,31 +888,39 @@ export default function AdminDashboard() {
                             </tr>
                           </thead>
                           <tbody className="divide-y divide-white/5 font-medium">
-                            {admins.map((adm, idx) => (
-                              <tr key={idx} className="hover:bg-white/[0.01] transition-colors">
-                                <td className="p-4 pl-6 font-semibold">{adm.email}</td>
-                                <td className="p-4">
-                                  <span className="px-2 py-0.5 bg-white/5 border border-white/10 rounded-md font-mono text-[9px] font-bold text-white/80">
-                                    {adm.role}
-                                  </span>
-                                </td>
-                                <td className="p-4">
-                                  <span className={`inline-flex items-center gap-1.5 font-semibold ${
-                                    adm.status.includes('Active') ? 'text-white' : 'text-white/40'
-                                  }`}>
-                                    <span className={`w-1.5 h-1.5 rounded-full ${
-                                      adm.status.includes('Active') ? 'bg-white animate-pulse' : 'bg-white/15'
-                                    }`}></span>
-                                    {adm.status}
-                                  </span>
-                                </td>
-                                <td className="p-4 pr-6 text-right text-white/50">{adm.lastLogin}</td>
-                              </tr>
-                            ))}
+                            {(() => {
+                              // Recomputed on every presenceTick / render — reads straight
+                              // from localStorage rather than mirroring it into state.
+                              void presenceTick;
+                              const presence = readPresence();
+                              const lastLogins = readLastLogins();
+                              return ADMIN_ROSTER.map((adm) => {
+                                const heartbeat = presence[adm.email];
+                                const isActive = !!heartbeat && (Date.now() - heartbeat < PRESENCE_STALE_MS);
+                                return (
+                                  <tr key={adm.email} className="hover:bg-white/[0.01] transition-colors">
+                                    <td className="p-4 pl-6 font-semibold">{adm.email}</td>
+                                    <td className="p-4">
+                                      <span className="px-2 py-0.5 bg-white/5 border border-white/10 rounded-md font-mono text-[9px] font-bold text-white/80">
+                                        {adm.role}
+                                      </span>
+                                    </td>
+                                    <td className="p-4">
+                                      <span className={`inline-flex items-center gap-1.5 font-semibold ${isActive ? 'text-white' : 'text-white/40'}`}>
+                                        <span className={`w-1.5 h-1.5 rounded-full ${isActive ? 'bg-white animate-pulse' : 'bg-white/15'}`}></span>
+                                        {isActive ? 'Active' : 'Offline'}
+                                      </span>
+                                    </td>
+                                    <td className="p-4 pr-6 text-right text-white/50">{formatRelativeTime(lastLogins[adm.email])}</td>
+                                  </tr>
+                                );
+                              });
+                            })()}
                           </tbody>
                         </table>
                       </div>
                     </div>
+                    
                   </div>
                 )}
               </div>
@@ -1116,59 +928,6 @@ export default function AdminDashboard() {
           </div>
         </main>
       </div>
-
-      {/* INVITE NEW ADMINISTRATOR MODAL */}
-      {showInviteModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-black/60 backdrop-blur-sm">
-          <div className="relative w-full max-w-md bg-[#0F0F12] border border-white/10 rounded-[2rem] p-8 shadow-2xl text-left">
-            <button 
-              onClick={() => setShowInviteModal(false)}
-              className="absolute top-6 right-6 p-1 text-white/40 hover:text-white hover:bg-white/5 rounded-lg transition-all"
-            >
-              <X className="w-4 h-4" />
-            </button>
-
-            <h3 className="text-xl font-bold uppercase tracking-tight mb-2" style={{ fontFamily: "'Outfit', sans-serif" }}>Invite Admin User</h3>
-            <p className="text-xs text-white/50 leading-relaxed font-light mb-6">
-              Invite a new developer, editor, or superadmin by inputting their credential email below.
-            </p>
-
-            <form onSubmit={handleInviteSubmit} className="space-y-4">
-              <div className="space-y-1.5">
-                <label className="block text-[8px] font-mono tracking-widest uppercase text-white/40">Email address</label>
-                <input
-                  type="email"
-                  required
-                  value={inviteEmail}
-                  onChange={(e) => setInviteEmail(e.target.value)}
-                  placeholder="e.g. content@crivo.in"
-                  className="w-full bg-[#0d0d0d] border border-white/10 focus:border-white/30 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder:text-white/20 focus:outline-none transition-colors"
-                />
-              </div>
-
-              <div className="space-y-1.5">
-                <label className="block text-[8px] font-mono tracking-widest uppercase text-white/40">Access Role</label>
-                <select
-                  value={inviteRole}
-                  onChange={(e) => setInviteRole(e.target.value)}
-                  className="w-full bg-[#0d0d0d] border border-white/10 focus:border-white/30 rounded-xl px-3 py-2.5 text-xs text-white focus:outline-none cursor-pointer transition-colors"
-                >
-                  <option value="Superadmin" className="text-black bg-white dark:text-white dark:bg-[#0c0c0e]">Superadmin</option>
-                  <option value="Editor" className="text-black bg-white dark:text-white dark:bg-[#0c0c0e]">Editor</option>
-                  <option value="Developer" className="text-black bg-white dark:text-white dark:bg-[#0c0c0e]">Developer</option>
-                </select>
-              </div>
-
-              <button
-                type="submit"
-                className="w-full py-3 bg-white hover:bg-white/90 text-black font-black rounded-xl text-xs uppercase tracking-widest transition-all mt-6"
-              >
-                Send Invite Link
-              </button>
-            </form>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
