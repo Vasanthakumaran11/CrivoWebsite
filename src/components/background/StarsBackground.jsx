@@ -1,8 +1,8 @@
 import React, { useMemo } from 'react';
 
-const StarsBackground = () => {
+const StarsBackground = ({ count = 65 }) => {
   const stars = useMemo(() => {
-    const starCount = 65; // Sparse and distant but slightly populated
+    const starCount = count; // Sparse and distant but slightly populated
     const items = [];
     for (let i = 0; i < starCount; i++) {
       const top = Math.random() * 100; // Percentage
@@ -26,7 +26,7 @@ const StarsBackground = () => {
       });
     }
     return items;
-  }, []);
+  }, [count]);
 
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none z-[-1]">
