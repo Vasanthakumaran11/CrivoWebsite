@@ -1,6 +1,6 @@
 import { useState, useEffect, startTransition } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Sun, Moon, X, Lock } from 'lucide-react';
+import { Sun, Moon, X } from 'lucide-react';
 import { useTheme } from './context/ThemeContext';
 
 const navLinks = [
@@ -8,7 +8,6 @@ const navLinks = [
     { label: 'ABOUT US', to: '/about' },
     { label: 'BLOGS', to: '/blogs' },
     { label: 'REACH US', to: '/reach-us' },
-    { label: 'ADMIN', to: '/admindashboard', isAdmin: true },
 ];
 
 function Navbar() {
@@ -86,7 +85,6 @@ function Navbar() {
                                             : isLightNav ? 'text-black/50 hover:text-[#111110]' : 'text-white/70 hover:text-white'
                                     }`}
                                 >
-                                    {item.isAdmin && <Lock className="w-3 h-3 opacity-60" />}
                                     {item.label}
                                     <span className={`absolute -bottom-1 left-0 h-[1px] transition-all duration-300 ${
                                         isLightNav ? 'bg-[#111110]' : 'bg-white'
@@ -193,7 +191,6 @@ function Navbar() {
                                     isDark ? 'text-white hover:text-gray-400' : 'text-[#111110] hover:text-black/50'
                                 }`}
                             >
-                                {item.isAdmin && <Lock className="w-4 h-4 opacity-50" />}
                                 {item.label}
                             </Link>
                         ))}
